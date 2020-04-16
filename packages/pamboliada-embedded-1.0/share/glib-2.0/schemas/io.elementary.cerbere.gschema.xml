@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+    <schema path="/io/elementary/desktop/cerbere/" id="io.elementary.desktop.cerbere">
+        <key type="as" name="monitored-processes">
+            <default>[]</default>
+            <summary>List of monitored components</summary>
+            <description>These applications will be launched and watched by Cerbere, and autorestarted automagically in case they exit</description>
+        </key>
+        <key type="u" name="max-crashes">
+            <default>5</default>
+            <summary>Maximum consecutive crashes permitted</summary>
+            <description>Maximum consecutive crashes permitted. Cerbere will stop trying after this value is reached.</description>
+        </key>
+        <key type="u" name="crash-time-interval">
+            <default>3500</default>
+            <summary>Time in which a process is considered crashed (in milliseconds, 1/1000ths of a second)</summary>
+            <description>If a process is started, and then it exits in less time than the value of this key, it is considered crashed.</description>
+        </key>
+    </schema>
+</schemalist>

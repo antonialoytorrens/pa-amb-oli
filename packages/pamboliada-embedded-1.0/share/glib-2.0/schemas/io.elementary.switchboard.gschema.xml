@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+	<schema path="/io/elementary/switchboard/saved-state/" id="io.elementary.switchboard.saved-state">
+    <key name="window-maximized" type="b">
+      <default>false</default>
+      <summary>Whether the window was maximized on last run</summary>
+      <description>Whether the window was maximized on last run</description>
+    </key>
+    <key name="window-position" type="(ii)">
+      <default>(-1, -1)</default>
+      <summary>Window position</summary>
+      <description>Most recent window position (x, y)</description>
+    </key>
+    <key name="window-size" type="(ii)">
+      <default>(1024, 720)</default>
+      <summary>Most recent window size</summary>
+      <description>Most recent window size (width, height)</description>
+    </key>
+	</schema>
+	<schema path="/io/elementary/switchboard/preferences/" id="io.elementary.switchboard.preferences">
+		<key name="mapping-override" type="a{s(ss)}">
+			<default>{}</default>
+			<summary>Override (and extends) the default mapping with plugs</summary>
+			<description>Contains a dictionary of path and two strings: the plug name and an argument. For example {'wallpaper': ('foo-desktop','wallpaper'), 'display': ('bar-display','')}</description>
+		</key>
+	</schema>
+</schemalist>

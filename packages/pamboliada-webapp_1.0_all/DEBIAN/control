@@ -1,0 +1,10 @@
+Package: pamboliada-webapp
+Version: 1.0
+Architecture: all
+Maintainer: Antoni Aloy Torrens <antonialoy@paucasesnovescifp.cat>
+Depends: gir1.2-webkit2-4.0, python3
+Section: utility
+Priority: optional
+Homepage: http://www.pamboliada.cat
+Description: Pamboliada Web Application
+ Launch icon for Pamboliada Web Application.

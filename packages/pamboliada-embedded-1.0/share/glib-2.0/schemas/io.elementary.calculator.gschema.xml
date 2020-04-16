@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+    <schema path="/io/elementary/calculator/saved-state/" id="io.elementary.calculator.saved-state" gettext-domain="io.elementary.calculator">
+        <key name="extended-shown" type="b">
+            <default>false</default>
+            <summary>Saves the state of the extended panel (open or closed).</summary>
+            <description>Saves the state of the extended panel (open or closed).</description>
+        </key>
+        <key name="entry-content" type="s">
+            <default>""</default>
+            <summary>Saves the content of the entry field for calculations.</summary>
+            <description>Saves the content of the entry field for calculations.</description>
+        </key>
+        <key name="decimal-places" type="i">
+            <default>5</default>
+            <summary>Saves the decimal places for displayed values.</summary>
+            <description>Saves the decimal places for displayed values.</description>
+        </key>
+        <key name="window-x" type="i">
+            <default>-100</default>
+            <summary>Window x position.</summary>
+            <description>Saved x position of main calculator window.</description>
+        </key>
+        <key name="window-y" type="i">
+            <default>-100</default>
+            <summary>Window y position.</summary>
+            <description>Saved y position of main calculator window.</description>
+        </key>
+    </schema>
+</schemalist>

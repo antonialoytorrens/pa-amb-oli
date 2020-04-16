@@ -1,0 +1,18 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Pamboliada
+GenericName=Pamboliada
+Comment=Pamboliada desktop webapp
+Exec=pamboliada
+Terminal=false
+Type=Application
+StartupNotify=true
+MimeType=text/plain;
+Icon=/usr/share/pixmaps/pamboliada-webapp.png
+Categories=Network;Application;
+Keywords=Pamboliada;webapp;
+X-Ubuntu-Gettext-Domain=Pamboliada
+
+
+
+
