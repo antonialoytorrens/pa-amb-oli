@@ -99,3 +99,7 @@ Session.vim
 ## LibreOffice .lock files ###
 
 .~lock*
+
+## VSCode .vscode folder and files ##
+
+.vscode/
