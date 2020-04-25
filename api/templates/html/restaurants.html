@@ -1,0 +1,151 @@
+{% extends "base.html"%}
+{% load static %}
+
+<!--TITULAR-->
+
+<!--foto de fons del titular-->
+
+
+<!--Títol-->
+
+{%block titulartitle%}Pamboliada{%endblock titulartitle%}
+
+<!--Descripció-->
+
+{%block titulardescripcio%}Cerca restaurants que serveixen pa amb oli.{%endblock titulardescripcio%}
+
+<!--Menú d'on sóc-->
+
+{%block routetitle%}Restaurants{%endblock routetitle%}
+
+<!--CONTINGUT DE LA PÀGINA-->
+{%block content%}
+<div class="aboutus-secktion paddingTB30">
+    <div class="container">
+        <div id="searchbar" class="navbar-nav btn ml-auto nav-flex pr-0" data-toggle="collapse">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><em class="fas fa-search" aria-hidden="true"></em></span>
+                </div>
+                <input title="Cerca Restaurants" type="text" class="form-control" placeholder="Cerca Restaurants">
+            </div>
+        </div>
+        <hr class="my-4" />
+        <div class="row">
+            <div class="input-group form-group">
+                <img class="img-fluid p-3" src="{% static 'images/map.png' %}" style="margin:auto;" />
+            </div>
+        </div>
+        <div class="container-fluid">
+
+            <hr class="my-3" />
+            <div class="row text-center my-auto p-3">
+                <h3 class="font-weight-bold" style="margin: auto;">Restaurant Lorem Ipsum</h3>
+            </div>
+            <hr class="my-3 mb-5" />
+            <div class="row">
+                <div class="col-lg-5" style="margin: auto;">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="container-fluid h-100">
+                                <div class="row">
+                                    <span class="input-group-text bg-white" style="border: none; margin: auto;">
+                                        <img class="img-fluid" src="{% static 'images/restaurant.jpg' %}"
+                                            style="margin: 0 auto;" />
+                                    </span>
+                                </div>
+                                <div class="row p-3">
+                                    <div class="input-group form-group" style="margin: 0 auto;">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text pr-3 pl-3"
+                                                style="border: none; background: transparent;"><em class="fas fa-pen"
+                                                    aria-hidden="true"></em></span>
+                                            <span style="height: auto; border-radius: 0;">{% lorem 20 w random %}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="my-1" />
+                                <div class="row p-3">
+                                    <div class="input-group form-group" style="margin: 0 auto;">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text pr-3 pl-3"
+                                                style="border: none; background: transparent;"><em
+                                                    class="fas fa-comments" aria-hidden="true"></em></span>
+                                            <span style="height: auto; border-radius: 0;"><button
+                                                    class="btn btn-link m-0 p-0">Veure comentaris</button></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="container-fluid form-control h-100 p-0" style="border: none;">
+                        <hr class="my-1" />
+                        <div class="row p-3 pb-0">
+                            <div class="input-group form-group" style="margin: 0 auto;">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text pr-3 pl-3"
+                                        style="border: none; background: transparent;"><em class="fas fa-map-marker-alt"
+                                            aria-hidden="true"></em></span>
+                                    <span style="height: auto; border-radius: 0;">Carrer de Lorem Ipsum, 2</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-1" />
+                        <div class="row p-3 pb-0">
+                            <div class="input-group form-group" style="margin: 0 auto;">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text pr-3 pl-3"
+                                        style="border: none; background: transparent;"><em class="fas fa-phone-alt"
+                                            aria-hidden="true"></em></span>
+                                    <span style="height: auto; border-radius: 0;">971234567</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-1" />
+                        <div class="row p-3 pb-0">
+                            <div class="input-group form-group" style="margin: 0 auto;">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text pr-3 pl-3"
+                                        style="border: none; background: transparent;"><em class="fas fa-globe"
+                                            aria-hidden="true"></em></span>
+                                    <span style="height: auto; border-radius: 0;">
+                                        <a class="mapa" href="https://example.org">https://example.org</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-1" />
+                        <div class="row p-3 pb-0">
+                            <div class="input-group form-group" style="margin: 0 auto;">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text pr-3 pl-3"
+                                        style="border: none; background: transparent;"><em class="fas fa-clock"
+                                            aria-hidden="true"></em></span>
+                                    <span style="height: auto; border-radius: 0;"><b>Tancat.</b> Obre a les
+                                        19:00.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-1" />
+                        <div class="row p-3 pb-0">
+                            <div class="input-group form-group" style="margin: 0 auto;">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text pr-3 pl-3"
+                                        style="border: none; background: transparent;"><em class="fas fa-star"
+                                            aria-hidden="true"></em></span>
+                                    <span style="height: auto; border-radius: 0;">3,5 / 5</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-1" />
+                    </div>
+                </div>
+            </div>
+            <hr class="my-3 ml-3" />
+        </div>
+    </div>
+</div>
+{%endblock content%}

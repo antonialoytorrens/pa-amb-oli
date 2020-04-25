@@ -1,0 +1,95 @@
+{% extends "base.html"%}
+{% load render_bundle from webpack_loader %}
+{% load static %}
+<script type="text/javascript" src="{% static 'templates/vue/calendar.vue' %}"></script>
+
+<!--TITULAR-->
+
+<!--foto de fons del titular-->
+
+
+<!--Títol-->
+
+{%block titulartitle%}Esdeveniments{%endblock titulartitle%}
+
+<!--Descripció-->
+
+{%block titulardescripcio%}Informació sobre els pròxims esdeveniments.{%endblock titulardescripcio%}
+
+<!--Menú d'on sóc-->
+
+{%block routetitle%}Esdeveniments{%endblock routetitle%}
+
+<!--CONTINGUT DE LA PÀGINA-->
+
+{%block content%}
+
+<div class="aboutus-secktion paddingTB30">
+  <div class="container">
+    <div id="searchbar" class="navbar-nav btn ml-auto nav-flex" data-toggle="collapse">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><em class="fas fa-search" aria-hidden="true"></em></span>
+        </div>
+        <input title="Cerca Esdeveniments per títol" type="text" class="form-control" placeholder="Cerca Esdeveniments per títol">
+      </div>
+    </div>
+    <hr />
+
+    <!--Cada un dels blocs que formen el contingut-->
+    {% for i in '12'|make_list %}
+    <div class="card">
+      <div class="card-header" style="padding-top: 0.50rem !important; padding-bottom: 0.50rem !important">
+        <h3 class="text-center">{% cycle "Pa amb oli, especial COVID-19" "Ruta del pa amb oli 2021"%}</h3>
+      </div>
+      <div class="card-body pt-2" style="padding:0">
+        <div class="row">
+          <div class="col-md-4" style="max-height:100%">
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><em class="fas fa-pen" aria-hidden="true"></em></span>
+              </div>
+
+              <label class="font-weight-bold form-control">Descripció</label>
+            </div>
+            <div class="esdeveniment input-group form-group h-100">
+              <span class="form-control h-100">
+                {% lorem 40 w random %}
+              </span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><em class="fas fa-map-marker-alt" aria-hidden="true"></em></span>
+              </div>
+
+              <label class="font-weight-bold form-control">Lloc</label>
+            </div>
+            <div class="esdeveniment input-group form-group h-100">
+              <span class="form-control">
+                {% lorem 20 w random %}
+              </span>
+            </div>
+          </div>
+          <div class="col-md-4 h-100">
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><em class="fas fa-clock" aria-hidden="true"></em></span>
+              </div>
+
+              <label class="font-weight-bold form-control">Dies</label>
+            </div>
+            <div class="esdeveniment input-group form-group h-100">
+              <img class="img-fluid" src="{% static 'images/calendar-event.png' %}"
+                style="display: block; margin: 0 auto;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+{%endblock content%}

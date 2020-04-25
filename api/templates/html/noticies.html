@@ -1,0 +1,49 @@
+{% extends "base.html"%}
+<!--TITULAR-->
+
+<!--foto de fons del titular-->
+
+
+<!--Títol-->
+
+{%block titulartitle%}Notícies{%endblock titulartitle%}
+
+<!--Descripció-->
+
+{%block titulardescripcio%}Informació referida al món del pa amb oli.{%endblock titulardescripcio%}
+
+<!--Menú d'on sóc-->
+
+{%block routetitle%}Notícies{%endblock routetitle%}
+
+<!--CONTINGUT DE LA PÀGINA-->
+
+{%block content%}
+
+<div class="aboutus-secktion paddingTB30">
+
+
+  <!--Cada un dels blocs que formen el contingut-->
+  {% for i in '12345'|make_list %}
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 my-auto">
+        <h1 class="strong pb-3 text-center">
+          {% cycle "Lorem Ipsum promociona aquest oli" "Pa amb oli, especial COVID-19" "Ruta del pa amb oli 2021" "Olis a domicili COVID-19" "Receptes fàcils de pa amb oli per fer a casa" %}
+        </h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7 my-auto">
+        <p class="lead pb-3">{% lorem 30 w random %}</p>
+      </div>
+      <div class="col-md-5 my-auto">
+        <img src="https://picsum.photos/id/1{{forloop.counter}}/350/200" style="display: block; margin: 0 auto;"/>
+      </div>
+    </div>
+  </div>
+  <hr class="my-5" />
+  {% endfor %}
+  {%endblock content%}

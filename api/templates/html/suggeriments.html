@@ -1,0 +1,136 @@
+{% extends "base.html"%}
+{% load static %}
+<!--TITULAR-->
+
+<!--foto de fons del titular-->
+
+
+<!--Títol-->
+
+{%block titulartitle%}Suggeriments{%endblock titulartitle%}
+
+<!--Descripció-->
+
+{%block titulardescripcio%}Envia propostes o incidències en aquest apartat.{%endblock titulardescripcio%}
+
+<!--Menú d'on sóc-->
+
+{%block routetitle%}Suggeriments{%endblock routetitle%}
+
+<!--CONTINGUT DE LA PÀGINA-->
+
+{%block content%}
+<div class="aboutus-secktion paddingTB30">
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+    <!--for i in 12-->
+                <div class="suggeriment row row-fluid align-items-center justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><em class="fas fa-plus" aria-hidden="true"></em></span>
+                            <span class="font-weight-bold text-center form-control align-self-center">Vull suggerir l'addició d'un
+                                restaurant</span>
+                        </div>
+                        <div class="input-group-prepend border border-form-control" style="height: 13rem;">
+                            <div class="container p-3">
+                                <div class="row">
+                                    <div class="col" style="height: 8rem;">
+                                        <p class="text-center">{% lorem 20 w random %}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="/suggeriments/crea-restaurant/">
+                                            <button class="btn btn-primary btmd d-block w-50 form-control" style="margin: auto;">Vés</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-4" />
+                    <div class="col-lg-6">
+                    
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><em class="fas fa-pen" aria-hidden="true"></em></span>
+                            <span class="font-weight-bold form-control text-center" >Vull suggerir canvis a un
+                                restaurant</span>
+                        </div>
+                        <div class="input-group-prepend border border-form-control" style="height: 13rem;">
+                            <div class="container p-3">
+                                <div class="row">
+                                    <div class="col" style="height: 8rem;">
+                                        <p class="text-center">{% lorem 20 w random %}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="/suggeriments/actualitza-restaurant/">
+                                            <button class="btn btn-primary btn-md d-block w-50 form-control" style="margin: auto;">Vés</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-4" />
+                <!----><div class="suggeriment row row-fluid mt-5">
+                    <div class="col-lg-6">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><em class="fas fa-images" aria-hidden="true"></em></span>
+                            <span class="font-weight-bold form-control text-center" >Vull canviar les imatges d'un
+                                restaurant</span>
+                        </div>
+                        <div class="input-group-prepend border border-form-control" style="height: 13rem;">
+                            <div class="container p-3">
+                                <div class="row">
+                                    <div class="col" style="height: 8rem;">
+                                        <p class="text-center">{% lorem 20 w random %}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="/suggeriments/actualitza-imatges/">
+                                            <button class="btn btn-primary btn-md d-block w-50 form-control" style="margin: auto;">Vés</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-4" />
+                    <div class="col-lg-6">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><em class="fas fa-shopping-cart"
+                                    aria-hidden="true"></em></span>
+                            <span class="font-weight-bold form-control text-center" >Vull promocionar el meu
+                                producte o servei</span>
+                        </div>
+                        <div class="input-group-prepend border border-form-control" style="height: 13rem;">
+                            <div class="container p-3">
+                                <div class="row">
+                                    <div class="col" style="height: 8rem;">
+                                        <p class="text-center">{% lorem 20 w random %}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="/suggeriments/crea-promocio/">
+                                            <button class="btn btn-primary btn-md d-block w-50 form-control" style="margin: auto;">Vés</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-4" /><!---->
+                <!--endfor-->
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{%endblock content%}

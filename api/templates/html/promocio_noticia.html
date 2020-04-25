@@ -1,0 +1,199 @@
+{% extends "base.html"%}
+{% load static %}
+<!--TITULAR-->
+
+<!--foto de fons del titular-->
+
+
+<!--Títol-->
+
+{%block titulartitle%}Promociona un producte o servei{%endblock titulartitle%}
+
+<!--Descripció-->
+
+{%block titulardescripcio%}Vols fer propaganda del teu producte o servei? Sortirà a l'apartat de notícies!{%endblock titulardescripcio%}
+
+<!--Menú d'on sóc-->
+
+{%block routeslist%}
+<li style="color: #999"><a href="/quiSom/" style="text-decoration: none;">Pamboliada</a></li>
+<li style="color: #999"><a href="/suggeriments/" style="text-decoration: none;">Suggeriments</a></li>
+<li class="active">Promoció notícia</li>
+{%endblock routeslist%}
+
+<!--CONTINGUT DE LA PÀGINA-->
+
+{%block content%}
+<!--SUGGEREIX UNA PROMOCIÓ D'UN PRODUCTE O SERVEI-->
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 my-auto">
+                        <label class="font-weight-bold">Nom del producte</label>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><em class="fas fa-shopping-cart"
+                                        aria-hidden="true"></em></span>
+                            </div>
+                            <input title="Nom del producte" type="text" class="form-control"
+                                placeholder="Nom del producte">
+                        </div>
+                    </div>
+                    <div class="col-md-6 my-auto">
+                        <label class="font-weight-bold">Nom del negoci (opcional)</label>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><em class="fas fa-user" aria-hidden="true"></em></span>
+                            </div>
+                            <input title="Nom del negoci" type="text" class="form-control" placeholder="Nom del negoci">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 my-auto">
+                        <label class="font-weight-bold">Descripció</label>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><em class="fas fa-pen" aria-hidden="true"></em></span>
+                            </div>
+                            <textarea id="promocio_descripcio" title="Descripció" type="text" class="form-control"
+                                rows="3" style="resize: none;"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-4" />
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h4 class="font-weight-bold">Contacte</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 my-auto">
+                        <label class="font-weight-bold">Telèfon</label>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><em class="fas fa-phone-alt"
+                                        aria-hidden="true"></em></span>
+                            </div>
+                            <input title="Telèfon" type="text" class="form-control" placeholder="Telèfon">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 my-auto">
+                        <label class="font-weight-bold">Email (opcional)</label>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><em class="fas fa-envelope"
+                                        aria-hidden="true"></em></span>
+                            </div>
+                            <input title="Email" type="text" class="form-control" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="col-md-6 my-auto">
+                        <label class="font-weight-bold">Pàgina web (opcional)</label>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><em class="fas fa-globe" aria-hidden="true"></em></span>
+                            </div>
+                            <input title="Pàgina web" type="text" class="form-control" placeholder="Pàgina web">
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-4" />
+                <!--SELECCIONA MULTIMÈDIA-->
+                <div class="row">
+                    <div class="col-md-6" style="top: 0">
+                        <label class="font-weight-bold">Selecciona multimèdia (opcional)</label>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><em class="fas fa-images" aria-hidden="true"></em></span>
+                            </div>
+                            <input title="Selecciona multimèdia" type="file" class="form-control">
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><em class="fas fa-exclamation-triangle"
+                                        aria-hidden="true"></em></span>
+                                <span class="font-weight-bold p-2 form-control">Només
+                                    estan permesos els arxius JPEG i PNG com a fotografia i MP4, AVI i MKV com a
+                                    vídeo.
+                                    Les fotografies han de pesar menys d'1MB i els vídeos han de pesar menys de
+                                    15MB. Sols es permet pujar com a màxim 5 arxius, on sols hi pot haver un
+                                    vídeo.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <label class="font-weight-bold">Previsió multimèdia</label>
+                        <div class="input-group form-group">
+                            <img class="img-fluid" src="{% static 'images/base.jpeg' %}" style="border: 2px solid black" />
+                        </div>
+                        <button title="Elimina l'arxiu" type="button" class="btn btn-danger btn-sm">Elimina
+                            l'arxiu</button>
+                    </div>
+                </div>
+                <!------------------------->
+                <hr class="my-4" />
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h4 class="font-weight-bold">Previsió total (sortirà en l'apartat de notícies)</h4>
+                    </div>
+                </div>
+                <div class="noticia m-3 p-3" style="border: 2px solid black;">
+                    <div class="row">
+                        <div class="col-md-12 my-auto">
+                            <h1 class="strong pb-3 text-center">L'empresa Lorem Ipsum promociona aquest oli</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 my-auto">
+                            <p class="lead">{% lorem 30 w random %}</p>
+                            <p class="lead pb-3"><u>Contactau al telèfon +YY XXXXXXXXX, al correu electrònic
+                                    example@example.com o visitau la web https://example.org per a més informació.</u>
+                            </p>
+                        </div>
+                        <div class="col-md-6 my-auto">
+                            <div class="input-group form-group">
+                                <img class="img-fluid" src="{% static 'images/base.jpeg' %}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-4" />
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h4 class="font-weight-bold">Forma de pagament</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 my-auto">
+                        <label class="font-weight-bold">Targeta de crèdit o dèbit</label>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><em class="fas fa-credit-card"
+                                        aria-hidden="true"></em></span>
+                            </div>
+                            <input title="Targeta" type="text" class="form-control" placeholder="Targeta">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"
+                                    style="border-top-right-radius:.25rem; border-bottom-right-radius:.25rem;"><em
+                                        class="fab fa-cc-visa" aria-hidden="true"></em></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-4" />
+                <div class="row">
+                    <div class="col my-auto text-center p-2">
+                        <button title="Cancel·la" type="button" class="btn btn-danger btn-md">Cancel·la</button>
+                    </div>
+                    <div class="col my-auto text-center p-2">
+                        <button title="Envia" type="button" class="btn btn-primary btn-md">Envia</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

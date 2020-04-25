@@ -1,0 +1,75 @@
+{% extends "base.html"%}
+{% load static %}
+<!--TITULAR-->
+
+<!--foto de fons del titular-->
+
+
+<!--Títol-->
+
+{%block titulartitle%}Canvia les imatges d'un restaurant{%endblock titulartitle%}
+
+<!--Descripció-->
+
+{%block titulardescripcio%}Les imatges del restaurant no són correctes? Vols afegir més imatges? Ajuda'ns a canviar-ho!{%endblock titulardescripcio%}
+
+<!--Menú d'on sóc-->
+
+{%block routeslist%}
+<li style="color: #999"><a href="/quiSom/" style="text-decoration: none;">Pamboliada</a></li>
+<li style="color: #999"><a href="/suggeriments/" style="text-decoration: none;">Suggeriments</a></li>
+<li class="active">Canvia les imatges d'un restaurant</li>
+{%endblock routeslist%}
+
+<!--CONTINGUT DE LA PÀGINA-->
+
+{%block content%}
+<!--VULL AFEGIR O ELIMINAR IMATGES DELS PA AMB OLIS D'UN RESTAURANT-->
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6" style="top: 0">
+                        <label class="font-weight-bold">Selecciona fotografies (opcional)</label>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><em class="fas fa-images" aria-hidden="true"></em></span>
+                            </div>
+                            <input title="Selecciona fotografies" type="file" class="form-control">
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><em class="fas fa-exclamation-triangle"
+                                        aria-hidden="true"></em></span>
+                                <span class="font-weight-bold p-2 form-control"
+                                    style="height: auto; border-radius: 0;">Només estan permesos els arxius JPEG i
+                                    PNG. Han de pesar menys d'1MB.</span>
+                                <span class="p-2 form-control"
+                                    style="height: auto; border-bottom-left-radius: 0; border-top-left-radius: 0;"><b>Nota:
+                                    </b> no podràs eliminar fotografies si no les has pujades tu o no ets el/la
+                                    responsable del restaurant.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <label class="font-weight-bold">Previsió multimèdia</label>
+                        <div class="input-group form-group">
+                            <img class="img-fluid" src="{% static 'images/base.jpeg' %}" style="border: 2px solid black" />
+                        </div>
+                        <button title="Elimina l'arxiu" type="button" class="btn btn-danger btn-sm">Elimina
+                            l'arxiu</button>
+                    </div>
+                </div>
+                <hr class="my-4" />
+                <div class="row">
+                    <div class="col my-auto text-center p-2">
+                        <button title="Cancel·la" type="button" class="btn btn-danger btn-md">Cancel·la</button>
+                    </div>
+                    <div class="col my-auto text-center p-2">
+                        <button title="Envia" type="button" class="btn btn-primary btn-md">Envia</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content%}

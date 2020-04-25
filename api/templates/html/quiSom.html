@@ -1,0 +1,40 @@
+{% extends "base.html"%}
+<!--TITULAR-->
+
+<!--foto de fons del titular-->
+
+
+<!--Títol-->
+
+{%block titulartitle%}Qui Som{%endblock titulartitle%}
+
+<!--Descripció-->
+
+{%block titulardescripcio%}Una pàgina web dedicada a la promoció de pa amb olis.{%endblock titulardescripcio%}
+
+<!--Menú d'on sóc-->
+
+{%block routetitle%}Qui Som{%endblock routetitle%}
+
+<!--CONTINGUT DE LA PÀGINA-->
+
+{%block content%}
+
+<div class="aboutus-secktion paddingTB60">
+  <!--Cada un dels blocs que formen el contingut-->
+  {% for i in '12'|make_list %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 my-auto">
+        <h1 class="strong pb-3 text-center">{% cycle "Qui Som" "A què ens dedicam" %}</h1>
+        <p class="lead pb-3">{% lorem 30 w random %}</p>
+      </div>
+      <div class="col-md-6 my-auto">
+        <img src="https://picsum.photos/id/{{forloop.counter}}/350/200" style="display: block; margin: 0 auto;"/>
+      </div>
+    </div>
+  </div>
+  <hr class="my-5" />
+  {% endfor %}
+</div>
+  {%endblock content%}

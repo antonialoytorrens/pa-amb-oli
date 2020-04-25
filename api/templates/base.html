@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ca-ES">
+
+<head>
+
+  {% block header%}
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Pamboliada{% endblock title %}</title>
+  <!-- BOOTSTRAP 4.4.1 -->
+  <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}" type="text/css">
+  <!-- FONT AWESOME 5.7.0 -->
+  <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}" type="text/css">
+  <!-- MY CSS -->
+  <link rel="stylesheet" href="{% static 'mycss/navbar.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'mycss/utilitats.css' %}" type="text/css">
+
+  {%endblock header%}
+
+</head>
+
+<body>
+
+  {%block navbar%}
+  <!--Navbar -->
+  <nav class="navbar sticky-top navbar-expand-lg bg-softgrey w-100">
+    <a class="navbar-brand" href="/restaurants/"><img class="img-fluid" src="{% static 'images/logo.png' %}" style="width: 8rem; height: 2rem;"/></a>
+    <button class="navbar-nav navbar-toggler btn ml-auto nav-flex-icons p-0" type="button" data-target="#menu" data-toggle="collapse">
+      <i class="fa fa-bars rounded-circle z-depth-0"></i>
+    </button>
+    <button class="navbar-nav navbar-toggler btn ml-auto nav-flex-icons" type="button" data-target="#user" data-toggle="collapse">
+      <a class="nav-link p-0">
+        <img src="{% static 'images/base.jpeg' %}" class="rounded-circle z-depth-0"
+          alt="avatar image" height="35" width="35">
+      </a>
+    </button>
+    <!--<div id="searchbar" class="navbar-nav btn ml-auto nav-flex" data-toggle="collapse">
+      <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><em class="fas fa-search"
+                                        aria-hidden="true"></em></span>
+                            </div>
+                            <input title="Cerca" type="text" class="form-control"
+                                placeholder="Cerca">
+                        </div>
+    </div>-->
+    
+  <div class="collapse navbar-collapse bg-softgrey justify-content-end pl-4 ml-5" id="menu">
+    <ul class="navbar-nav text-center">
+      <li class="nav-item active">
+        <a class="nav-link" href="/quiSom/">Qui Som
+          <!--<span class="sr-only">(current)</span>--></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/noticies/">Notícies</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/restaurants/">Restaurants</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/esdeveniments/">Esdeveniments</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/suggeriments/">Suggeriments</a>
+      </li>
+    </ul>
+  </div>
+  <div class="collapse navbar-collapse bg-softgrey" id="user">
+    <ul class="navbar-nav mr-auto w-100 justify-content-end text-right">
+      <li class="nav-item active">
+        <a class="nav-link" href="/perfil/">Perfil <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/login/">Inicia Sessió</a>
+      </li>
+    </ul>
+  </div>
+
+  </nav>
+
+  {%endblock navbar%}
+
+  {%block titular%}
+
+  <div class="image-aboutus-banner"
+    style="background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url({%block background%}{% static 'images/base.jpeg' %}{%endblock background%});">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="lg-text">{%block titulartitle%}Title title{%endblock titulartitle%}</h1>
+          <p class="image-aboutus-para">{%block titulardescripcio%}Description title.{%endblock titulardescripcio%}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%endblock titular%}
+
+
+  {%block route%}
+
+  <div class="bread-bar">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <ol class="breadcrumb">
+            {%block routeslist%}
+            <li style="color: #999"><a href="/restaurants/" style="text-decoration: none;">Pamboliada</a></li>
+            <li class="active">{%block routetitle%}Route{%endblock routetitle%}</li>
+            {%endblock routeslist%}
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%endblock route%}
+
+  {%block content%}
+  <div class="aboutus-secktion paddingTB60">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1 class="strong pb-3">{%block contenttitle%}Content title {%endblock contenttitle%}</h1>
+          <p class="lead">{%block contentsubtitles%}{% lorem 5 w random %}{%endblock contentsubtitles%}</p>
+        </div>
+        <div class="col-md-6">
+          {%block contentbody%}{% lorem 1 p %}{%endblock contentbody%}
+        </div>
+      </div>
+    </div>
+    {%endblock content%}
+
+    {%block scripts%}
+
+    <!-- JQUERY 3.4.1 -->
+
+    <script type="text/javascript" src="{% static 'jquery/jquery.min.js' %}"></script>
+
+    <!-- BOOTSTRAP 4.4.1 JS -->
+    <script type="text/javascript" src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+
+    <!-- VUE 2.6.11 -->
+    <script type="text/javascript" src="{% static 'vue/vue.js' %}"></script>
+
+    <!-- VUE RESOURCE 1.5.1 -->
+    <script type="text/javascript" src="{% static 'vue/vue-resource.min.js' %}"></script>
+
+    {%endblock scripts%}
+
+</body>
+<script>
+  $('#menu').on('show.bs.collapse', function () {
+    $('#user').collapse("hide");
+  })
+  $('#user').on('show.bs.collapse', function () {
+    $('#menu').collapse("hide");
+  })
+</script>
+
+</html>
