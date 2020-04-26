@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativelayout"
+        android:background="#A88BEB"
+        android:padding="15dp">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:drawableLeft="@drawable/ic_refresh_black_24dp"
+            android:text="@string/actualitza"
+            android:drawableStart="@drawable/ic_refresh_black_24dp" />
+    </RelativeLayout>
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relativelayout"
+        android:layout_marginTop="0dp"
+        android:id="@+id/webview"/>
+</RelativeLayout>

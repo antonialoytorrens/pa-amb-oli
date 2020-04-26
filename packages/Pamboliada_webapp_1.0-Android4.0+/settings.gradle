@@ -1,0 +1,2 @@
+rootProject.name='Pamboliada_webapp'
+include ':app'
