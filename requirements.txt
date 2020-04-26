@@ -7,3 +7,5 @@ whitenoise==5.0.1
 psycopg2-binary==2.8.4
 Pillow==7.0.0
 django-webpack-loader==0.7.0
+gevent==20.4.0
+
