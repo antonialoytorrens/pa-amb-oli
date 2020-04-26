@@ -19,16 +19,16 @@
         </overridden-day-type>
       </overridden-day-types>
       <days>
-        <day date="20200328" type="day-type" id="0"/>
-        <day date="20200620" type="day-type" id="0"/>
-        <day date="20200606" type="day-type" id="1"/>
-        <day date="20200321" type="day-type" id="0"/>
         <day date="20200627" type="day-type" id="0"/>
+        <day date="20200620" type="day-type" id="0"/>
+        <day date="20200328" type="day-type" id="0"/>
+        <day date="20200321" type="day-type" id="0"/>
+        <day date="20200606" type="day-type" id="1"/>
       </days>
     </calendar>
   </calendars>
   <tasks>
-    <task id="1" name="Plantejament Idea Inicial Projecte" note="" work="115200" start="20200316T000000Z" end="20200319T170000Z" work-start="20200316T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="1" name="Plantejament Idea Inicial Projecte (An&#xE0;lisi)" note="" work="115200" start="20200316T000000Z" end="20200319T170000Z" work-start="20200316T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
     <task id="2" name="Documentaci&#xF3; Python" note="" work="201600" start="20200319T170000Z" end="20200327T170000Z" work-start="20200320T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
       <predecessors>
         <predecessor id="1" predecessor-id="1" type="FS"/>
@@ -45,6 +45,43 @@
       </task>
       <task id="6" name="MockFlow" note="" work="57600" start="20200326T000000Z" end="20200327T170000Z" work-start="20200326T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <constraint type="must-start-on" time="20200326T000000Z"/>
+      </task>
+    </task>
+    <task id="7" name="Primera Part del Projecte (Disseny i Desplegament)" note="" work="489600" start="20200402T170000Z" end="20200424T170000Z" work-start="20200403T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="3" type="FS"/>
+      </predecessors>
+      <task id="8" name="Disseny Interf&#xED;cies Web (Django)" note="" work="403200" start="20200402T170000Z" end="20200422T170000Z" work-start="20200403T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="9" name="Documentaci&#xF3; fins al punt 8.1" note="" work="28800" start="20200422T170000Z" end="20200423T170000Z" work-start="20200423T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="8" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="10" name="Creaci&#xF3; del domini i desplegament a producci&#xF3;" note="" work="57600" start="20200422T170000Z" end="20200424T170000Z" work-start="20200423T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="8" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="11" name="Segona Part del Projecte (Programaci&#xF3; i Proves)" note="" work="864000" start="20200424T170000Z" end="20200604T170000Z" work-start="20200427T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="7" type="FS"/>
+      </predecessors>
+      <task id="12" name="Documentaci&#xF3; Vue" note="" work="115200" start="20200424T170000Z" end="20200430T170000Z" work-start="20200427T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="13" name="Programaci&#xF3; Web (Vue)" note="" work="576000" start="20200430T170000Z" end="20200528T170000Z" work-start="20200501T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="12" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="14" name="Proves" note="" work="28800" start="20200528T170000Z" end="20200529T170000Z" work-start="20200529T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="13" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="15" name="Documentaci&#xF3; sencera Projecte FCT" note="" work="144000" start="20200528T170000Z" end="20200604T170000Z" work-start="20200529T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="13" type="FS"/>
+        </predecessors>
       </task>
     </task>
   </tasks>
