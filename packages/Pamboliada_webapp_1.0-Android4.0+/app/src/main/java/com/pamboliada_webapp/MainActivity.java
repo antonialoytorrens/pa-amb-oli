@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
 
         webView = (WebView) findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("http://www.pamboliada.cat");
+        webView.loadUrl("http://pamboliada.cat");
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
