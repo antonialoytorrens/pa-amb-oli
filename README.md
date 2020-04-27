@@ -11,6 +11,8 @@ El lloc web es troba a https://www.pamboliada.cat.
 
 ### Linux
 
+Obre un terminal (lxterminal) i introdueix les següents ordres:
+
 ```sh
 $ sudo apt install python3 python3-venv python3-pip postgresql
 $ git clone https://github.com/antonialoytorrens/pa-amb-oli.git
@@ -32,7 +34,7 @@ Baixar i instal·lar el programa VirtualBox corresponent al teu sistema operatiu
 
 Descarregar i importar l'arxiu de la màquina virtual des de la següent ubicació: https://drive.google.com/drive/folders/1jSspBK8EuYGYZ9g2RlEogJdboUUTTkMh?usp=sharing
 
-Realitzar les passes mencionades anteriorment en Linux:
+Realitzar les passes mencionades anteriorment en Linux obrint un terminal (lxterminal) i introdueix les següents ordres:
 
 ```sh
 $ sudo apt install python3 python3-venv python3-pip postgresql
