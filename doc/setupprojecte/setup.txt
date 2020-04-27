@@ -1,0 +1,13 @@
+sudo apt-get install git python3.6 python3-venv
+
+git clone repo
+
+cd repo
+
+python3 -m venv venv
+
+source venv/bin/activate
+
+pip install --upgrade pip
+
+pip install -r requirements.txt
