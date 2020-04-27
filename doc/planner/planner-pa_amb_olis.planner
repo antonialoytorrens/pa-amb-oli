@@ -43,7 +43,7 @@
       <task id="5" name="Documentaci&#xF3;" note="" work="28800" start="20200325T000000Z" end="20200325T170000Z" work-start="20200325T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <constraint type="must-start-on" time="20200325T000000Z"/>
       </task>
-      <task id="6" name="MockFlow" note="" work="57600" start="20200326T000000Z" end="20200327T170000Z" work-start="20200326T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="6" name="Maquetaci&#xF3; B&#xE0;sica o Mockup" note="" work="57600" start="20200326T000000Z" end="20200327T170000Z" work-start="20200326T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <constraint type="must-start-on" time="20200326T000000Z"/>
       </task>
     </task>
@@ -51,7 +51,7 @@
       <predecessors>
         <predecessor id="1" predecessor-id="3" type="FS"/>
       </predecessors>
-      <task id="8" name="Disseny Interf&#xED;cies Web (Django)" note="" work="403200" start="20200402T170000Z" end="20200422T170000Z" work-start="20200403T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="8" name="Disseny Interf&#xED;cies Web (Django i Bootstrap)" note="" work="403200" start="20200402T170000Z" end="20200422T170000Z" work-start="20200403T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
       <task id="9" name="Documentaci&#xF3; fins al punt 8.1" note="" work="28800" start="20200422T170000Z" end="20200423T170000Z" work-start="20200423T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <predecessors>
           <predecessor id="1" predecessor-id="8" type="FS"/>
