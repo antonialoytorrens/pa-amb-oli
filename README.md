@@ -90,7 +90,7 @@ Password: paambolis
 
 ## Si es vol realitzar el desplegament (producció)
 ```sh
-$ sudo apt install python3 python3-venv python3-pip postgresql
+$ sudo apt install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx curl gunicorn
 
 $ sudo su - postgres
 $ psql
