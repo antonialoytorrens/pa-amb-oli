@@ -1,6 +1,14 @@
 # Pamboliada
 Projecte Final FCT - CFGS Desenvolupament d'Aplicacions Web
 
+L'aplicació per a ordinador (Linux Debian or Ubuntu 18.04+) i per a mòbil (Android4.0+) està disponible per descarregar.
+També hi ha una versió (en proves) per a altres distribucions Linux (en format .zip).
+
+
+<a href="https://github.com/antonialoytorrens/pa-amb-oli/releases/download/v0.1/pamboliada-webapp_1.0_all.deb"><img src="https://github.com/antonialoytorrens/pa-amb-oli/blob/master/doc/showapps/get-deb-from-github.png" alt="Get it on Github DEB"></a>
+<a href="https://github.com/antonialoytorrens/pa-amb-oli/releases/download/v0.1/pamboliada-embedded-1.0.zip"><img src="https://github.com/antonialoytorrens/pa-amb-oli/blob/master/doc/showapps/get-zip-from-github.png" alt="Get it on Github ZIP"></a>
+<a href="https://github.com/antonialoytorrens/pa-amb-oli/releases/download/v0.1/pamboliada-signed-1.0.apk"><img src="https://github.com/antonialoytorrens/pa-amb-oli/blob/master/doc/showapps/get-apk-from-github.png" alt="Get it on Github APK"></a>
+
 # Guia ràpida per començar
 
 ## Si es vol visitar el lloc web
