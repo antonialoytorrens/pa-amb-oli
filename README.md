@@ -7,7 +7,7 @@ Projecte Final FCT - CFGS Desenvolupament d'Aplicacions Web
 
 El lloc web es troba a http://www.pamboliada.cat.
 
-## Si es vol realitzar el desplegament en local
+## Si es vol realitzar el desplegament (desenvolupament) en local
 
 ### Linux
 
