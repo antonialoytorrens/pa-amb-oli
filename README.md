@@ -15,7 +15,7 @@ També hi ha una versió (en proves) per a altres distribucions Linux (en format
 
 El lloc web es troba a http://www.pamboliada.cat.
 
-## Si es vol realitzar el desplegament (desenvolupament) en local
+## Si es vol realitzar el desplegament (desenvolupament)
 
 ### Linux
 
@@ -63,19 +63,13 @@ La IP del teu ordinador es pot saber obrint un terminal i introduir la ordre `if
 
 Baixar i instal·lar el programa VirtualBox corresponent al teu sistema operatiu: https://www.virtualbox.org
 
-Els arxius de la màquina virtual (*Servidor* i *Servidor + Client*) es troben a la següent ubicació:
+L'arxiu (*Client*) es troba a la següent ubicació:
 
 https://drive.google.com/drive/folders/1jSspBK8EuYGYZ9g2RlEogJdboUUTTkMh?usp=sharing
 
 Per tant, descarregar i importar l'arxiu (.ova) que més convengui.
 
-#### Servidor Ubuntu 18.04.3 LTS
-
-El servidor està configurat a partir d'una IP estàtica (192.168.1.200).
-L'arxiu de configuració per canviar la IP es troba a **/etc/netplan/01-netcfg.yaml**.
-L'aplicació es desplega automàticament a tota la xarxa local quan s'inicia el sistema, per tant per veure la pàgina web s'ha d'obrir un navegador a la direcció 192.168.1.200:8000.
-
-#### Servidor + Client Ubuntu 18.04.3 LTS (LXQt)
+#### Client Ubuntu 18.04.3 LTS (LXDE)
 
 El servidor està configurat a partir d'una IP estàtica (192.168.1.201).
 L'arxiu de configuració per canviar la IP es troba a **/etc/netplan/01-netcfg.yaml**.
@@ -93,3 +87,39 @@ User: paambolis
 Password: paambolis
 ------------------------------------------------
 ```
+
+## Si es vol realitzar el desplegament (producció)
+```sh
+$ sudo apt install python3 python3-venv python3-pip postgresql
+
+$ sudo su - postgres
+$ psql
+# CREATE DATABASE paambolis;
+# CREATE USER paambolis with PASSWORD 'paambolis';
+# ALTER ROLE paambolis SET client_encoding TO 'utf-8';
+# ALTER ROLE paambolis SET default_transaction_isolation TO 'read committed';
+# ALTER ROLE paambolis SET timezone TO 'UTC';
+# GRANT ALL PRIVILEGES ON DATABASE paambolis TO paambolis;
+# \q
+$ exit
+
+$ git clone https://github.com/antonialoytorrens/pa-amb-oli.git
+$ cd pa-amb-oli/
+$ virtualenv --python=`which python3` venv
+$ source venv/bin/activate
+$ pip install -r requirements.txt
+$ python manage.py makemigrations
+$ python manage.py migrate
+$ python manage.py runserver
+```
+
+#### Servidor Ubuntu 18.04.3 LTS
+
+El servidor està configurat a partir d'una IP estàtica (192.168.1.200).
+L'arxiu de configuració per canviar la IP es troba a **/etc/netplan/01-netcfg.yaml**.
+L'aplicació es desplega automàticament a tota la xarxa local quan s'inicia el sistema, per tant per veure la pàgina web s'ha d'obrir un navegador a la direcció 192.168.1.200.
+
+##### Nota a l'hora de canviar l'IP a aquest servidor
+Com que es tracta d'un servidor de producció, també s'haurà de canviar *ALLOWED_HOSTS* (ubicat a *~/pa-amb-oli/pa_amb_olis/settings.py*) i el fitxer de configuració d'nginx (ubicat a */etc/nginx/sites-enabled/django*).
+
+També disposa d'un tallafocs, on només es permeten els ports 80 i 22.
