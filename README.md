@@ -67,7 +67,7 @@ L'arxiu (*Client*) es troba a la següent ubicació:
 
 https://drive.google.com/drive/folders/1jSspBK8EuYGYZ9g2RlEogJdboUUTTkMh?usp=sharing
 
-Per tant, descarregar i importar l'arxiu (.ova) que més convengui.
+Per tant, descarregar i importar l'arxiu (.ova) del Client.
 
 #### Client Ubuntu 18.04.3 LTS (LXDE)
 
@@ -89,6 +89,9 @@ Password: paambolis
 ```
 
 ## Si es vol realitzar el desplegament (producció)
+
+Es recomana visitar aquest enllaç per a una explicació més detallada del que es veurà a continuació: https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04.
+
 ```sh
 $ sudo apt install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx curl gunicorn
 
@@ -110,7 +113,96 @@ $ source venv/bin/activate
 $ pip install -r requirements.txt
 $ python manage.py makemigrations
 $ python manage.py migrate
-$ python manage.py runserver
+$ python manage.py collectstatic
+```
+
+**Pautes a tenir en compte**
+
+* ***Creant el sòcol (o socket) i els serveis per l'execució de Gunicorn***
+
+```sh
+$ sudo nano /etc/systemd/system/gunicorn.socket
+```
+
+| /etc/systemd/system/gunicorn.socket  |                                                                                                
+|--------------------------------------------------------------------------------------------------------------------------------------|
+| [Unit]<br>Description=gunicorn socket<br><br>[Socket]<br>ListenStream=/run/gunicorn.sock<br><br>[Install]<br>WantedBy=sockets.target |
+
+<br/>
+
+* ***Creant el sòcol (o socket) de Gunicorn***
+
+```sh
+$ sudo nano /etc/systemd/system/gunicorn.socket
+```
+
+* ***Creant els serveis de Gunicorn***
+
+```sh
+$ sudo nano /etc/systemd/system/gunicorn.service
+```
+
+| /etc/systemd/system/gunicorn.service |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Unit]<br>Description=gunicorn daemon<br>Requires=gunicorn.socket<br>After=network.target<br><br>[Service]<br>User=***sammy***<br>Group=www-data<br>WorkingDirectory=/home/sammy/myprojectdir<br>ExecStart=/home/***sammy***/***myprojectdir***/***myprojectenv***/bin/gunicorn\ <br>    --access-logfile -\ <br>          --workers 3\ <br>          --bind unix:/run/gunicorn.sock \ <br>          ***myproject***.wsgi:application<br><br>[Install]<br>WantedBy=multi-user.target |
+
+
+**Nota**: Reemplaça *sammy* per el teu nom d'usuari, *myprojectdir* per el teu directori del projecte, *myprojectenv* per el nom del teu entorn virtual (virtualenv) i *myproject* per la teva carpeta de projecte (la carpeta on es troba l'arxiu *`settings.py`*).
+
+Activam els serveis:
+```sh
+$ sudo systemctl start gunicorn.socket
+$ sudo systemctl enable gunicorn.socket
+```
+
+Comprovam que el *socket* funciona:
+```sh
+$ curl --unix-socket /run/gunicorn.sock localhost
+```
+
+Comprovam que el servei de Gunicorn funciona i està en marxa:
+
+```sh
+$ sudo systemctl status gunicorn
+```
+
+**Nota:** Si en algun moment es realitzen canvis a `/etc/systemd/system/gunicorn.service`, s'hauran d'introduir les següents ordres:
+
+```sh
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart gunicorn
+```
+
+* ***Configurar Nginx com a servidor web del desplegament***
+```sh
+$ sudo nano /etc/nginx/sites-available/projecte
+```
+
+| /etc/nginx/sites-available/projecte 	|
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
+| server {<br>    listen 80;<br>    server_name ***server_domain_or_IP***;<br><br>    location = /favicon.ico { access_log off; log_not_found off; }<br>    location /static/ {<br>        root /home/***sammy***/***myprojectdir***;<br>    }<br><br>    location / {<br>        include proxy_params;<br>        proxy_pass `http://unix:/run/gunicorn.sock`;<br>    }<br>} 	|
+
+**Nota**: Reemplaça *sammy* per el teu nom d'usuari, *myprojectdir* per el teu directori del projecte, i *server_domain_or_IP* per la teva IP (o domini si en disposa d'un).
+
+Activam la configuració:
+
+```sh
+$ sudo ln -s /etc/nginx/sites-available/projecte /etc/nginx/sites-enabled
+```
+
+Per comprovar si no tenim faltes de sintaxi a l'arxiu de configuració de l'nginx, posam:
+```sh
+$ sudo nginx -t
+```
+
+Reiniciam el servei:
+```sh
+$ sudo systemctl restart nginx
+```
+
+*Nota*: Si disposa d'un firewall, s'haurà de permetre l'execució del servei d'nginx executant:
+```sh
+$ sudo ufw allow 'Nginx Full'
 ```
 
 #### Servidor Ubuntu 18.04.3 LTS
