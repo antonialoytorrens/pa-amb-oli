@@ -118,7 +118,7 @@ $ python manage.py collectstatic
 
 **Pautes a tenir en compte**
 
-* ***Creant el sòcol (o socket) i els serveis per l'execució de Gunicorn***
+* ***Creant el sòcol (o socket) de Gunicorn***
 
 ```sh
 $ sudo nano /etc/systemd/system/gunicorn.socket
@@ -129,12 +129,6 @@ $ sudo nano /etc/systemd/system/gunicorn.socket
 | [Unit]<br>Description=gunicorn socket<br><br>[Socket]<br>ListenStream=/run/gunicorn.sock<br><br>[Install]<br>WantedBy=sockets.target |
 
 <br/>
-
-* ***Creant el sòcol (o socket) de Gunicorn***
-
-```sh
-$ sudo nano /etc/systemd/system/gunicorn.socket
-```
 
 * ***Creant els serveis de Gunicorn***
 
