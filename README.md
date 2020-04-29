@@ -75,7 +75,7 @@ El servidor està configurat a partir d'una IP estàtica (192.168.1.201).
 L'arxiu de configuració per canviar la IP es troba a **/etc/netplan/01-netcfg.yaml**.
 L'aplicació es desplega automàticament a tota la xarxa local quan s'inicia el sistema, per tant per veure la pàgina web s'ha d'obrir un navegador a la direcció 192.168.1.201:8000, o en el propi sistema (firefox) a localhost:8000.
 
-##### Informació bàsica (*Servidor* i *Servidor + Client*)
+##### Informació bàsica
 ```sh
 LOGIN
 User: admin
@@ -122,4 +122,17 @@ L'aplicació es desplega automàticament a tota la xarxa local quan s'inicia el 
 ##### Nota a l'hora de canviar l'IP a aquest servidor
 Com que es tracta d'un servidor de producció, també s'haurà de canviar *ALLOWED_HOSTS* (ubicat a *~/pa-amb-oli/pa_amb_olis/settings.py*) i el fitxer de configuració d'nginx (ubicat a */etc/nginx/sites-enabled/django*).
 
-També disposa d'un tallafocs, on només es permeten els ports 80 i 22.
+També disposa d'un tallafocs, on només es permeten els ports 80 (emprat per nginx) i 22 (emprat per openssh).
+
+##### Informació bàsica
+```sh
+LOGIN
+User: admin
+Password: admin0
+------------------------------------------------
+POSTGRES
+*Usuari amb tots els privilegis a la base de dades `paambolis`*
+User: paambolis
+Password: paambolis
+------------------------------------------------
+```
