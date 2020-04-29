@@ -59,7 +59,7 @@ Així, l'aplicació és accessible tant per a localhost (127.0.0.1) com per altr
 La IP del teu ordinador es pot saber obrint un terminal i introduir la ordre `ifconfig` (si no es troba la ordre, executa `sudo apt install net-tools`)
 
 
-### Altres
+### Altres (per Linux també serveix com a alternativa)
 
 Baixar i instal·lar el programa VirtualBox corresponent al teu sistema operatiu: https://www.virtualbox.org
 
