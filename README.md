@@ -231,6 +231,6 @@ Password: admin0
 POSTGRES
 *Usuari amb tots els privilegis a la base de dades `paambolis`*
 User: paambolis
-Password: paambolis
+Password: paambolis (molt recomanat canviar-la)
 ------------------------------------------------
 ```
