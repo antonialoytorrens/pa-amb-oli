@@ -1,6 +1,8 @@
 # Pamboliada
 Projecte Final FCT - CFGS Desenvolupament d'Aplicacions Web
 
+https://github.com/antonialoytorrens/pa-amb-oli
+
 L'aplicació per a ordinador (Linux Debian or Ubuntu 18.04+) i per a mòbil (Android4.0+) està disponible per descarregar.
 També hi ha una versió (en proves) per a altres distribucions Linux (en format .zip).
 
