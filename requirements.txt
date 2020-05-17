@@ -8,4 +8,6 @@ psycopg2-binary==2.8.4
 Pillow==7.0.0
 django-webpack-loader==0.7.0
 gevent==20.4.0
-
+robotframework==3.2.1
+robotframework-selenium2library==3.0.0
+robotframework-seleniumlibrary==4.4.0
