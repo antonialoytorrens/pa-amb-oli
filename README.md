@@ -1,6 +1,8 @@
 # Pamboliada
 Projecte Final FCT - CFGS Desenvolupament d'Aplicacions Web
 
+https://github.com/antonialoytorrens/pa-amb-oli
+
 L'aplicació per a ordinador (Linux Debian or Ubuntu 18.04+) i per a mòbil (Android4.0+) està disponible per descarregar.
 També hi ha una versió (en proves) per a altres distribucions Linux (en format .zip).
 
@@ -63,11 +65,23 @@ La IP del teu ordinador es pot saber obrint un terminal i introduir la ordre `if
 
 Baixar i instal·lar el programa VirtualBox corresponent al teu sistema operatiu: https://www.virtualbox.org
 
+------
+
 L'arxiu (*Client*) es troba a la següent ubicació:
 
-https://drive.google.com/drive/folders/1jSspBK8EuYGYZ9g2RlEogJdboUUTTkMh?usp=sharing
+https://drive.google.com/file/d/1MkoVXHopQ6FtzdlYJxg-n4mdoLTj9B2h/view
 
 Per tant, descarregar i importar l'arxiu (.ova) del Client.
+
+------
+
+L'arxiu (*Servidor*) es troba a la següent ubicació:
+
+https://drive.google.com/file/d/1FpVQ828GVtFjJj6fh9hmUDsa4oONp_uI/view
+
+Per tant, descarregar i importar l'arxiu (.ova) del Servidor.
+
+------
 
 #### Client Ubuntu 18.04.3 LTS (LXDE)
 
@@ -219,6 +233,6 @@ Password: admin0
 POSTGRES
 *Usuari amb tots els privilegis a la base de dades `paambolis`*
 User: paambolis
-Password: paambolis
+Password: paambolis (molt recomanat canviar-la)
 ------------------------------------------------
 ```
