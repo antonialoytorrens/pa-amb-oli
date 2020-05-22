@@ -1,0 +1,14 @@
+version: "2"
+
+services:
+  build:
+    image: openstreetmap.org/osmosis-build-${userId}
+
+    links:
+      - db
+    volumes:
+      - ${gradleUserDir}:/gradle
+      - ${gnupgUserDir}:${gnupgUserDir}
+      - ${projectDir}:/project
+  db:
+    image: openstreetmap.org/osmosis-db

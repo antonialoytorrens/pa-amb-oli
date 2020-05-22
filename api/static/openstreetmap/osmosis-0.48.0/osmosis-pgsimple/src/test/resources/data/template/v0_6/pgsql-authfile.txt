@@ -1,0 +1,4 @@
+host=db
+database=pgosmsimp06_test
+user=osm
+password=password
