@@ -1,0 +1,32 @@
+.banner {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.banner ul li { float: left; }
+
+.banner ul li img { margin:auto; height:10rem;}
+.dots-pagi {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  width: 300px;
+  margin: 0 0 0 -150px;
+  padding: 0;
+  text-align: center;
+}
+
+.dots-pagi li {
+  display: inline-block;
+ *display: inline;
+ *zoom: 1;
+  width: 15px;
+  height: 15px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background: #cacfd2;
+  cursor: pointer;
+}
+
+.dots-pagi li:hover, .dots-pagi li.active { background: #ff7f02; }
