@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+  <head>
+    <link rel="stylesheet" href="ol.css" type="text/css">
+    <style>
+      .map {
+        height: 400px;
+        width: 100%;
+      }
+    </style>
+    <!--Polyfill io for old environments (https://openlayers.org/en/latest/examples/icon.html) -->
+    <script type="text/javascript" src="polyfill.min.js"></script>
+    <script type="text/javascript" src="ol.js"></script>
+    <title>OpenLayers example</title>
+  </head>
+  <body>
+    <div id="map" class="map"></div>
+    <script type="text/javascript">
+    var lat=39.72146;
+    var lon=2.91229;
+    var zoom=18;
+      var map = new ol.Map({
+        target: 'map',
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          }),
+          new ol.layer.Vector({
+            source: new ol.source.Vector({
+            features: [
+                new ol.Feature({
+                    geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat])),
+                    onClick: alert("Hola")
+                })
+            ]
+        })
+          })
+    ],
+        view: new ol.View({
+          center: ol.proj.fromLonLat([lon, lat]),
+          zoom: zoom
+        })
+        
+      });
+    </script>
+  </body>
+</html>
