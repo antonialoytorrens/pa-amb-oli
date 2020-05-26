@@ -1,0 +1,5 @@
+# IGNORE ROBOT FRAMEWORK OUTPUT
+*.log
+*.html
+*.xml
+*.png

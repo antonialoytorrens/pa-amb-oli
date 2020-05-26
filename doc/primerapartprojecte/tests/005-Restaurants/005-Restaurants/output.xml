@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.1 (Python 3.6.9 on linux)" generated="20200526 16:30:31.959" rpa="false">
+<suite id="s1" name="005-Restaurants" source="/home/admin/pa_amb_olis/api/tests/restaurants/005-Restaurants.robot">
+<test id="s1-t1" name="Restaurants">
+<kw name="Quan entro a la pàgina principal">
+<kw name="Open Browser" library="Selenium2Library">
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<arguments>
+<arg>${BROWSER_URL}</arg>
+</arguments>
+<msg timestamp="20200526 16:30:32.542" level="INFO">Opening browser 'firefox' to base url 'http://127.0.0.1:8000'.</msg>
+<msg timestamp="20200526 16:30:32.545" level="INFO">Firefox driver log is always forced to to: /home/admin/pa_amb_olis/api/tests/restaurants/005-Restaurants/geckodriver-2.log</msg>
+<status status="PASS" starttime="20200526 16:30:32.541" endtime="20200526 16:30:46.084"></status>
+</kw>
+<kw name="Maximize Browser Window" library="Selenium2Library">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20200526 16:30:46.088" endtime="20200526 16:30:47.328"></status>
+</kw>
+<status status="PASS" starttime="20200526 16:30:32.541" endtime="20200526 16:30:47.329"></status>
+</kw>
+<kw name="I Clico a un punt del canvas">
+<kw name="Wait Until Element Is Visible" library="Selenium2Library">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>//*[@id="mapaRestaurants"]</arg>
+</arguments>
+<status status="PASS" starttime="20200526 16:30:47.332" endtime="20200526 16:30:47.706"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>5s</arg>
+</arguments>
+<msg timestamp="20200526 16:30:52.708" level="INFO">Slept 5 seconds</msg>
+<status status="PASS" starttime="20200526 16:30:47.707" endtime="20200526 16:30:52.708"></status>
+</kw>
+<kw name="Select Frame" library="Selenium2Library">
+<doc>Sets frame identified by ``locator`` as the current frame.</doc>
+<arguments>
+<arg>//*[@id="mapaRestaurants"]</arg>
+</arguments>
+<msg timestamp="20200526 16:30:52.710" level="INFO">Selecting frame '//*[@id="mapaRestaurants"]'.</msg>
+<status status="PASS" starttime="20200526 16:30:52.709" endtime="20200526 16:30:52.742"></status>
+</kw>
+<kw name="Execute Javascript" library="Selenium2Library">
+<doc>Executes the given JavaScript code with possible arguments.</doc>
+<arguments>
+<arg>document.elementFromPoint(512, 205).click();</arg>
+</arguments>
+<msg timestamp="20200526 16:30:52.747" level="INFO">Executing JavaScript:
+document.elementFromPoint(512, 205).click();
+Without any arguments.</msg>
+<status status="PASS" starttime="20200526 16:30:52.743" endtime="20200526 16:30:52.767"></status>
+</kw>
+<status status="PASS" starttime="20200526 16:30:47.331" endtime="20200526 16:30:52.768"></status>
+</kw>
+<kw name="Llavors puc veure el popup d'informació del restaurant">
+<kw name="Wait Until Element Is Visible" library="Selenium2Library">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>//*[@id="popup"]</arg>
+</arguments>
+<kw name="Capture Page Screenshot" library="Selenium2Library">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200526 16:30:58.573" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200526 16:30:58.087" endtime="20200526 16:30:58.574"></status>
+</kw>
+<msg timestamp="20200526 16:30:58.580" level="FAIL">Element '//*[@id="popup"]' not visible after 5 seconds.</msg>
+<status status="FAIL" starttime="20200526 16:30:52.771" endtime="20200526 16:30:58.580"></status>
+</kw>
+<status status="FAIL" starttime="20200526 16:30:52.769" endtime="20200526 16:30:58.581"></status>
+</kw>
+<kw name="Tanca Test" library="common" type="teardown">
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>2s</arg>
+</arguments>
+<msg timestamp="20200526 16:31:00.587" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20200526 16:30:58.584" endtime="20200526 16:31:00.587"></status>
+</kw>
+<kw name="Close Browser" library="Selenium2Library">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20200526 16:31:00.587" endtime="20200526 16:31:15.537"></status>
+</kw>
+<status status="PASS" starttime="20200526 16:30:58.583" endtime="20200526 16:31:15.538"></status>
+</kw>
+<status status="FAIL" starttime="20200526 16:30:32.539" endtime="20200526 16:31:15.539" critical="yes">Element '//*[@id="popup"]' not visible after 5 seconds.</status>
+</test>
+<doc>Escenaris</doc>
+<status status="FAIL" starttime="20200526 16:30:31.961" endtime="20200526 16:31:15.541"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1">Critical Tests</stat>
+<stat pass="0" fail="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" id="s1" name="005-Restaurants">005-Restaurants</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
