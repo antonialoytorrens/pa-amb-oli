@@ -17,6 +17,7 @@
   <!-- MY CSS -->
   <link rel="stylesheet" href="{% static 'mycss/navbar.css' %}" type="text/css">
   <link rel="stylesheet" href="{% static 'mycss/utilitats.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'mycss/banner.css' %}" type="text/css">
   <!-- FAVICON -->
   <link rel="apple-touch-icon" sizes="57x57" href="{% static 'favicon/apple-icon-57x57.png' %}">
   <link rel="apple-touch-icon" sizes="60x60" href="{% static 'favicon/apple-icon-60x60.png' %}">
@@ -69,20 +70,20 @@
   <div class="collapse navbar-collapse bg-softgrey justify-content-end pl-4 ml-5" id="menu">
     <ul class="navbar-nav text-center">
       <li class="nav-item active">
-        <a class="nav-link" href="/quiSom/">Qui Som
+        <a id="quiSom-link" class="nav-link" href="/quiSom/">Qui Som
           <!--<span class="sr-only">(current)</span>--></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/noticies/">Notícies</a>
+        <a id="noticies-link" class="nav-link" href="/noticies/">Notícies</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/restaurants/">Restaurants</a>
+        <a id="restaurants-link" class="nav-link" href="/restaurants/">Restaurants</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/esdeveniments/">Esdeveniments</a>
+        <a id="esdeveniments-link" class="nav-link" href="/esdeveniments/">Esdeveniments</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/suggeriments/">Suggeriments</a>
+        <a id="suggeriments-link"class="nav-link" href="/suggeriments/">Suggeriments</a>
       </li>
     </ul>
   </div>
@@ -100,6 +101,9 @@
   </nav>
 
   {%endblock navbar%}
+
+  {%block alerts%}
+  {%endblock alerts%}
 
   {%block titular%}
 
@@ -155,19 +159,18 @@
     {%block scripts%}
 
     <!-- JQUERY 3.4.1 -->
-
     <script type="text/javascript" src="{% static 'jquery/jquery.min.js' %}"></script>
 
     <!-- BOOTSTRAP 4.4.1 JS -->
     <script type="text/javascript" src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
 
-    <!-- VUE 2.6.11 -->
-    <script type="text/javascript" src="{% static 'vue/vue.js' %}"></script>
-
-    <!-- VUE RESOURCE 1.5.1 -->
-    <script type="text/javascript" src="{% static 'vue/vue-resource.min.js' %}"></script>
+    <!-- SIMPLE BANNER JS -->
+    <script type="text/javascript" src="{% static 'simplebanner/simpleBanner.js' %}"></script>
 
     {%endblock scripts%}
+
+    {%block ownscripts%}
+    {%endblock ownscripts%}
 
 </body>
 <script>

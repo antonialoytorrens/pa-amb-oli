@@ -11,7 +11,8 @@
 
 <!--Descripció-->
 
-{%block titulardescripcio%}Has trobat un restaurant que t'agrada i no és aquí? Ajuda'ns a completar la web!{%endblock titulardescripcio%}
+{%block titulardescripcio%}Has trobat un restaurant que t'agrada i no és aquí? Ajuda'ns a completar la
+web!{%endblock titulardescripcio%}
 
 <!--Menú d'on sóc-->
 
@@ -25,169 +26,180 @@
 
 {%block content%}
 <!--SUGGEREIX L'ADDICIÓ D'UN RESTAURANT-->
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6 my-auto">
-                        <label class="font-weight-bold">Nom del restaurant</label>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><em class="fas fa-utensils"
-                                        aria-hidden="true"></em></span>
-                            </div>
-                            <input title="Nom del producte" type="text" class="form-control"
-                                placeholder="Nom del producte">
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 my-auto">
+                    <label class="font-weight-bold">Nom del restaurant <span id="errornomrestaurant"
+                            class="text-danger"></span></label>
+                    <div class="input-group form-group" id="grupnomrestaurant">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><em class="fas fa-utensils" aria-hidden="true"></em></span>
                         </div>
-                    </div>
-                    <div class="col-md-6 my-auto">
-                        <label class="font-weight-bold">Localització</label>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><em class="fas fa-map-marker-alt"
-                                        aria-hidden="true"></em></span>
-                            </div>
-                            <input title="Localització" type="text" class="form-control" placeholder="Localització">
-                        </div>
+                        <input id="nomrestaurant" title="Nom del restaurant" type="text" class="form-control"
+                            placeholder="Nom del restaurant">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12 my-auto">
-                        <label class="font-weight-bold">Horari</label>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><em class="fas fa-clock"
-                                        aria-hidden="true"></em></span>
-                            </div>
-                            <input title="Horari" type="text" class="form-control"
-                                placeholder="Horari">
+                <div class="col-md-6 my-auto">
+                    <label class="font-weight-bold">Localització <span id="errorlocalitzacio"
+                            class="text-danger"></span></label>
+                    <div class="input-group form-group" id="gruplocalitzacio">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><em class="fas fa-map-marker-alt"
+                                    aria-hidden="true"></em></span>
                         </div>
+                        <input id="localitzacio" title="Localització" type="text" class="form-control"
+                            placeholder="Localització">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12 my-auto">
-                        <label class="font-weight-bold">Descripció</label>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><em class="fas fa-pen" aria-hidden="true"></em></span>
-                            </div>
-                            <textarea title="Descripció" type="text" class="form-control" rows="3"
-                                style="resize: none;"></textarea>
+            </div>
+            <div class="row">
+                <div class="col-md-12 my-auto">
+                    <label class="font-weight-bold">Horari <span id="errorhorari" class="text-danger"></span></label>
+                    <div class="input-group form-group" id="gruphorari">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><em class="fas fa-clock" aria-hidden="true"></em></span>
                         </div>
+                        <input id="horari" title="Horari" type="text" class="form-control" placeholder="Horari">
                     </div>
                 </div>
-                <hr class="my-4" />
-                <div class="row">
-                    <div class="col-md-12 my-auto">
-                        <label class="font-weight-bold">Telèfon</label>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><em class="fas fa-phone-alt"
-                                        aria-hidden="true"></em></span>
-                            </div>
-                            <input title="Telèfon" type="text" class="form-control" placeholder="Telèfon">
+            </div>
+            <div class="row">
+                <div class="col-md-12 my-auto">
+                    <label class="font-weight-bold">Descripció <span id="errordescripcio"
+                            class="text-danger"></span></label>
+                    <div class="input-group form-group" id="grupdescripcio">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><em class="fas fa-pen" aria-hidden="true"></em></span>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 my-auto">
-                        <label class="font-weight-bold">Email (opcional)</label>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><em class="fas fa-envelope"
-                                        aria-hidden="true"></em></span>
-                            </div>
-                            <input title="Email" type="text" class="form-control" placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="col-md-6 my-auto">
-                        <label class="font-weight-bold">Fax (opcional)</label>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><em class="fas fa-fax" aria-hidden="true"></em></span>
-                            </div>
-                            <input title="Fax" type="text" class="form-control" placeholder="Fax">
-                        </div>
-                    </div>
-                </div>
-                <hr class="my-4" />
-                <div class="row">
-                    <div class="col-md-6 my-auto">
-                        <label class="font-weight-bold">Es pot reservar taula?</label>
-                        <div class="input-group form-group">
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="reservaTaulaSi"
-                                    name="reservaTaula">
-                                <label class="custom-control-label" for="reservaTaulaSi">Sí</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="reservaTaulaNo"
-                                    name="reservaTaula">
-                                <label class="custom-control-label" for="reservaTaulaNo">No</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 my-auto">
-                        <label class="font-weight-bold">Ets el/la responsable del restaurant?</label>
-                        <div class="input-group form-group">
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="responsableRestaurantSi"
-                                    name="responsableRestaurant">
-                                <label class="custom-control-label" for="responsableRestaurantSi">Sí</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="responsableRestaurantNo"
-                                    name="responsableRestaurant">
-                                <label class="custom-control-label" for="responsableRestaurantNo">No</label>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <hr class="my-4" />
-                <div class="row">
-                    <div class="col-md-6" style="top: 0">
-                        <label class="font-weight-bold">Selecciona fotografies (opcional)</label>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><em class="fas fa-images" aria-hidden="true"></em></span>
-                            </div>
-                            <input title="Selecciona fotografies" type="file" class="form-control">
-                        </div>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><em class="fas fa-exclamation-triangle"
-                                        aria-hidden="true"></em></span>
-                                <span class="font-weight-bold p-2 form-control"
-                                    style="height: auto; border-radius: 0;">Només estan permesos els arxius JPEG
-                                    i
-                                    PNG. Han de pesar menys d'1MB.</span>
-                                <span class="p-2 form-control"
-                                    style="height: auto; border-bottom-left-radius: 0; border-top-left-radius: 0;"><b>Nota:
-                                    </b> no podràs eliminar fotografies si no les has pujades tu o no ets el/la
-                                    responsable del restaurant.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 text-center">
-                        <label class="font-weight-bold">Previsió multimèdia</label>
-                        <div class="input-group form-group">
-                            <img class="img-fluid" src="{% static 'images/base.jpeg' %}" style="border: 2px solid black" />
-                        </div>
-                        <button title="Elimina l'arxiu" type="button" class="btn btn-danger btn-sm">Elimina
-                            l'arxiu</button>
+                        <textarea id="descripcio" title="Descripció" type="text" class="form-control" rows="3"
+                            style="resize: none;"></textarea>
                     </div>
                 </div>
             </div>
             <hr class="my-4" />
             <div class="row">
-                <div class="col my-auto text-center p-2">
-                    <button title="Cancel·la" type="button" class="btn btn-danger btn-md">Cancel·la</button>
+                <div class="col-md-12 my-auto">
+                    <label class="font-weight-bold">Telèfon <span id="errortelefon" class="text-danger"></span></label>
+                    <div class="input-group form-group" id="gruptelefon">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><em class="fas fa-phone-alt" aria-hidden="true"></em></span>
+                        </div>
+                        <input id="telefon" title="Telèfon" type="text" class="form-control" placeholder="Telèfon">
+                    </div>
                 </div>
-                <div class="col my-auto text-center p-2">
-                    <button title="Envia" type="button" class="btn btn-primary btn-md">Envia</button>
+            </div>
+            <div class="row">
+                <div class="col-md-6 my-auto">
+                    <label class="font-weight-bold">Email (opcional) <span id="erroremail"
+                            class="text-danger"></span></label>
+                    <div class="input-group form-group" id="grupemail">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><em class="fas fa-envelope" aria-hidden="true"></em></span>
+                        </div>
+                        <input id="email" title="Email" type="text" class="form-control" placeholder="Email">
+                    </div>
+                </div>
+                <div class="col-md-6 my-auto">
+                    <label class="font-weight-bold">Fax (opcional) <span id="errorfax"
+                            class="text-danger"></span></label>
+                    <div class="input-group form-group" id="grupfax">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><em class="fas fa-fax" aria-hidden="true"></em></span>
+                        </div>
+                        <input id="fax" title="Fax" type="text" class="form-control" placeholder="Fax">
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4" />
+            <div class="row">
+                <div class="col-md-6 my-auto">
+                    <label class="font-weight-bold">Es pot reservar taula? <span id="errorreservataula"
+                            class="text-danger"></span></label>
+                    <div class="input-group form-group" id="grupreservataula">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="reservaTaulaSi" name="reservaTaula">
+                            <label class="custom-control-label" for="reservaTaulaSi">Sí</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="reservaTaulaNo" name="reservaTaula">
+                            <label class="custom-control-label" for="reservaTaulaNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 my-auto">
+                    <label class="font-weight-bold">Ets el/la responsable del restaurant? <span
+                            id="errorresponsablerestaurant" class="text-danger"></span></label>
+                    <div class="input-group form-group" id="grupresponsablerestaurant">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="responsableRestaurantSi"
+                                name="responsableRestaurant">
+                            <label class="custom-control-label" for="responsableRestaurantSi">Sí</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="responsableRestaurantNo"
+                                name="responsableRestaurant">
+                            <label class="custom-control-label" for="responsableRestaurantNo">No</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <hr class="my-4" />
+            <div class="row">
+                <div class="col-md-6" style="top: 0">
+                    <label class="font-weight-bold">Selecciona fotografies (opcional) <span
+                            id="errorseleccionafotografies" class="text-danger"></span></label>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><em class="fas fa-images" aria-hidden="true"></em></span>
+                        </div>
+                        <input id="file-input" title="Selecciona fotografies" type="file" class="form-control" multiple>
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><em class="fas fa-exclamation-triangle"
+                                    aria-hidden="true"></em></span>
+                            <span class="font-weight-bold p-2 form-control"
+                                style="height: auto; border-radius: 0;">Només estan permesos els arxius JPEG
+                                i
+                                PNG. Han de pesar menys d'1MB.</span>
+                            <span class="p-2 form-control"
+                                style="height: auto; border-bottom-left-radius: 0; border-top-left-radius: 0;"><b>Nota:
+                                </b> no podràs eliminar fotografies si no les has pujades tu o no ets el/la
+                                responsable del restaurant.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center" id="preview" style="display: none;">
+                    <label class="font-weight-bold">Previsió multimèdia</label>
+                    <div class="input-group form-group">
+                        <div class="banner" id="banner-multimedia">
+                            <ul id="img-list" class="pl-0">
+                                <!--<li><img src="https://picsum.photos/id/35/1280/720" class="img-responsive" alt=""></li>
+    <li><img src="https://picsum.photos/id/36/1280/720" class="img-responsive" alt=""></li>
+    <li><img src="https://picsum.photos/id/37/1280/720" class="img-responsive" alt=""></li>
+    <li><img src="https://picsum.photos/id/38/1280/720" class="img-responsive" alt=""></li>
+    <li><div class="embed-responsive embed-responsive-16by9"><iframe src="{% static 'videos/Big_Buck_Bunny.mp4'%}" class="embed-responsive-item" frameborder="0"></iframe></div></li>-->
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <hr class="my-4" />
+        <div class="row">
+            <div class="col my-auto text-center p-2">
+                <button title="Cancel·la" type="button" class="btn btn-danger btn-md">Cancel·la</button>
+            </div>
+            <div class="col my-auto text-center p-2">
+                <button id="envia" title="Envia" type="button" class="btn btn-primary btn-md">Envia</button>
+            </div>
+        </div>
     </div>
+</div>
 {% endblock content %}
+{%block ownscripts%}
+<script type="text/javascript" src="{% static 'js/crea_actu_restaurant.js' %}"></script>
+{%endblock ownscripts%}

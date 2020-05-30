@@ -1,5 +1,6 @@
 {% extends "base.html"%}
 {% load static %}
+{% csrf_token %}
 <!--TITULAR-->
 
 <!--foto de fons del titular-->
@@ -19,55 +20,70 @@
 
 <!--CONTINGUT DE LA PÀGINA-->
 
-{%block content%}
+{%block alerts%}
+<div id="usuaricreat" class="alert alert-success position-fixed centered-alert text-center" role="alert" style="z-index: 1000; display: none;">
+  <h4 class="alert-heading">Èxit!</h4>
+  <p>L'usuari ha estat creat satisfactòriament.</p>
+</div>
+<div id="errorusuaricamps" class="alert alert-danger position-fixed centered-alert text-center" role="alert" style="z-index: 1000; display: none;">
+  <h4 class="alert-heading">Error!</h4>
+  <p>Per favor, corregeix els camps marcats en vermell.</p>
+</div>
+<div id="errorusuaricreat" class="alert alert-danger position-fixed centered-alert text-center" role="alert" style="z-index: 1000; display: none;">
+  <h4 class="alert-heading">Error!</h4>
+  <p id="missatgeerror">No s'ha pogut crear l'usuari.</p>
+</div>
+{%endblock alerts%}
 
+{%block content%}
     <div class="container">
         <div class="card">
             <div class="card-body">
+            <form id="formRegistre">
                 <div class="row">
                     <div class="col-md-12">
-                        <label class="font-weight-bold">Nom i llinatges</label>
-                        <div class="input-group form-group">
+                        <label class="font-weight-bold">Nom i llinatges <span id="errornomillinatges" class="text-danger"></span></label>
+                        <div class="input-group form-group" id="grupnomillinatges" style="border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem;">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><em class="fas fa-user" aria-hidden="true"></em></span>
                             </div>
-                            <input title="Nom i llinatges" type="text" class="form-control"
+                            <input id="nomillinatges" name="nomillinatges" title="Nom i llinatges" type="text" class="form-control"
                                 placeholder="Nom i llinatges">
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label class="font-weight-bold">Data de naixement</label>
-                        <div class="input-group form-group">
+                        <label class="font-weight-bold">Data de naixement <span id="errordatanaixement" class="text-danger"></span></label>
+                        <div class="input-group form-group" id="grupdatanaixement" style="border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem;">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><em class="fas fa-calendar"
                                         aria-hidden="true"></em></span>
                             </div>
-                            <input title="Data de naixement" type="text" class="form-control"
+                            <input id="datanaixement" name="datanaixement" title="Data de naixement" type="text" class="form-control"
                                 placeholder="Data de naixement">
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label class="font-weight-bold">Direcció</label>
-                        <div class="input-group form-group">
+                        <label class="font-weight-bold">Direcció <span id="errordireccio" class="text-danger"></span></label>
+                        <div class="input-group form-group" id="grupdireccio" style="border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem;">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><em class="fas fa-map-marker-alt"
                                         aria-hidden="true"></em></span>
                             </div>
-                            <input title="Direcció" type="text" class="form-control" placeholder="Direcció">
+                            <input id="direccio" name="direccio" title="Direcció" type="text" class="form-control" placeholder="Direcció">
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <label class="font-weight-bold">Contrasenya (8 caràcters mínim)</label>
-                        <div class="input-group form-group">
+                        <label class="font-weight-bold">Contrasenya (8 caràcters mínim) <span id="errorpassword" class="text-danger"></span></label>
+                        <div class="input-group form-group" id="gruppassword" style="border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem;">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><em class="fas fa-key" aria-hidden="true"></em></span>
                             </div>
-                            <input title="Contrasenya" type="password" class="form-control" placeholder="Contrasenya">
-                            <input title="Repeteix la contrasenya" type="password" class="form-control"
+                            <input id="password" name="password" title="Contrasenya" type="password" class="form-control" placeholder="Contrasenya">
+                            <input id="rpassword" name="rpassword" title="Repeteix la contrasenya" type="password" class="form-control"
                                 placeholder="Repeteix la contrasenya">
                         </div>
                     </div>
@@ -75,53 +91,54 @@
                 <hr class="my-4" />
                 <div class="row">
                     <div class="col-md-6 my-auto">
-                        <label class="font-weight-bold">Email</label>
-                        <div class="input-group form-group">
+                        <label class="font-weight-bold">Email <span id="erroremail" class="text-danger"></span></label>
+                        <div class="input-group form-group" id="grupemail" style="border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem;">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><em class="fas fa-envelope"
                                         aria-hidden="true"></em></span>
                             </div>
-                            <input title="Email" type="text" class="form-control" placeholder="Email">
+                            <input id="email" name="email" title="Email" type="text" class="form-control" placeholder="Email">
                         </div>
                     </div>
                     <div class="col-md-6 my-auto">
-                        <label class="font-weight-bold">Telèfon (opcional)</label>
-                        <div class="input-group form-group">
+                        <label class="font-weight-bold">Telèfon (opcional) <span id="errortelefon" class="text-danger"></span></label>
+                        <div class="input-group form-group" id="gruptelefon" style="border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem;">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><em class="fas fa-phone-alt"
                                         aria-hidden="true"></em></span>
                             </div>
-                            <input title="Telèfon" type="text" class="form-control" placeholder="Telèfon">
+                            <input id="telefon" name="telefon" title="Telèfon" type="text" class="form-control" placeholder="Telèfon">
                         </div>
                     </div>
                 </div>
                 <hr class="my-4" />
                 <div class="row m-2">
                     <div class="col-md-12 text-center">
-                        <h4 class="font-weight-bold">Previsió perfil</h4>
+                        <h4 class="font-weight-bold">Foto de perfil <span id="errorfotoperfil" class="text-danger"></span></h4>
                     </div>
                 </div>
                 <div class="row profile">
                     <div class="col-md-12">
                         <div class="profile-sidebar">
                             <div class="profile-userpic">
-                                <img src="{% static 'images/base.jpeg' %}"
+                                <img id="foto-perfil" src="{% static 'images/base.png' %}"
                                     class="img-responsive" alt="">
                             </div>
                             <div class="profile-usertitle">
-                                <div class="profile-usertitle-name">
-                                    Lorem Ipsum
+                                <div id="profile-usertitle-name" class="profile-usertitle-name">
+                                    <!-- Nom d'usuari -->
                                 </div>
-                                <div class="profile-usertitle-job">
-                                   loremipsumdolor@gmail.com
+                                <div id="profile-usertitle-job" class="profile-usertitle-job">
+                                    <!-- Email -->
                                 </div>
-                                <div class="profile-usertitle-job">
-                                   +34 123 456 780
+                                <div id="profile-usertitle-phone" class="profile-usertitle-phone">
+                                   <!-- Telèfon -->
                                 </div>
                             </div>
                             <div class="profile-userbuttons mt-2">
-                                <button type="button" class="btn btn-success btn-sm mb-2">Selecciona una foto de perfil</button>
-                                <button type="button" class="btn btn-danger btn-sm mb-2">Elimina la foto de perfil</button>
+                                <button type="button" id="selecciona-foto-perfil" class="btn btn-success btn-sm mb-2">Selecciona una foto de perfil</button>
+                                <input id="file-input" type="file" name="file-input" style="display: none;" accept="image/x-png,image/jpeg,image/jpg">
+                                <button type="button" id="elimina-foto-perfil" class="btn btn-danger btn-sm mb-2" style="display: none;">Elimina la foto de perfil</button>
                             </div>
                         </div>
                     </div>
@@ -129,15 +146,16 @@
                 <hr class="my-4" />
                 <div class="row">
                     <div class="col my-auto text-center p-2">
-                        <button title="Cancel·la" type="button"
+                        <button id="cancela" title="Cancel·la" type="button"
                             class="btn btn-danger btn-md mb-2">Cancel·la</button>
                     </div>
                     <div class="col my-auto text-center p-2">
-                        <button title="Registra't" type="button"
+                        <button id="registre" title="Registra't" type="button"
                             class="btn btn-primary btn-md mb-2">Registra't</button>
                     </div>
                 </div>
             </div>
+            </form>
             <div class="card-footer">
             <div class="row mt-3">
                     <div class="col-md-12">
@@ -150,3 +168,6 @@
     </div>
     <!------------------------->
 {%endblock content%}
+{%block ownscripts%}
+<script type="text/javascript" src="{% static 'js/registre.js' %}"></script>
+{%endblock ownscripts%}

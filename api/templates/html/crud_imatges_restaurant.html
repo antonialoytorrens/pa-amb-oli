@@ -30,12 +30,13 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6" style="top: 0">
-                        <label class="font-weight-bold">Selecciona fotografies (opcional)</label>
+                        <label class="font-weight-bold">Selecciona fotografies (opcional) <span id="errorseleccionafotografies" class="text-danger"></span></label>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><em class="fas fa-images" aria-hidden="true"></em></span>
+                            <input id="file-input" title="Selecciona fotografies" type="file" class="form-control" multiple>
+                            <button id="buida-imatges" title="Buida imatges" type="button" class="btn btn-warning form-control" style="border-radius:0.25rem">Buida Imatges</button>
                             </div>
-                            <input title="Selecciona fotografies" type="file" class="form-control">
                         </div>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
@@ -51,25 +52,34 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 text-center">
+                    <div class="col-md-6 text-center" id="preview">
                         <label class="font-weight-bold">Previsió multimèdia</label>
                         <div class="input-group form-group">
-                            <img class="img-fluid" src="{% static 'images/base.jpeg' %}" style="border: 2px solid black" />
+                            <div class="banner" id="banner-multimedia">
+  <ul id="img-list" class="pl-0">
+  <!--<li><img src="https://picsum.photos/id/35/1280/720" class="img-responsive" alt=""></li>
+    <li><img src="https://picsum.photos/id/36/1280/720" class="img-responsive" alt=""></li>
+    <li><img src="https://picsum.photos/id/37/1280/720" class="img-responsive" alt=""></li>
+    <li><img src="https://picsum.photos/id/38/1280/720" class="img-responsive" alt=""></li>
+    <li><div class="embed-responsive embed-responsive-16by9"><iframe src="{% static 'videos/Big_Buck_Bunny.mp4'%}" class="embed-responsive-item" frameborder="0"></iframe></div></li>-->
+  </ul>
+</div>
                         </div>
-                        <button title="Elimina l'arxiu" type="button" class="btn btn-danger btn-sm">Elimina
-                            l'arxiu</button>
                     </div>
                 </div>
-                <hr class="my-4" />
-                <div class="row">
-                    <div class="col my-auto text-center p-2">
-                        <button title="Cancel·la" type="button" class="btn btn-danger btn-md">Cancel·la</button>
-                    </div>
-                    <div class="col my-auto text-center p-2">
-                        <button title="Envia" type="button" class="btn btn-primary btn-md">Envia</button>
-                    </div>
+            </div>
+            <hr class="my-4" />
+            <div class="row">
+                <div class="col my-auto text-center p-2">
+                    <button title="Cancel·la" type="button" class="btn btn-danger btn-md">Cancel·la</button>
+                </div>
+                <div class="col my-auto text-center p-2">
+                    <button id="envia" title="Envia" type="button" class="btn btn-primary btn-md">Envia</button>
                 </div>
             </div>
         </div>
     </div>
 {% endblock content%}
+{%block ownscripts%}
+<script type="text/javascript" src="{% static 'js/crud_imatges_restaurant.js' %}"></script>
+{%endblock ownscripts%}

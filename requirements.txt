@@ -11,3 +11,4 @@ gevent==20.4.0
 robotframework==3.2.1
 robotframework-selenium2library==3.0.0
 robotframework-seleniumlibrary==4.4.0
+pyautogui==0.9.50

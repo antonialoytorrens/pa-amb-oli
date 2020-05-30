@@ -33,7 +33,14 @@
         <hr class="my-4" />
         <div class="row">
             <div class="input-group form-group">
-                <img class="img-fluid p-3" src="{% static 'images/map.png' %}" style="margin:auto;" />
+            <div class="embed-responsive embed-responsive-16by9">
+            <iframe id="mapaRestaurants"
+    title="Mapa"
+    class="embed-responsive-item"
+    src="{%static 'openstreetmap/mapes/mapa_restaurant.html'%}"> <!--bbox: Bounding box, values separated by comma (%2C) in the format left,bottom,right,top-->
+</iframe>
+</div>
+                <!--<img class="img-fluid p-3" src="{% static 'images/map.png' %}" style="margin:auto;" />-->
             </div>
         </div>
         <div class="container-fluid">
@@ -149,3 +156,6 @@
     </div>
 </div>
 {%endblock content%}
+{%block ownscripts%}
+<script type="text/javascript" src="{% static 'js/restaurants.js' %}"></script>
+{%endblock ownscripts%}

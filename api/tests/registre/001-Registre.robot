@@ -7,7 +7,7 @@ Documentation     Escenaris
 Resource          ../common.robot
 Library           Selenium2Library
 #Test Setup        Login
-Test teardown     Tanca Test
+#Test teardown     Tanca Test
 
 *** Variables ***
 

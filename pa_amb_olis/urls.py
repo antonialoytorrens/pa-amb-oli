@@ -15,12 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .routers import router
 from django.views.generic import TemplateView
+from api import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
     path('', TemplateView.as_view(template_name='html/restaurants.html')),
     path('quiSom/', TemplateView.as_view(template_name='html/quiSom.html')),
     path('noticies/', TemplateView.as_view(template_name='html/noticies.html')),
@@ -34,4 +33,9 @@ urlpatterns = [
     path('registre/', TemplateView.as_view(template_name='html/registre.html')),
     path('login/', TemplateView.as_view(template_name='html/login.html')),
     path('perfil/', TemplateView.as_view(template_name='html/perfil.html')),
+    path('perfil/crea/', views.ProfileCreate.as_view(), name='crea_perfil')
+
+    # CRUD PERFIL
+    #path('perfil/create/', views.ProfileCreate.as_view(), name='perfil_create'),
+    #path('perfil/update/<uuid:perfil_id>', views.ProfileUpdate.as_view(), name='perfil_update'),
 ]
