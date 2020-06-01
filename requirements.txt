@@ -12,3 +12,5 @@ robotframework==3.2.1
 robotframework-selenium2library==3.0.0
 robotframework-seleniumlibrary==4.4.0
 pyautogui==0.9.50
+django-debug-toolbar==2.2
+python-dotenv==0.13.0

@@ -107,6 +107,15 @@ function comprovaNoBuit() {
         $("#grupemail").css("border", "none");
     }
 
+    if (!$("#username").val()) {
+        valid = false;
+        $("#errornomusuari").html(missatgeError);
+        $("#grupnomusuari").css("border", "1px solid red");
+    } else {
+        $("#errornomusuari").html("");
+        $("#grupnomusuari").css("border", "none");
+    }
+
     if (!validaFotoPerfil()) {
         valid = false;
     } else {
@@ -227,6 +236,7 @@ function csrfSafeMethod(method) {
 function creaPerfil() {
     var formData = new FormData();
     formData.append("nomillinatges", $("#nomillinatges").val());
+    formData.append("username", $("#username").val());
     formData.append("datanaixement", $("#datanaixement").val());
     formData.append("direccio", $("#direccio").val());
     formData.append("contrasenya", $("#password").val());
@@ -261,7 +271,7 @@ function creaPerfil() {
                 $("#errorusuaricreat").fadeIn().delay(5000).fadeOut();
             } else {
                 $("#usuaricreat").fadeIn().delay(5000).fadeOut();
-                window.location.href = "/login/";
+                window.location.href = "/accounts/login/";
             }
         },
         error: function(data) {

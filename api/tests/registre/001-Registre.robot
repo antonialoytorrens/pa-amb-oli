@@ -50,6 +50,10 @@ Omplo les dades de forma correcta al registre
     Click Element   //*[@id="nomillinatges"]
     Input Text      //*[@id="nomillinatges"]    ${PERSONALDATA}[0]
 
+    # Nom d'usuari
+    Click Element   //*[@id="username"]   
+    Input Text      //*[@id="username"]     ${PERSONALDATA}[6]
+
     # Data de naixement
     Click Element   //*[@id="datanaixement"]
     Input Text      //*[@id="datanaixement"]    ${PERSONALDATA}[1]

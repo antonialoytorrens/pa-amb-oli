@@ -38,6 +38,8 @@
   <meta name="theme-color" content="#ffffff">
 
   {%endblock header%}
+  {%block addheaders%}
+  {%endblock addheaders%}
 
 </head>
 
@@ -50,22 +52,18 @@
     <button class="navbar-nav navbar-toggler btn ml-auto nav-flex-icons p-0" type="button" data-target="#menu" data-toggle="collapse">
       <i class="fa fa-bars rounded-circle z-depth-0"></i>
     </button>
+  {% if user.is_authenticated %}
     <button class="navbar-nav navbar-toggler btn ml-auto nav-flex-icons" type="button" data-target="#user" data-toggle="collapse">
       <a class="nav-link p-0">
         <img src="{% static 'images/base.jpeg' %}" class="rounded-circle z-depth-0"
           alt="avatar image" height="35" width="35">
       </a>
     </button>
-    <!--<div id="searchbar" class="navbar-nav btn ml-auto nav-flex" data-toggle="collapse">
-      <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><em class="fas fa-search"
-                                        aria-hidden="true"></em></span>
-                            </div>
-                            <input title="Cerca" type="text" class="form-control"
-                                placeholder="Cerca">
-                        </div>
-    </div>-->
+  {% else %}
+    <button class="navbar-nav navbar-toggler btn ml-auto nav-flex-icons" type="button" data-toggle="collapse">
+      <a class="nav-link p-0" href="{% url 'login' %}">Inicia Sessió</a>
+    </button>
+  {% endif %}
     
   <div class="collapse navbar-collapse bg-softgrey justify-content-end pl-4 ml-5" id="menu">
     <ul class="navbar-nav text-center">
@@ -87,16 +85,26 @@
       </li>
     </ul>
   </div>
-  <div class="collapse navbar-collapse bg-softgrey" id="user">
+     {% if user.is_authenticated %}
+         <div class="collapse navbar-collapse bg-softgrey" id="user">
     <ul class="navbar-nav mr-auto w-100 justify-content-end text-right">
       <li class="nav-item active">
-        <a class="nav-link" href="/perfil/">Perfil <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/perfil/">{{ user.username }}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/login/">Inicia Sessió</a>
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
       </li>
     </ul>
   </div>
+  {% else %}
+  <div class="collapse navbar-collapse bg-softgrey" id="user">
+    <ul class="navbar-nav mr-auto w-100 justify-content-end text-right">
+      <li class="nav-item active">
+        <a class="nav-link p-0" href="{% url 'login' %}">Inicia Sessió</a>
+      </li>
+    </ul>
+  </div>
+    {% endif %}
 
   </nav>
 
@@ -166,6 +174,9 @@
 
     <!-- SIMPLE BANNER JS -->
     <script type="text/javascript" src="{% static 'simplebanner/simpleBanner.js' %}"></script>
+
+    <!-- UTILITATS -->
+    <script type="text/javascript" src="{% static 'js/utilitats.js' %}"></script>
 
     {%endblock scripts%}
 

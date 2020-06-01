@@ -16,14 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
+from django.contrib.auth.views import LoginView
+from django.conf import settings
 from api import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name='html/restaurants.html')),
+    path('', views.RestaurantList.as_view(), name='llista_restaurants'),
     path('quiSom/', TemplateView.as_view(template_name='html/quiSom.html')),
-    path('noticies/', TemplateView.as_view(template_name='html/noticies.html')),
-    path('restaurants/', TemplateView.as_view(template_name='html/restaurants.html')),
     path('esdeveniments/', TemplateView.as_view(template_name='html/esdeveniments.html')),
     path('suggeriments/', TemplateView.as_view(template_name='html/suggeriments.html')),
     path('suggeriments/actualitza-restaurant/', TemplateView.as_view(template_name='html/actu_restaurant.html')),
@@ -31,11 +31,26 @@ urlpatterns = [
     path('suggeriments/actualitza-imatges/', TemplateView.as_view(template_name='html/crud_imatges_restaurant.html')),
     path('suggeriments/crea-promocio/', TemplateView.as_view(template_name='html/promocio_noticia.html')),
     path('registre/', TemplateView.as_view(template_name='html/registre.html')),
-    path('login/', TemplateView.as_view(template_name='html/login.html')),
     path('perfil/', TemplateView.as_view(template_name='html/perfil.html')),
-    path('perfil/crea/', views.ProfileCreate.as_view(), name='crea_perfil')
 
-    # CRUD PERFIL
-    #path('perfil/create/', views.ProfileCreate.as_view(), name='perfil_create'),
+    #CRUD PERFIL
+    path('perfil/crea/', views.ProfileCreate.as_view(), name='crea_perfil'),
     #path('perfil/update/<uuid:perfil_id>', views.ProfileUpdate.as_view(), name='perfil_update'),
+
+    #GET RESTAURANTS
+    path('restaurants/', views.RestaurantList.as_view(), name='llista_restaurants'),
+    path('restaurants/mapa/', views.RestaurantMapaList.as_view(), name='llista_mapa_restaurants'),
+
+    #GET NOTICIES
+    path('noticies/', views.NoticiaList.as_view(), name='llista_noticies'),
+
+
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
+
+# DEBUG-TOOLBAR. Només es fa si està en DEBUG=True
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

@@ -1,5 +1,6 @@
 {% extends "base.html"%}
 {% load static %}
+
 <!--TITULAR-->
 
 <!--foto de fons del titular-->
@@ -23,22 +24,27 @@
   <h4 class="alert-heading">Error!</h4>
   <p>Per favor, corregeix els camps marcats en vermell.</p>
 </div>
+<div id="loginerror" class="alert alert-danger position-fixed centered-alert text-center" role="alert" style="z-index: 1000; display: none;">
+  <h4 class="alert-heading">Error!</h4>
+  <p>L'usuari i la contrasenya no són correctes. Per favor, intenta-ho de nou.</p>
+</div>
 {%endblock alerts%}
 
 {%block content%}
     <div class="container">
         <div class="card">
             <div class="card-body">
-            <form method="GET" action="javascript:comprovaNoBuit()">
+            <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
                 <div class="row">
                     <div class="col-md-12">
-                        <label class="font-weight-bold">Email <span id="erroremail" class="text-danger"></span></label>
-                        <div class="input-group form-group" id="grupemail">
+                        <label class="font-weight-bold">Nom d'usuari <span id="errorusername" class="text-danger"></span></label>
+                        <div class="input-group form-group" id="grupusername">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><em class="fas fa-envelope"
+                                <span class="input-group-text"><em class="fas fa-user"
                                         aria-hidden="true"></em></span>
                             </div>
-                            <input title="Email" id="email" name="email" type="text" class="form-control" placeholder="Email">
+                            <input title="Nom d'usuari" id="username" name="username" type="text" class="form-control" placeholder="Nom d'usuari">
                         </div>
                     </div>
                 </div>
@@ -64,6 +70,7 @@
             <div class="row mt-3">
                     <div class="col-md-12">
                             <p class="text-center">No tens un compte? <a class="btn-link" href="/registre/">Registra't aquí.</a></p>
+                            <p class="text-center">T'has oblidat de la contrasenya? <a class="btn-link" href="{% url 'password_reset' %}">Reinicia-la aquí.</a></p>
                         </div>
                     </div>
                 </div>
@@ -71,8 +78,12 @@
             </div>
         </div>
     </div>
-
 {%endblock content%}
 {%block ownscripts%}
 <script type="text/javascript" src="{% static 'js/login.js' %}"></script>
+{% if form.errors %}
+<script>
+$("#loginerror").fadeIn().delay(5000).fadeOut();
+</script>
+{% endif %}
 {%endblock ownscripts%}

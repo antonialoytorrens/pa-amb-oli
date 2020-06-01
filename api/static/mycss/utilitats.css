@@ -39,7 +39,7 @@ a:hover {
   transform: translate(-50%, 0);
 }
 
-.centered-alert p a:hover{
+.centered-alert p a:hover {
   color: #007bff;
 }
 
@@ -273,6 +273,14 @@ a:hover {
 
 .suggeriment.input-group.form-group span {
   height: initial;
+}
+
+/*************************************************************************************/
+
+/********************** RECUPERACIÓ DE CONTRASENYA ***********************************/
+
+.login-link:hover {
+  color: #007bff;
 }
 
 /*************************************************************************************/

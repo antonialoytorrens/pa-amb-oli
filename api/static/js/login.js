@@ -21,13 +21,13 @@ function comprovaNoBuit() {
     // in javascript, an empty string, and null, both evaluate to false in a boolean context.
 
     // https://stackoverflow.com/questions/1812245/what-is-the-best-way-to-test-for-an-empty-string-with-jquery-out-of-the-box
-    if (!$("#email").val()) {
+    if (!$("#username").val()) {
         valid = false;
-        $("#erroremail").html(missatgeError);
-        $("#grupemail").css("border", "1px solid red");
+        $("#errorusername").html(missatgeError);
+        $("#grupusername").css("border", "1px solid red");
     } else {
-        $("#erroremail").html("");
-        $("#grupemail").css("border", "none");
+        $("#errorusername").html("");
+        $("#grupusername").css("border", "none");
     }
 
     if (!$("#password").val()) {
@@ -38,4 +38,5 @@ function comprovaNoBuit() {
         $("#errorpassword").html("");
         $("#gruppassword").css("border", "none");
     }
+    return valid;
 }

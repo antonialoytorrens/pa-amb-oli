@@ -16,8 +16,3 @@ function getCursorPosition(canvas, event) {
     const y = event.clientY - rect.top
     console.log("x: " + x + " y: " + y)
 }
-
-const canvas = document.querySelector('canvas')
-canvas.addEventListener('mousedown', function(e) {
-    getCursorPosition(canvas, e)
-})
