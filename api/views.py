@@ -154,24 +154,3 @@ class NoticiaList(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-
-# LOG A USER IN
-"""def LoginView(FormView):
-
-    def post(request):
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            # Redirect to a success page.
-            return redirect('llista_restaurants')
-        else:
-            # Return an 'invalid login' error message.
-            data['errors'] = form.errors
-            return data
-
-def logout_view(request):
-    logout(request)
-    # Redirect to a success page.
-    return redirect('llista_restaurants')"""

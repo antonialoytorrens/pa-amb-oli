@@ -34,6 +34,7 @@
 </div>
 {%endblock alerts%}
 {%block content%}
+{% if user.is_authenticated %}
 <!--SUGGEREIX UNA PROMOCIÓ D'UN PRODUCTE O SERVEI-->
     <div class="container">
         <div class="card">
@@ -204,6 +205,12 @@
             </div>
         </div>
     </div>
+{% else %}
+<!-- Mostra un missatge, ja que per realitzar un suggeriment s'ha d'estar registrat o s'ha d'haver iniciat sessió -->
+
+{% include "suggeriments_info.html" %}
+
+{% endif %}
 {% endblock content %}
 {%block ownscripts%}
 <script type="text/javascript" src="{% static 'js/promocio_noticia.js' %}"></script>

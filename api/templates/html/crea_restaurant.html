@@ -25,6 +25,7 @@ web!{%endblock titulardescripcio%}
 <!--CONTINGUT DE LA PÀGINA-->
 
 {%block content%}
+{% if user.is_authenticated %}
 <!--SUGGEREIX L'ADDICIÓ D'UN RESTAURANT-->
 <div class="container">
     <div class="card">
@@ -199,6 +200,12 @@ web!{%endblock titulardescripcio%}
         </div>
     </div>
 </div>
+{% else %}
+<!-- Mostra un missatge, ja que per realitzar un suggeriment s'ha d'estar registrat o s'ha d'haver iniciat sessió -->
+
+{% include "suggeriments_info.html" %}
+
+{% endif %}
 {% endblock content %}
 {%block ownscripts%}
 <script type="text/javascript" src="{% static 'js/crea_actu_restaurant.js' %}"></script>
