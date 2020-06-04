@@ -1,7 +1,18 @@
 {% extends "base.html"%}
-{% load render_bundle from webpack_loader %}
 {% load static %}
-<script type="text/javascript" src="{% static 'templates/vue/calendar.vue' %}"></script>
+
+{%block addheaders%}
+
+    <link href="{% static 'fullcalendar/core/main.css' %}" rel='stylesheet' />
+    <link href="{% static 'fullcalendar/daygrid/main.css' %}" rel='stylesheet' />
+    {% if esdeveniment %}
+        <script type="text/javascript" language="javascript">
+        function moveWindow (){window.location.hash="esdeveniment-seleccionat";}
+        </script>
+    {% endif %}
+
+{%endblock addheaders%}
+
 
 <!--TITULAR-->
 
@@ -25,71 +36,113 @@
 {%block content%}
 
 <div class="aboutus-secktion paddingTB30">
-  <div class="container">
-    <div id="searchbar" class="navbar-nav btn ml-auto nav-flex" data-toggle="collapse">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><em class="fas fa-search" aria-hidden="true"></em></span>
+    <div class="container">
+        <!--<div id="searchbar" class="navbar-nav btn ml-auto nav-flex" data-toggle="collapse">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><em class="fas fa-search" aria-hidden="true"></em></span>
+                </div>
+                <input title="Cerca Esdeveniments per títol" type="text" class="form-control"
+                    placeholder="Cerca Esdeveniments per títol">
+            </div>
         </div>
-        <input title="Cerca Esdeveniments per títol" type="text" class="form-control" placeholder="Cerca Esdeveniments per títol">
-      </div>
-    </div>
-    <hr />
+        <hr />-->
 
-    <!--Cada un dels blocs que formen el contingut-->
-    {% for i in '12'|make_list %}
-    <div class="card">
-      <div class="card-header" style="padding-top: 0.50rem !important; padding-bottom: 0.50rem !important">
-        <h3 class="text-center">{% cycle "Pa amb oli, especial COVID-19" "Ruta del pa amb oli 2021"%}</h3>
-      </div>
-      <div class="card-body pt-2" style="padding:0">
-        <div class="row">
-          <div class="col-md-4" style="max-height:100%">
-            <div class="input-group form-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><em class="fas fa-pen" aria-hidden="true"></em></span>
-              </div>
-
-              <label class="font-weight-bold form-control">Descripció</label>
+        <!--Cada un dels blocs que formen el contingut-->
+        <div id="calendar"></div>
+        {% if esdeveniment %}
+        <div class="card">
+            <div class="card-header" style="padding-top: 0.50rem !important; padding-bottom: 0.50rem !important">
+                <h3 class="text-center" id="esdeveniment-seleccionat">{{ esdeveniment.titol }}</h3>
             </div>
-            <div class="esdeveniment input-group form-group h-100">
-              <span class="form-control h-100">
-                {% lorem 40 w random %}
-              </span>
+            <div class="card-body pt-2" style="padding:0">
+                <div class="row">
+                    <div class="col-md-6" style="max-height:100%">
+                        <div class="input-group form-group text-center" style="margin-bottom:0">
+                            <label class="font-weight-bold mb-2" style="margin:auto;">Descripció</label>
+                        </div>
+                        <hr style="margin-top:0" />
+                        <div class="esdeveniment input-group form-group h-100">
+                            <span class="form-control h-100">
+                                {{ esdeveniment.descripcio }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group form-group text-center" style="margin-bottom:0">
+                            <label class="font-weight-bold mb-2" style="margin:auto;">Lloc</label>
+                        </div>
+                        <hr style="margin-top:0"/>
+                        <div class="esdeveniment input-group form-group h-100">
+                            <span class="form-control text-center">
+                                <!--<iframe class="mapa-lloc" width="" height="" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=2.8925800323486333%2C39.71354186865882%2C2.9284143447875977%2C39.72842892943768&amp;layer=mapnik&amp;marker=39.7209858007651%2C2.9104971885681152" style="border: 1px solid black"></iframe>-->
+                                <iframe class="mapa-lloc w-100 h-100" width="" height="" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox={{ esdeveniment.longitud }}%2C{{ esdeveniment.latitud }}%2C{{ esdeveniment.longitud }}%2C{{ esdeveniment.latitud }}&amp;zoom=13&layer=mapnik&amp;marker={{ esdeveniment.latitud }}%2C{{ esdeveniment.longitud }}" style="border: 1px solid black"></iframe>
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="input-group form-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><em class="fas fa-map-marker-alt" aria-hidden="true"></em></span>
-              </div>
-
-              <label class="font-weight-bold form-control">Lloc</label>
-            </div>
-            <div class="esdeveniment input-group form-group h-100">
-              <span class="form-control">
-                {% lorem 20 w random %}
-              </span>
-            </div>
-          </div>
-          <div class="col-md-4 h-100">
-            <div class="input-group form-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><em class="fas fa-clock" aria-hidden="true"></em></span>
-              </div>
-
-              <label class="font-weight-bold form-control">Dies</label>
-            </div>
-            <div class="esdeveniment input-group form-group h-100">
-              <img class="img-fluid" src="{% static 'images/calendar-event.png' %}"
-                style="display: block; margin: 0 auto;">
-            </div>
-          </div>
+        {% endif %}
         </div>
-      </div>
     </div>
-    {% endfor %}
-
-  </div>
 </div>
 {%endblock content%}
+{%block ownscripts%}
+<link type="text/css" href="{% static 'openstreetmap/mapes/ol-map.css' %}">
+<link type="text/css" href="{% static 'openstreetmap/mapes/ol.css' %}">
+<script type="text/javascript" src="{% static 'openstreetmap/mapes/ol.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/esdeveniments.js' %}"></script>
+
+<link type="text/css" href="{% static 'fullcalendar/tooltip/tooltip.css' %}">
+<script src="{% static 'fullcalendar/core/main.js' %}"></script>
+<script src="{% static 'fullcalendar/core/locales/ca.js' %}"></script>
+<script src="{% static 'fullcalendar/daygrid/main.js' %}"></script>
+<script src="{% static 'fullcalendar/moment/main.js' %}"></script>
+
+<script src="{% static 'fullcalendar/tooltip/popper.min.js' %}"></script>
+<script src="{% static 'fullcalendar/tooltip/tooltip.min.js' %}""></script>
+
+<script type='text/javascript'>
+$(document).ready(function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          plugins: [ 'dayGrid' ],
+          locale: 'ca',
+
+          // TOOLTIP
+          /*eventRender: function(info) {
+      var tooltip = new Tooltip(info.el, {
+        title: info.event.extendedProps.description,
+        placement: 'top',
+        trigger: 'hover',
+        container: 'body'
+      });
+    },*/
+
+          events: [
+    {% for esdeveniment in object_list %}
+        {
+            title: '{{ esdeveniment.titol }}',
+            start: new Date({{ esdeveniment.since|date:"Y" }}, {{ esdeveniment.since|date:"n" }}-1, {{ esdeveniment.since|date:"j" }}, {{ esdeveniment.since|date:"H" }}, {{ esdeveniment.since|date:"i" }}),
+            end: new Date({{ esdeveniment.until|date:"Y" }}, {{ esdeveniment.until|date:"n" }}-1, {{ esdeveniment.until|date:"j" }}, {{ esdeveniment.until|date:"H" }}, {{ esdeveniment.until|date:"i" }}),
+            description: '{{ esdeveniment.descripcio }}',
+            id: {{ esdeveniment.pk }},
+            color: "{% cycle '#A23E48' '#FF3C38' '#FF8C42' '#FFF275' '#6699CC' %}",
+            textColor: "{% cycle 'white' 'white' 'black' 'black' 'white' %}",
+            url: "{% url 'llista_esdeveniments' %}?id={{esdeveniment.pk}}#esdeveniment-seleccionat",
+            allDay: false
+        },
+    {% endfor %}
+        ],
+            eventTimeFormat: { // like '14:30'
+                hour: '2-digit',
+                minute: '2-digit',
+                meridiem: false
+            }
+        });
+    calendar.render();
+    {% if esdeveniment %}moveWindow();{% endif %}
+});
+</script>
+{%endblock ownscripts%}

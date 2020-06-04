@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'debug_toolbar',
+    'schedule',
 ]
 
 MIDDLEWARE = [
@@ -90,7 +91,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'staff.pamboliada@gmail.com'
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -105,6 +105,9 @@ DATABASES = {
     }
 }
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.template.context_processors.request',
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -134,7 +137,8 @@ TIME_ZONE = 'Europe/Madrid'
 
 USE_I18N = True
 
-USE_L10N = True
+# DECIMALS EN 123.123 ENLLOC DE 123,123
+USE_L10N = False
 
 USE_TZ = True
 

@@ -1,6 +1,12 @@
 {% extends "base.html"%}
 {% load static %}
 
+{% if restaurant %}
+        <script type="text/javascript" language="javascript">
+        function moveWindow (){window.location.hash="restaurant-seleccionat";}
+        </script>
+{% endif %}
+
 <!--TITULAR-->
 
 <!--foto de fons del titular-->
@@ -37,17 +43,18 @@
             <iframe id="mapaRestaurants"
     title="Mapa"
     class="embed-responsive-item"
-    src="{% static 'openstreetmap/mapes/mapa_restaurant.html'%}"> <!--bbox: Bounding box, values separated by comma (%2C) in the format left,bottom,right,top-->
+    src="{% static 'openstreetmap/mapes/mapa_restaurant.html'%}"
+    style="border: 1px solid black"> <!--bbox: Bounding box, values separated by comma (%2C) in the format left,bottom,right,top-->
 </iframe>
 </div>
                 <!--<img class="img-fluid p-3" src="{% static 'images/map.png' %}" style="margin:auto;" />-->
             </div>
         </div>
         <div class="container-fluid">
-    {% for restaurant in object_list %}
+    {% if restaurant %}
             <hr class="my-3" />
             <div class="row text-center my-auto p-3">
-                <h3 class="font-weight-bold" style="margin: auto;">{{ restaurant.nom }}</h3>
+                <h3 class="font-weight-bold" id="restaurant-seleccionat" style="margin: auto;">{{ restaurant.nom }}</h3>
             </div>
             <hr class="my-3 mb-5" />
             <div class="row">
@@ -111,6 +118,7 @@
                                 </div>
                             </div>
                         </div>
+                    {% if restaurant.web != "-" %}
                         <hr class="my-1" />
                         <div class="row p-3 pb-0">
                             <div class="input-group form-group" style="margin: 0 auto;">
@@ -124,6 +132,33 @@
                                 </div>
                             </div>
                         </div>
+                    {% endif %}
+                    {% if restaurant.email != "-" %}
+                        <hr class="my-1" />
+                        <div class="row p-3 pb-0">
+                            <div class="input-group form-group" style="margin: 0 auto;">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text pr-3 pl-3"
+                                        style="border: none; background: transparent;"><em class="fas fa-envelope"
+                                            aria-hidden="true"></em></span>
+                                    <span style="height: auto; border-radius: 0;">{{ restaurant.email }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if restaurant.fax != "-" %}
+                        <hr class="my-1" />
+                        <div class="row p-3 pb-0">
+                            <div class="input-group form-group" style="margin: 0 auto;">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text pr-3 pl-3"
+                                        style="border: none; background: transparent;"><em class="fas fa-fax"
+                                            aria-hidden="true"></em></span>
+                                    <span style="height: auto; border-radius: 0;">{{ restaurant.fax }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
                         <hr class="my-1" />
                         <div class="row p-3 pb-0">
                             <div class="input-group form-group" style="margin: 0 auto;">
@@ -150,11 +185,8 @@
                     </div>
                 </div>
             </div>
-        {% endfor %}
+        {% endif %}
         </div>
     </div>
 </div>
 {%endblock content%}
-{%block ownscripts%}
-<script type="text/javascript" src="{% static 'js/restaurants.js' %}"></script>
-{%endblock ownscripts%}

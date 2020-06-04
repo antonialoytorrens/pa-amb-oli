@@ -24,7 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.RestaurantList.as_view(), name='llista_restaurants'),
     path('quiSom/', TemplateView.as_view(template_name='html/quiSom.html')),
-    path('esdeveniments/', TemplateView.as_view(template_name='html/esdeveniments.html')),
     path('suggeriments/', TemplateView.as_view(template_name='html/suggeriments.html')),
     path('suggeriments/actualitza-restaurant/', TemplateView.as_view(template_name='html/actu_restaurant.html')),
     path('suggeriments/crea-restaurant/', TemplateView.as_view(template_name='html/crea_restaurant.html')),
@@ -44,7 +43,10 @@ urlpatterns = [
     #GET NOTICIES
     path('noticies/', views.NoticiaList.as_view(), name='llista_noticies'),
 
+    #GET ESDEVENIMENTS
+    path('esdeveniments/', views.EsdevenimentList.as_view(), name='llista_esdeveniments'),
 
+    # LOGIN
     path('accounts/', include('django.contrib.auth.urls')),
 ]
 

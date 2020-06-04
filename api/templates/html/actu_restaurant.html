@@ -28,6 +28,30 @@ canviar-la!{%endblock titulardescripcio%}
 {%block content%}
 {% if user.is_authenticated %}
 <!--SUGGEREIX EL CANVI D'INFORMACIÓ D'UN RESTAURANT-->
+<div class="aboutus-secktion paddingTB30">
+    <div class="container">
+        <div id="searchbar" class="navbar-nav btn ml-auto nav-flex pr-0" data-toggle="collapse">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><em class="fas fa-search" aria-hidden="true"></em></span>
+                </div>
+                <input title="Cerca Restaurants" type="text" class="form-control" placeholder="Cerca Restaurants">
+            </div>
+        </div>
+        <hr class="my-4" />
+        <div class="row">
+            <div class="input-group form-group">
+            <div class="embed-responsive embed-responsive-16by9">
+            <iframe id="mapaRestaurants"
+    title="Mapa"
+    class="embed-responsive-item"
+    src="{% static 'openstreetmap/mapes/mapa_restaurant.html'%}"> <!--bbox: Bounding box, values separated by comma (%2C) in the format left,bottom,right,top-->
+</iframe>
+</div>
+                <!--<img class="img-fluid p-3" src="{% static 'images/map.png' %}" style="margin:auto;" />-->
+            </div>
+        </div>
+
 <div class="container">
     <div class="card">
         <div class="card-body">

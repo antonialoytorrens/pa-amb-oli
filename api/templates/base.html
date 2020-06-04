@@ -28,6 +28,11 @@
   <link rel="apple-touch-icon" sizes="144x144" href="{% static 'favicon/apple-icon-144x144.png' %}">
   <link rel="apple-touch-icon" sizes="152x152" href="{% static 'favicon/apple-icon-152x152.png' %}">
   <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-icon-180x180.png' %}">
+  <link rel="icon" type="image/png" sizes="36x36"  href="{% static 'favicon/android-icon-36x36.png' %}">
+  <link rel="icon" type="image/png" sizes="48x48"  href="{% static 'favicon/android-icon-48x48.png' %}">
+  <link rel="icon" type="image/png" sizes="72x72"  href="{% static 'favicon/android-icon-72x72.png' %}">
+  <link rel="icon" type="image/png" sizes="96x96"  href="{% static 'favicon/android-icon-96x96.png' %}">
+  <link rel="icon" type="image/png" sizes="144x144"  href="{% static 'favicon/android-icon-144x144.png' %}">
   <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'favicon/android-icon-192x192.png' %}">
   <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
   <link rel="icon" type="image/png" sizes="96x96" href="{% static 'favicon/favicon-96x96.png' %}">
@@ -40,6 +45,11 @@
   {%endblock header%}
   {%block addheaders%}
   {%endblock addheaders%}
+
+<style>
+{%block style%}
+{%endblock style%}
+</style>
 
 </head>
 
@@ -81,7 +91,7 @@
         <a id="esdeveniments-link" class="nav-link" href="/esdeveniments/">Esdeveniments</a>
       </li>
       <li class="nav-item">
-        <a id="suggeriments-link"class="nav-link" href="/suggeriments/">Suggeriments</a>
+        <a id="suggeriments-link" class="nav-link" href="/suggeriments/">Suggeriments</a>
       </li>
     </ul>
   </div>
@@ -183,7 +193,6 @@
     {%block ownscripts%}
     {%endblock ownscripts%}
 
-</body>
 <script>
   $('#menu').on('show.bs.collapse', function () {
     $('#user').collapse("hide");
@@ -192,5 +201,6 @@
     $('#menu').collapse("hide");
   })
 </script>
+</body>
 
 </html>

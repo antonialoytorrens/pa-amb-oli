@@ -1,0 +1,57 @@
+{% load static %}
+
+<!--CONTINGUT DE LA PÀGINA-->
+{%block content%}
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+            <!-- Si estic a la pantalla de login, no me facis el next del formulari -->
+            {% if "login" in request.get_full_path %}
+            <form method="POST" action="{% url 'login' %}">
+            {% else %}
+            <form method="POST" action="{% url 'login' %}?next={{ request.get_full_path }}">
+            {% endif %}
+            {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="font-weight-bold">Nom d'usuari <span id="errorusername" class="text-danger"></span></label>
+                        <div class="input-group form-group" id="grupusername">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><em class="fas fa-user"
+                                        aria-hidden="true"></em></span>
+                            </div>
+                            <input title="Nom d'usuari" id="username" name="username" type="text" class="form-control" placeholder="Nom d'usuari">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="font-weight-bold">Contrasenya <span id="errorpassword" class="text-danger"></span></label>
+                        <div class="input-group form-group" id="gruppassword">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><em class="fas fa-key" aria-hidden="true"></em></span>
+                            </div>
+                            <input title="Contrasenya" id="password" name="password" type="password" class="form-control" placeholder="Contrasenya">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button id="bLogin" title="Inicia sessió" type="submit" class="btn btn-primary btn-md">Inicia sessió</button>
+                    </div>
+                </div>
+            </div>
+            </form>
+            <div class="card-footer mt-3">
+            <div class="row mt-3">
+                    <div class="col-md-12">
+                            <p class="text-center">No tens un compte? <a class="btn-link" href="/registre/">Registra't aquí.</a></p>
+                            <p class="text-center">T'has oblidat de la contrasenya? <a class="btn-link" href="{% url 'password_reset' %}">Reinicia-la aquí.</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+{%endblock content%}

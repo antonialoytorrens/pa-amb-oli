@@ -13,11 +13,15 @@
                                 <span class="input-group-text"><em class="fas fa-info"
                                         aria-hidden="true"></em></span>
                             </div>
-                            <span class="p-2 form-control" style="height: auto; border-radius: 0;">Per realitzar un suggeriment s'ha d'haver iniciat sessió abans. <a href="{% url 'login' %}" class="login-link">Vés a Iniciar Sessió.</a></span>
+                            <span class="p-2 form-control" style="height: auto; border-radius: 0;">Per realitzar un suggeriment s'ha d'haver iniciat sessió abans.</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    {% include "login_info.html" %}
+
+
 {% endblock content%}

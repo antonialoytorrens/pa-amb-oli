@@ -12,7 +12,7 @@ from django.utils.decorators import method_decorator
 from django.forms.models import model_to_dict
 from django.template.response import TemplateResponse
 from django.views.generic.edit import CreateView
-from .models import Profile, Restaurant, Noticia
+from .models import Profile, Restaurant, Noticia, Esdeveniment
 import logging
 log = logging.getLogger(__name__)
 
@@ -136,6 +136,11 @@ class RestaurantList(ListView):
     def get_context_data(self, **kwargs):
         #import pdb; pdb.set_trace()
         context = super().get_context_data(**kwargs)
+        if 'id' in self.request.GET:
+            param=self.request.GET['id']
+            # Si tens un ID, t'agafa tots els que coincideixen amb aquest ID (tan sols n'hi haurà un perquè és PK)
+            restaurant_actual=self.model.objects.get(id=param)
+            context['restaurant']=restaurant_actual
         return context
 
 
@@ -151,6 +156,20 @@ class NoticiaList(ListView):
     model = Noticia
     template_name="html/noticies.html"
 
+
+    ordering = ['-data']
+
+class EsdevenimentList(ListView):
+
+    model = Esdeveniment
+    template_name="html/esdeveniments.html"
+
     def get_context_data(self, **kwargs):
+        #import pdb; pdb.set_trace()
         context = super().get_context_data(**kwargs)
+        if 'id' in self.request.GET:
+            param=self.request.GET['id']
+            # Si tens un ID, t'agafa tots els que coincideixen amb aquest ID (tan sols n'hi haurà un perquè és PK)
+            esdeveniment_actual=self.model.objects.get(id=param)
+            context['esdeveniment']=esdeveniment_actual
         return context
