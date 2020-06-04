@@ -86,7 +86,8 @@ $(document).ready(function() {
                     console.log(link);
                     var id = item.id;
                     var nom = item.Nom;
-                    var descripcio = item.Descripcio;
+                    var info = item.Descripcio;
+                    var descripcio = (info.length > 50) ? info.substring(0, 50) + '...' : info;
                     var longitude = item.Lon,
                         latitude = item.Lat,
                         iconFeature = new ol.Feature({
