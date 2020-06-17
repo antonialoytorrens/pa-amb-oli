@@ -97,7 +97,7 @@ function carregaMapa() {
                                 geometry: new ol.geom.Point(ol.proj.transform([longitude, latitude], 'EPSG:4326',
                                     'EPSG:3857')),
                                 type: 'Point',
-                                desc: '<pre> <b>' + nom + ' </b> ' + '<br>' + descripcio + '<br>' + '<a href="/restaurants/?id=' + id + '#restaurant-seleccionat">Veure detalls del restaurant</a>' + '</pre>'
+                                desc: '<pre> <b>' + nom + ' </b> ' + '<br>' + descripcio + '<br>' + '<a href="/suggeriments/actualitza-restaurant/?id=' + id + '#restaurant-seleccionat">Veure detalls del restaurant</a>' + '</pre>'
                             }),
                             iconStyle = new ol.style.Style({
                                 image: new ol.style.Circle({

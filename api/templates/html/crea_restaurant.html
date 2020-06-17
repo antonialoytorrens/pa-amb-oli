@@ -24,10 +24,29 @@ web!{%endblock titulardescripcio%}
 
 <!--CONTINGUT DE LA PÀGINA-->
 
+{%block alerts%}
+<div id="crearestaurant" class="alert alert-success position-fixed centered-alert text-center" role="alert"
+    style="z-index: 1000; display: none;">
+    <p>El suggeriment ha estat enviat satisfactòriament.</p>
+</div>
+<div id="errorcrearestaurantcamps" class="alert alert-danger position-fixed centered-alert text-center" role="alert"
+    style="z-index: 1000; display: none;">
+    <h4 class="alert-heading">Error!</h4>
+    <p>Per favor, corregeix els camps marcats en vermell.</p>
+</div>
+<div id="errorcrearestaurant" class="alert alert-danger position-fixed centered-alert text-center" role="alert"
+    style="z-index: 1000; display: none;">
+    <h4 class="alert-heading">Error!</h4>
+    <p id="missatgeerror">No s'ha pogut enviar el suggeriment.</p>
+</div>
+{% endblock alerts%}
+
 {%block content%}
 {% if user.is_authenticated %}
 <!--SUGGEREIX L'ADDICIÓ D'UN RESTAURANT-->
 <div class="container">
+<form id="form_crea_restaurant" method="POST" enctype="multipart/form-data" action="{% url 'crea_restaurant' %}">
+{% csrf_token %}
     <div class="card">
         <div class="card-body">
             <div class="row">
@@ -38,20 +57,20 @@ web!{%endblock titulardescripcio%}
                         <div class="input-group-prepend">
                             <span class="input-group-text"><em class="fas fa-utensils" aria-hidden="true"></em></span>
                         </div>
-                        <input id="nomrestaurant" title="Nom del restaurant" type="text" class="form-control"
+                        <input id="nomrestaurant" name="nom" title="Nom del restaurant" type="text" class="form-control"
                             placeholder="Nom del restaurant">
                     </div>
                 </div>
                 <div class="col-md-6 my-auto">
-                    <label class="font-weight-bold">Localització <span id="errorlocalitzacio"
+                    <label class="font-weight-bold">Direcció <span id="errorlocalitzacio"
                             class="text-danger"></span></label>
                     <div class="input-group form-group" id="gruplocalitzacio">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><em class="fas fa-map-marker-alt"
                                     aria-hidden="true"></em></span>
                         </div>
-                        <input id="localitzacio" title="Localització" type="text" class="form-control"
-                            placeholder="Localització">
+                        <input id="localitzacio" name="direccio" title="Direcció" type="text" class="form-control"
+                            placeholder="Direcció">
                     </div>
                 </div>
             </div>
@@ -62,7 +81,7 @@ web!{%endblock titulardescripcio%}
                         <div class="input-group-prepend">
                             <span class="input-group-text"><em class="fas fa-clock" aria-hidden="true"></em></span>
                         </div>
-                        <input id="horari" title="Horari" type="text" class="form-control" placeholder="Horari">
+                        <input id="horari" name="horari" title="Horari" type="text" class="form-control" placeholder="Horari">
                     </div>
                 </div>
             </div>
@@ -74,7 +93,7 @@ web!{%endblock titulardescripcio%}
                         <div class="input-group-prepend">
                             <span class="input-group-text"><em class="fas fa-pen" aria-hidden="true"></em></span>
                         </div>
-                        <textarea id="descripcio" title="Descripció" type="text" class="form-control" rows="3"
+                        <textarea id="descripcio" name="descripcio" title="Descripció" type="text" class="form-control" rows="3"
                             style="resize: none;"></textarea>
                     </div>
                 </div>
@@ -87,29 +106,39 @@ web!{%endblock titulardescripcio%}
                         <div class="input-group-prepend">
                             <span class="input-group-text"><em class="fas fa-phone-alt" aria-hidden="true"></em></span>
                         </div>
-                        <input id="telefon" title="Telèfon" type="text" class="form-control" placeholder="Telèfon">
+                        <input id="telefon" name="telefon" title="Telèfon" type="text" class="form-control" placeholder="Telèfon">
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 my-auto">
+                <div class="col-md-4 my-auto">
                     <label class="font-weight-bold">Email (opcional) <span id="erroremail"
                             class="text-danger"></span></label>
                     <div class="input-group form-group" id="grupemail">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><em class="fas fa-envelope" aria-hidden="true"></em></span>
                         </div>
-                        <input id="email" title="Email" type="text" class="form-control" placeholder="Email">
+                        <input id="email" name="email" title="Email" type="text" class="form-control" placeholder="Email">
                     </div>
                 </div>
-                <div class="col-md-6 my-auto">
+                <div class="col-md-4 my-auto">
                     <label class="font-weight-bold">Fax (opcional) <span id="errorfax"
                             class="text-danger"></span></label>
                     <div class="input-group form-group" id="grupfax">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><em class="fas fa-fax" aria-hidden="true"></em></span>
                         </div>
-                        <input id="fax" title="Fax" type="text" class="form-control" placeholder="Fax">
+                        <input id="fax" name="fax" title="Fax" type="text" class="form-control" placeholder="Fax">
+                    </div>
+                </div>
+                <div class="col-md-4 my-auto">
+                    <label class="font-weight-bold">Web (opcional) <span id="errorweb"
+                            class="text-danger"></span></label>
+                    <div class="input-group form-group" id="grupweb">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><em class="fas fa-globe" aria-hidden="true"></em></span>
+                        </div>
+                        <input id="web" name="web" title="Web" type="text" class="form-control" placeholder="Web">
                     </div>
                 </div>
             </div>
@@ -150,13 +179,13 @@ web!{%endblock titulardescripcio%}
             <hr class="my-4" />
             <div class="row">
                 <div class="col-md-6" style="top: 0">
-                    <label class="font-weight-bold">Selecciona fotografies (opcional) <span
+                    <label class="font-weight-bold">Selecciona fotografia (opcional) <span
                             id="errorseleccionafotografies" class="text-danger"></span></label>
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><em class="fas fa-images" aria-hidden="true"></em></span>
                         </div>
-                        <input id="file-input" title="Selecciona fotografies" type="file" class="form-control" multiple>
+                        <input id="file-input" name="imatge" title="Selecciona fotografies" type="file" class="form-control">
                     </div>
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
@@ -164,12 +193,7 @@ web!{%endblock titulardescripcio%}
                                     aria-hidden="true"></em></span>
                             <span class="font-weight-bold p-2 form-control"
                                 style="height: auto; border-radius: 0;">Només estan permesos els arxius JPEG
-                                i
-                                PNG. Han de pesar menys d'1MB.</span>
-                            <span class="p-2 form-control"
-                                style="height: auto; border-bottom-left-radius: 0; border-top-left-radius: 0;"><b>Nota:
-                                </b> no podràs eliminar fotografies si no les has pujades tu o no ets el/la
-                                responsable del restaurant.</span>
+                                i PNG. La foto ha de pesar menys d'1MB.</span>
                         </div>
                     </div>
                 </div>
@@ -195,10 +219,11 @@ web!{%endblock titulardescripcio%}
                 <button title="Cancel·la" type="button" class="btn btn-danger btn-md">Cancel·la</button>
             </div>
             <div class="col my-auto text-center p-2">
-                <button id="envia" title="Envia" type="button" class="btn btn-primary btn-md">Envia</button>
+                <input id="envia" title="Envia" type="submit" class="btn btn-primary btn-md" value="Envia">
             </div>
         </div>
     </div>
+</form>
 </div>
 {% else %}
 <!-- Mostra un missatge, ja que per realitzar un suggeriment s'ha d'estar registrat o s'ha d'haver iniciat sessió -->
@@ -208,5 +233,5 @@ web!{%endblock titulardescripcio%}
 {% endif %}
 {% endblock content %}
 {%block ownscripts%}
-<script type="text/javascript" src="{% static 'js/crea_actu_restaurant.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/crea_restaurant.js' %}"></script>
 {%endblock ownscripts%}

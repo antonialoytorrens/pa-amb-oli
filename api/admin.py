@@ -1,14 +1,48 @@
 from django.contrib import admin
-from .models import Profile, Restaurant, FotoRestaurant, Noticia, FotoNoticia, Esdeveniment
+from .models import Profile, Restaurant, FotoRestaurant, Noticia, FotoNoticia, Esdeveniment, ComentariRestaurant, ValoracioRestaurant, SuggerimentRestaurant
 
-# Restaurant amb imatges
+# Perfil
+
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('nomillinatges', 'user')
+
+# Restaurant amb imatges i comentaris
 class FotoRestaurantInline(admin.TabularInline):
     model = FotoRestaurant
 
+class ComentariRestaurantInline(admin.TabularInline):
+    list_display = ('missatge', 'visible', 'get_user')
+    model = ComentariRestaurant
+
+    def get_user(self, obj):
+        return obj.profile.user
+    
+    get_user.admin_order_field = 'usuari__user'
+
+class ValoracioRestaurantInline(admin.TabularInline):
+    list_display = ('get_user', 'get_restaurant', 'valoracio')
+    model = ValoracioRestaurant
+
+    def get_user(self, obj):
+        return obj.profile.user
+
+    def get_restaurant(self, obj):
+        return obj.restaurant.nom
+    
+    get_user.admin_order_field = 'usuari__user'
+    get_restaurant.admin_order_field = 'restaurant__nom'
+
 class RestaurantAdmin(admin.ModelAdmin):
+    list_display = ('nom', 'telefon', 'direccio', 'responsable', 'visible', 'data_alta', 'data_modificacio')
+    ordering = ('visible', 'nom')
     inlines = [
         FotoRestaurantInline,
+        ComentariRestaurantInline,
+        ValoracioRestaurantInline,
     ]
+
+    """def get_user(self, obj):
+        return obj.profile.user.email"""
 
 # Noticia amb imatges
 
@@ -26,9 +60,24 @@ class NoticiaAdmin(admin.ModelAdmin):
 class EsdevenimentAdmin(admin.ModelAdmin):
     list_display = ('titol', 'since', 'until')
 
+# Suggeriments
+
+class SuggerimentRestaurantAdmin(admin.ModelAdmin):
+    list_display = ('get_user', 'get_restaurant', 'explicacio')
+
+    def get_user(self, obj):
+        return obj.profile.user
+
+    def get_restaurant(self, obj):
+        return obj.restaurant.nom
+    
+    get_user.admin_order_field = 'usuari__user'
+    get_restaurant.admin_order_field = 'restaurant__nom'
+
 # Register your models here.
 
 admin.site.register(Restaurant, RestaurantAdmin)
 admin.site.register(Noticia, NoticiaAdmin)
 admin.site.register(Esdeveniment, EsdevenimentAdmin)
-admin.site.register(Profile)
+admin.site.register(Profile, ProfileAdmin)
+admin.site.register(SuggerimentRestaurant, SuggerimentRestaurantAdmin)

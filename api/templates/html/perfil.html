@@ -20,107 +20,91 @@
 <!--CONTINGUT DE LA PÀGINA-->
 
 {%block content%}
+{% if profile.user.is_authenticated %}
     <div class="container">
         <div class="card">
             <div class="card-body">
+            <form id="formRegistre" method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
                 <div class="row">
-                    <div class="col-md-12">
-                        <label class="font-weight-bold">Nom i llinatges</label>
-                        <div class="input-group form-group">
+                    <div class="col-md-6">
+                        <label class="font-weight-bold">Nom i llinatges <span id="errornomillinatges" class="text-danger"></span></label>
+                        <div class="input-group form-group" id="grupnomillinatges" style="border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem;">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><em class="fas fa-signature" aria-hidden="true"></em></span>
+                            </div>
+                            <input id="nomillinatges" name="nomillinatges" title="Nom i llinatges" type="text" class="form-control"
+                                placeholder="Nom i llinatges" value="{{ profile.nomillinatges }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="font-weight-bold">Nom d'usuari <span id="errornomusuari" class="text-danger"></span></label>
+                        <div class="input-group form-group" id="grupnomusuari" style="border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem;">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><em class="fas fa-user" aria-hidden="true"></em></span>
                             </div>
-                            <input title="Nom i llinatges" type="text" class="form-control"
-                                placeholder="Nom i llinatges">
+                            <input id="username" name="username" title="Nom d'usuari" type="text" class="form-control"
+                                placeholder="Nom d'usuari" value="{{ user.username }}">
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label class="font-weight-bold">Data de naixement</label>
-                        <div class="input-group form-group">
+                        <label class="font-weight-bold">Data de naixement <span id="errordatanaixement" class="text-danger"></span></label>
+                        <div class="input-group form-group" id="grupdatanaixement" style="border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem;">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><em class="fas fa-calendar"
                                         aria-hidden="true"></em></span>
                             </div>
-                            <input title="Data de naixement" type="text" class="form-control"
-                                placeholder="Data de naixement">
+                            <input id="datanaixement" name="datanaixement" title="Data de naixement" type="text" class="form-control"
+                                placeholder="Data de naixement" value="{{ profile.datanaixement|date:'d-m-Y' }}">
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label class="font-weight-bold">Direcció</label>
-                        <div class="input-group form-group">
+                        <label class="font-weight-bold">Direcció <span id="errordireccio" class="text-danger"></span></label>
+                        <div class="input-group form-group" id="grupdireccio" style="border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem;">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><em class="fas fa-map-marker-alt"
                                         aria-hidden="true"></em></span>
                             </div>
-                            <input title="Direcció" type="text" class="form-control" placeholder="Direcció">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <label class="font-weight-bold">Contrasenya (8 caràcters mínim)</label>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><em class="fas fa-key" aria-hidden="true"></em></span>
-                            </div>
-                            <input title="Contrasenya" type="password" class="form-control" placeholder="Contrasenya">
-                            <input title="Repeteix la contrasenya" type="password" class="form-control"
-                                placeholder="Repeteix la contrasenya">
+                            <input id="direccio" name="direccio" title="Direcció" type="text" class="form-control" placeholder="Direcció" value="{{ profile.direccio }}">
                         </div>
                     </div>
                 </div>
                 <hr class="my-4" />
                 <div class="row">
-                    <div class="col-md-6 my-auto">
-                        <label class="font-weight-bold">Email</label>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><em class="fas fa-envelope"
-                                        aria-hidden="true"></em></span>
-                            </div>
-                            <input title="Email" type="text" class="form-control" placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="col-md-6 my-auto">
-                        <label class="font-weight-bold">Telèfon (opcional)</label>
-                        <div class="input-group form-group">
+                    <div class="col-md-12 my-auto">
+                        <label class="font-weight-bold">Telèfon (opcional) <span id="errortelefon" class="text-danger"></span></label>
+                        <div class="input-group form-group" id="gruptelefon" style="border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem;">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><em class="fas fa-phone-alt"
                                         aria-hidden="true"></em></span>
                             </div>
-                            <input title="Telèfon" type="text" class="form-control" placeholder="Telèfon">
+                        {% if profile.telefon == "-" %}
+                            <input id="telefon" name="telefon" title="Telèfon" type="text" class="form-control" placeholder="Telèfon">
+                        {% else %}
+                            <input id="telefon" name="telefon" title="Telèfon" type="text" class="form-control" placeholder="Telèfon" value="{{ profile.telefon }}">
+                        {% endif %}
                         </div>
                     </div>
                 </div>
                 <hr class="my-4" />
                 <div class="row m-2">
                     <div class="col-md-12 text-center">
-                        <h4 class="font-weight-bold">Foto de perfil</h4>
+                        <h4 class="font-weight-bold">Foto de perfil <span id="errorfotoperfil" class="text-danger"></span></h4>
                     </div>
                 </div>
                 <div class="row profile">
                     <div class="col-md-12">
                         <div class="profile-sidebar">
                             <div class="profile-userpic">
-                                <img src="{% static 'images/base.jpeg' %}"
+                                <img id="foto-perfil" src="{% static 'images/base.png' %}"
                                     class="img-responsive" alt="">
                             </div>
-                            <div class="profile-usertitle">
-                                <div class="profile-usertitle-name">
-                                    Lorem Ipsum
-                                </div>
-                                <div class="profile-usertitle-job">
-                                   loremipsumdolor@gmail.com
-                                </div>
-                                <div class="profile-usertitle-job">
-                                   +34 123 456 780
-                                </div>
-                            </div>
                             <div class="profile-userbuttons mt-2">
-                                <button type="button" class="btn btn-success btn-sm mb-2">Tria una foto de perfil</button>
-                                <button type="button" class="btn btn-danger btn-sm mb-2">Elimina la foto de perfil</button>
+                                <button type="button" id="selecciona-foto-perfil" class="btn btn-success btn-sm mb-2">Selecciona una foto de perfil</button>
+                                <input id="file-input" type="file" name="file-input" style="display: none;" accept="image/x-png,image/jpeg,image/jpg">
+                                <button type="button" id="elimina-foto-perfil" class="btn btn-danger btn-sm mb-2" style="display: none;">Elimina la foto de perfil</button>
                             </div>
                         </div>
                     </div>
@@ -128,16 +112,34 @@
                 <hr class="my-4" />
                 <div class="row">
                     <div class="col my-auto text-center p-2">
-                        <button title="Cancel·la" type="button"
-                            class="btn btn-danger btn-md">Cancel·la</button>
+                        <button id="cancela" title="Cancel·la" type="button"
+                            class="btn btn-danger btn-md mb-2">Cancel·la</button>
                     </div>
                     <div class="col my-auto text-center p-2">
-                        <button title="Guarda" type="button"
-                            class="btn btn-primary btn-md">Guarda</button>
+                        <button type="submit" id="registre" title="Guarda" type="button"
+                            class="btn btn-primary btn-md mb-2">Guarda</button>
+                    </div>
+                </div>
+            </div>
+            </form>
+            <div class="card-footer">
+            <div class="row mt-3">
+                    <div class="col-md-12">
+                            <p class="text-center">Ja tens un compte? <a class="btn-link" href="/login/">Inicia la sessió aquí.</a></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     <!------------------------->
-</div>
+{% else %}
+
+{% include 'perfil_info.html' %}
+
+{% endif %}
 {%endblock content%}
+{%block ownscripts%}
+<script type="text/javascript" src="{% static 'js/registre.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/perfil.js' %}"></script>
+{%endblock ownscripts%}

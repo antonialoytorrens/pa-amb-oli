@@ -1,27 +1,29 @@
-$(document).ready(function () {
-    carregaOnClick();
+$(document).ready(function() {
     carregaOnChange();
+    carregaOnClick();
     $("#banner-multimedia").simpleBanner({
         dots: 'dots-pagi',
         autoPlay: false,
     });
 });
 
-function carregaOnClick() {
-    $("#envia").click(function () {
-        /* Si la suggerència és vàlida mostra el missatge indicant que tot ha anat bé. En cas contrari, mostra el missatge d'error */
-        let valid = validaRestaurant();
-        if (valid) {
-            creaRestaurant()
-        } else {
-            $("#error-crear-restaurant").fadeIn().delay(5000).fadeOut();
-        }
+function carregaOnChange() {
+    $("#file-input").change(function() {
+        carregaImatge(this);
     });
 }
 
-function carregaOnChange() {
-    $("#file-input").change(function () {
-        carregaImatge(this);
+function carregaOnClick() {
+    /* Si la suggerència és vàlida mostra el missatge indicant que tot ha anat bé. En cas contrari, mostra el missatge d'error */
+    $("#envia").click(function(e) {
+        e.preventDefault();
+        let valid = validaRestaurant();
+        if (valid) {
+            $("#form_crea_restaurant").submit();
+            $("#crearestaurant").fadeIn().delay(5000).fadeOut();
+        } else {
+            $("#errorcrearestaurantcamps").fadeIn().delay(5000).fadeOut();
+        }
     });
 }
 
@@ -84,33 +86,6 @@ function comprovaNoBuit() {
         $("#gruphorari").css("border", "none");
     }
 
-    if (!$("#telefon").val()) {
-        valid = false;
-        $("#errortelefon").html(missatgeError);
-        $("#gruptelefon").css("border", "1px solid red");
-    } else {
-        $("#errortelefon").html("");
-        $("#gruptelefon").css("border", "none");
-    }
-
-    if (!$("#email").val()) {
-        valid = false;
-        $("#erroremail").html(missatgeError);
-        $("#grupemail").css("border", "1px solid red");
-    } else {
-        $("#erroremail").html("");
-        $("#grupemail").css("border", "none");
-    }
-
-    if (!$("#fax").val()) {
-        valid = false;
-        $("#errorfax").html(missatgeError);
-        $("#grupfax").css("border", "1px solid red");
-    } else {
-        $("#errorfax").html("");
-        $("#grupfax").css("border", "none");
-    }
-
     if (!$("#responsableRestaurantSi").is(':checked') && !$("#responsableRestaurantNo").is(':checked')) {
         valid = false;
         $("#errorresponsablerestaurant").html(missatgeError);
@@ -123,12 +98,6 @@ function comprovaNoBuit() {
         $("#errorreservataula").html(missatgeError);
     } else {
         $("#errorreservataula").html("");
-    }
-
-    if (!validaFotoPerfil()) {
-        valid = false;
-    } else {
-        $("#errorfotoperfil").html("");
     }
 
     return valid;
@@ -144,10 +113,16 @@ function comprovaRegex() {
     // http://emailregex.com/
     let regexEmail = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
 
-    if (!regexEmail.test($("#email").val())) {
+    // https://regexr.com/3e4a2
+    let regexWeb = /^(https?:\/\/)?(www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|(https?:\/\/)?(www\.)?(?!ww)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/;
+
+    if ($("#email").val() && !regexEmail.test($("#email").val())) {
         valid = false;
         $("#erroremail").html(missatgeError);
         $("#grupemail").css("border", "1px solid red");
+    } else {
+        $("#erroremail").html("");
+        $("#grupemail").css("border", "none");
     }
 
     // Si el telèfon és buit, no el validis, només valida quan té un número escrit.
@@ -156,6 +131,29 @@ function comprovaRegex() {
         valid = false;
         $("#errortelefon").html(missatgeError);
         $("#gruptelefon").css("border", "1px solid red");
+    } else {
+        $("#errortelefon").html("");
+        $("#gruptelefon").css("border", "none");
+    }
+
+    // El mateix passa però amb la pàgina web i el fax
+
+    if ($("#web").val() && !regexWeb.test($("#web").val())) {
+        valid = false;
+        $("#errorweb").html(missatgeError);
+        $("#grupweb").css("border", "1px solid red");
+    } else {
+        $("#errorweb").html("");
+        $("#grupweb").css("border", "none");
+    }
+
+    if ($("#fax").val() && !regexTelefon.test($("#fax").val())) {
+        valid = false;
+        $("#errorfax").html(missatgeError);
+        $("#grupfax").css("border", "1px solid red");
+    } else {
+        $("#errorfax").html("");
+        $("#grupfax").css("border", "none");
     }
 
     return valid;
@@ -183,7 +181,7 @@ function carregaImatge(input) {
                 var li = $("<li></li>");
                 $("#img-list").append(li);
                 reader.readAsDataURL(input.files[i]); // convert to base64 string
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     var img = $("<img src='" + e.target.result + "' class='img-responsive' alt=''>");
                     console.log(i);
                     $(li).append(img);

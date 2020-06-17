@@ -47,7 +47,15 @@ function actualitzaPerfil() {
 }
 
 function validaRegistre() {
-    return comprovaNoBuit() && comprovaRegex();
+    let valid = true;
+    if (!comprovaNoBuit()) {
+        valid = false;
+    }
+    if (!comprovaRegex()) {
+        valid = false;
+    }
+
+    return valid;
 }
 
 /* Comprova que els camps obligatoris no estiguin buits */
@@ -116,11 +124,11 @@ function comprovaNoBuit() {
         $("#grupnomusuari").css("border", "none");
     }
 
-    if (!validaFotoPerfil()) {
+    /*if (!validaFotoPerfil()) {
         valid = false;
     } else {
         $("#errorfotoperfil").html("");
-    }
+    }*/
 
     return valid;
 }
@@ -130,8 +138,9 @@ function comprovaRegex() {
     let valid = true;
     let missatgeError = "No concorda amb el format.";
 
-    // https://stackoverflow.com/questions/16462297/regex-for-date-validation-in-javascript
-    let regexDataNaixement = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
+    // https://stackoverflow.com/questions/15491894/regex-to-validate-date-format-dd-mm-yyyy
+    // https://www.regextester.com/99555
+    let regexDataNaixement = /^([0-2][0-9]|(3)[0-1])(\-)(((0)[0-9])|((1)[0-2]))(\-)\d{4}$/;
 
     let regexTelefon = /^(\+[0-9]{2,4}\s)?[0-9]{3,14}$/;
 
@@ -183,55 +192,6 @@ function comprovaPassword() {
     return valid;
 }
 
-// Si no s'ha seleccionat cap foto de perfil, és vàlid. Però si n'hi ha, comprova que s'ha seleccionat un arxiu .png, .jpg i que pesi menys de 3 MB.
-function validaFotoPerfil() {
-    valid = false;
-    let missatgeError = "Només s'accepten imatges .png, o .jpg";
-
-    if ($("#file-input").val() === "") {
-        valid = true;
-        $("#errorfotoperfil").html("");
-    } else {
-        let tamanyFitxer = $("#file-input")[0].files[0].size;
-        let extensioImatge = $("#file-input").val().slice(this.length - 3);
-        if (
-            tamanyFitxer <= 3000000 && (extensioImatge === 'png' || extensioImatge === 'jpg')
-        ) {
-            valid = true;
-            $("#errorfotoperfil").html("");
-            $("#elimina-foto-perfil").show();
-        } else {
-            $("#errorfotoperfil").html(missatgeError);
-        }
-    }
-    return valid;
-}
-
-
-// Carrega imatge de perfil a mode de previsualització (sense realitzar cap tipus de petició)
-
-function carregaImatge(input) {
-    if (validaFotoPerfil()) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function(e) {
-                $('#foto-perfil').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(input.files[0]); // convert to base64 string
-        }
-    } else {
-        // Deixa input en blanc, i torna a posar l'imatge per defecte
-        //$("#file-input").val("C:\\fakepath\\base.png");
-        $("#foto-perfil").attr("src", "/static/images/base.png");
-    }
-}
-
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-
 // Crea el Perfil
 function creaPerfil() {
     var formData = new FormData();
@@ -239,7 +199,7 @@ function creaPerfil() {
     formData.append("username", $("#username").val());
     formData.append("datanaixement", $("#datanaixement").val());
     formData.append("direccio", $("#direccio").val());
-    formData.append("contrasenya", $("#password").val());
+    formData.append("password", $("#password").val());
     formData.append("email", $("#email").val());
     formData.append("telefon", $("#telefon").val());
     formData.append("fotoperfil", $("#file-input").val());
@@ -271,7 +231,7 @@ function creaPerfil() {
                 $("#errorusuaricreat").fadeIn().delay(5000).fadeOut();
             } else {
                 $("#usuaricreat").fadeIn().delay(5000).fadeOut();
-                window.location.href = "/accounts/login/";
+                setTimeout(function() { window.location.href = "/accounts/login/"; }, 5000);
             }
         },
         error: function(data) {

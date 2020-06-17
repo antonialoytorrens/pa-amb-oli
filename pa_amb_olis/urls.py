@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView
 from django.conf import settings
@@ -25,20 +26,29 @@ urlpatterns = [
     path('', views.RestaurantList.as_view(), name='llista_restaurants'),
     path('quiSom/', TemplateView.as_view(template_name='html/quiSom.html')),
     path('suggeriments/', TemplateView.as_view(template_name='html/suggeriments.html')),
-    path('suggeriments/actualitza-restaurant/', TemplateView.as_view(template_name='html/actu_restaurant.html')),
+    #path('suggeriments/actualitza-restaurant/', TemplateView.as_view(template_name='html/actu_restaurant.html')),
+
+    path('suggeriments/actualitza-restaurant/', views.RestaurantSuggerimentList.as_view(), name='llista_restaurants_suggeriments'),
+    path('suggeriments/actualitza-restaurant/envia/', views.RestaurantSuggerimentActualitza.as_view(), name='actualitza_restaurant_suggeriment'),
+
     path('suggeriments/crea-restaurant/', TemplateView.as_view(template_name='html/crea_restaurant.html')),
-    path('suggeriments/actualitza-imatges/', TemplateView.as_view(template_name='html/crud_imatges_restaurant.html')),
-    path('suggeriments/crea-promocio/', TemplateView.as_view(template_name='html/promocio_noticia.html')),
+    #path('suggeriments/actualitza-imatges/', TemplateView.as_view(template_name='html/crud_imatges_restaurant.html')),
+    #path('suggeriments/crea-promocio/', TemplateView.as_view(template_name='html/promocio_noticia.html')),
     path('registre/', TemplateView.as_view(template_name='html/registre.html')),
-    path('perfil/', TemplateView.as_view(template_name='html/perfil.html')),
+    path('perfil/<int:pk>/', views.ProfileDetail.as_view(), name='info_perfil'),
 
     #CRUD PERFIL
     path('perfil/crea/', views.ProfileCreate.as_view(), name='crea_perfil'),
-    #path('perfil/update/<uuid:perfil_id>', views.ProfileUpdate.as_view(), name='perfil_update'),
+    #path('perfil/<int:pk>/update/', views.ProfileUpdate.as_view(), name='perfil_update'),
 
     #GET RESTAURANTS
     path('restaurants/', views.RestaurantList.as_view(), name='llista_restaurants'),
+    path('restaurants/crea/', views.RestaurantCreate.as_view(), name='crea_restaurant'),
     path('restaurants/mapa/', views.RestaurantMapaList.as_view(), name='llista_mapa_restaurants'),
+    path('restaurants/mapa/suggeriment/', views.RestaurantMapaList.as_view(), name='llista_mapa_restaurants_suggeriments'),
+    path('restaurants/comentaris/', views.RestaurantList.as_view(), name='llista_restaurants_comentaris'),
+    path('restaurants/comentaris/crea/', views.RestaurantComentariCreate.as_view(), name='crea_comentari_restaurant'),
+    path('restaurants/valoracio/envia/', views.RestaurantValoracioCreate.as_view(), name='envia_valoracio_restaurant'),
 
     #GET NOTICIES
     path('noticies/', views.NoticiaList.as_view(), name='llista_noticies'),
@@ -56,3 +66,4 @@ if settings.DEBUG:
     urlpatterns = [
         path('__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

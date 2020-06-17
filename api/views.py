@@ -1,7 +1,10 @@
+from django.http import HttpResponse
+from django.views.generic.edit import UpdateView
 from django.views.generic import View
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 
 # Create your views here.
 
@@ -12,7 +15,7 @@ from django.utils.decorators import method_decorator
 from django.forms.models import model_to_dict
 from django.template.response import TemplateResponse
 from django.views.generic.edit import CreateView
-from .models import Profile, Restaurant, Noticia, Esdeveniment
+from .models import Profile, Restaurant, Noticia, Esdeveniment, FotoRestaurant, ComentariRestaurant, ValoracioRestaurant, SuggerimentRestaurant
 import logging
 log = logging.getLogger(__name__)
 
@@ -22,12 +25,20 @@ class ProfileForm(forms.ModelForm):
     email=forms.EmailField()
     username=forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput, required=True)
+    datanaixement = forms.CharField()
     def clean(self):
         log.debug('entrant al clean')
-        #import pdb; pdb.set_trace()
+        
         cleaned_data=super().clean()
         email=cleaned_data.get('email')
         username=cleaned_data.get('username')
+        datanaixement=cleaned_data.get('datanaixement')
+        password=cleaned_data.get('password')
+        dia=datanaixement.split("-")[0]
+        mes=datanaixement.split("-")[1]
+        any=datanaixement.split("-")[2]
+        datanaixement = any + "-" + mes + "-" + dia
+        cleaned_data['datanaixement']=datanaixement
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError("L'email ja existeix")
         else:
@@ -38,7 +49,7 @@ class ProfileForm(forms.ModelForm):
                 #u.username = email.split("@",1)[0]  # Agafa abans del simbol @
                 u.username = username
                 u.set_password(cleaned_data.get('password'))
-                import pdb; pdb.set_trace()
+                
                 u.email = email
                 u.save()
         
@@ -48,30 +59,111 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         exclude = ['user']
 
+class RestaurantForm(forms.ModelForm):
+    def clean(self):
+        
+        cleaned_data=super().clean()
+        return cleaned_data
 
-"""class ProfileList(View):
-    def get(self, request):
-        profiles = list(Profile.objects.all().values())
-        data = dict()
-        data['profiles'] = profiles
-        return JsonResponse(data)
+    class Meta:
+        model = Restaurant
+        fields = "__all__"
 
+class ProfileUpdateForm(forms.ModelForm):
+    """Si s'usuari no existeix en validar l'ha de crear i assignar"""
+    email=forms.EmailField()
+    username=forms.CharField()
+    profile_id=forms.CharField()
+    datanaixement = forms.CharField()
+    def clean(self):
+        log.debug('entrant al clean')
+        import pdb; pdb.set_trace()
+        cleaned_data=super().clean()
+        username=cleaned_data.get('username')
+        email=User.objects.filter(username=username).email
+        datanaixement=cleaned_data.get('datanaixement')
+        dia=datanaixement.split("-")[0]
+        mes=datanaixement.split("-")[1]
+        any=datanaixement.split("-")[2]
+        datanaixement = any + "-" + mes + "-" + dia
+        cleaned_data['datanaixement']=datanaixement
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("L'email ja existeix")
+        else:
+            if User.objects.filter(username=username).exists():
+                raise forms.ValidationError("El nom d'usuari ja existeix")
+            else:
+                u=User()
+                #u.username = email.split("@",1)[0]  # Agafa abans del simbol @
+                u.username = username
+                #u.set_password(cleaned_data.get('password'))
+                
+                u.email = email
+                u.save()
+        
+        return cleaned_data
 
-class ProfileListLast(View):
-    def get(self, request):
-        profiles = list(Profile.objects.latest().values())
-        data = dict()
-        data['profiles'] = profiles
-        return JsonResponse(data)
+    class Meta:
+        model = Profile
+        exclude = ['user']
 
+class RestaurantComentariForm(forms.ModelForm):
+    profile=forms.CharField()
+    def clean(self):
+        log.debug('entrant al clean')
+        
+        cleaned_data=super().clean()
+        restaurant=cleaned_data.get('restaurant')
+        try:
+            profile=Profile.objects.get(id=cleaned_data.get('profile'))
+            cleaned_data['profile']=profile
+        except Profile.DoesNotExist:
+            raise forms.ValidationError("L'usuari no existeix")
 
-class ProfileDetail(View):
-    def get(self, request, pk):
-        profile = get_object_or_404(Profile, pk=pk)
-        data = dict()
-        data['profile'] = model_to_dict(profile)
-        return JsonResponse(data)"""
+        if not Restaurant.objects.filter(pk=restaurant.id).exists():
+            raise forms.ValidationError("El restaurant no existeix")
 
+        return cleaned_data
+
+    class Meta:
+        model = ComentariRestaurant
+        fields = "__all__"
+
+class RestaurantValoracioForm(forms.ModelForm):
+    profile=forms.CharField()
+    def clean(self):
+        log.debug('entrant al clean')
+        
+        cleaned_data=super().clean()
+        restaurant=cleaned_data.get('restaurant')
+        try:
+            profile=Profile.objects.get(id=cleaned_data.get('profile'))
+            cleaned_data['profile']=profile
+        except Profile.DoesNotExist:
+            raise forms.ValidationError("L'usuari no existeix")
+
+        if not Restaurant.objects.filter(pk=restaurant.id).exists():
+            raise forms.ValidationError("El restaurant no existeix")
+
+        return cleaned_data
+
+    class Meta:
+        model = ValoracioRestaurant
+        fields = "__all__"
+
+class RestaurantSuggerimentActualitzaForm(forms.ModelForm):
+    
+    def clean(self):
+        log.debug('entrant al clean')
+        cleaned_data=super().clean()
+        #import pdb; pdb.set_trace()
+        #cleaned_data['restaurant'] = Restaurant.objects.get(id=cleaned_data.get('id'))
+
+        return cleaned_data
+
+    class Meta:
+        model = SuggerimentRestaurant
+        exclude = ['profile', 'restaurant']
 
 @method_decorator(csrf_exempt, name='dispatch')
 class ProfileCreate(CreateView):
@@ -79,7 +171,6 @@ class ProfileCreate(CreateView):
         log.debug('entrant al post de profile')
         data = dict()
         form = ProfileForm(request.POST)
-        #no volem gravar directe
         """
         1. Comprovar que l'usuari no existeix
         1.1 Si no existeix el cream i en el guardam per assignar-lo al model
@@ -87,11 +178,16 @@ class ProfileCreate(CreateView):
         """
         # AUTOCOMMIT FALSE! Millor fer-ho tot manual a l'hora de guardar la variable "user"
         if form.is_valid():
-            profile = form.save(commit=False)
+            
             user = User.objects.get(email=form.cleaned_data.get('email'))
-            profile.user = user
-            profile.save()
-            #data['profile'] = model_to_dict(profile)
+            
+            obj, created = Profile.objects.update_or_create(user=user, 
+                defaults={'nomillinatges': form.cleaned_data.get('nomillinatges'), 
+                'datanaixement': form.cleaned_data.get('datanaixement'), 
+                'direccio': form.cleaned_data.get('direccio'),
+                'telefon': form.cleaned_data.get('telefon'),
+                'fotoperfil': form.cleaned_data.get('fotoperfil')}
+            )
         else:
             user = User.objects.get(email=form.cleaned_data.get('email'))
             # Si l'usuari està creat i el perfil no, s'ha de borrar l'usuari (excepte l'administrador)
@@ -101,6 +197,101 @@ class ProfileCreate(CreateView):
             data['error'] = "Formulari invàlid!"
             data['errors'] = form.errors
             log.error('Error en el registre {}'.format(form.errors))
+        return JsonResponse(data)
+
+"""class ProfileUpdate(UpdateView):
+
+    def post(self, request):
+        log.debug('entrant al post de profile')
+        data = dict()
+        form = ProfileUpdateForm(request.POST)
+        #no volem gravar directe
+
+        #1. Comprovar que l'usuari no existeix
+        #1.1 Si no existeix el cream i en el guardam per assignar-lo al model
+        #1.2 Si existeix donam error
+
+        # AUTOCOMMIT FALSE! Millor fer-ho tot manual a l'hora de guardar la variable "user"
+        if form.is_valid():
+            
+            #profile = form.save(commit=False)
+            user = User.objects.get(email=form.cleaned_data.get('email'))
+            #profile.user = user
+            #profile.save()
+            #data['profile'] = model_to_dict(profile)
+            
+            obj, created = Profile.objects.update_or_create(user=user, 
+                defaults={'nomillinatges': form.cleaned_data.get('nomillinatges'), 
+                'datanaixement': form.cleaned_data.get('datanaixement'), 
+                'direccio': form.cleaned_data.get('direccio'),
+                'telefon': form.cleaned_data.get('telefon'),
+                'fotoperfil': form.cleaned_data.get('fotoperfil')}
+            )
+        else:
+            user = User.objects.get(email=form.cleaned_data.get('email'))
+            # Si l'usuari està creat i el perfil no, s'ha de borrar l'usuari (excepte l'administrador)
+            if not user.is_superuser:
+                if not hasattr(user, 'profile'):
+                    user.delete()
+            data['error'] = "Formulari invàlid!"
+            data['errors'] = form.errors
+            log.error('Error en el registre {}'.format(form.errors))
+        
+        return JsonResponse(data)"""
+
+@method_decorator(csrf_exempt, name='dispatch')
+class RestaurantCreate(CreateView):
+    def post(self, request):
+        log.debug("Entrant al post de restaurant")
+        
+        data = dict()
+        form = RestaurantForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+        else:
+            data['errors'] = form.errors
+            log.error('Error en la creació del restaurant {}'.format(form.errors))
+        return redirect('/restaurants/')
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class RestaurantComentariCreate(CreateView):
+    def post(self, request):
+        log.debug('entrant al post de comentari restaurant')
+        
+        data = dict()
+        form = RestaurantComentariForm(request.POST)
+        """
+        1. Comprovar que l'id del perfil i l'id del restaurant hi són
+        """
+        if form.is_valid():
+            form.save()
+        else:
+            data['errors'] = form.errors
+            log.error('Error en la creació del comentari {}'.format(form.errors))
+        return JsonResponse(data)
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class RestaurantValoracioCreate(CreateView):
+    def post(self, request):
+        log.debug('entrant al post de comentari restaurant')
+        
+        data = dict()
+        form = RestaurantValoracioForm(request.POST)
+        """
+        1. Comprovar que l'id del perfil i l'id del restaurant hi són
+        2. Si resulta que l'usuari ja té una valoració d'aquest restaurant, no en crees una nova, només l'actualitzes
+        """
+        if form.is_valid():
+            restaurant = form.cleaned_data.get('restaurant')
+            profile = form.cleaned_data.get('profile')
+            obj, created = ValoracioRestaurant.objects.update_or_create(restaurant=restaurant, 
+                profile=profile,
+                defaults={'valoracio': form.cleaned_data.get('valoracio')})
+        else:
+            data['errors'] = form.errors
+            log.error('Error en enviar la valoració {}'.format(form.errors))
         return JsonResponse(data)
 
 
@@ -114,19 +305,22 @@ class ProfileCreate(CreateView):
             data['profile'] = model_to_dict(profile)
         else:
             data['error'] = "form not valid!"
-        return JsonResponse(data)
-
-
-class ProfileDelete(View):
-    def post(self, request, pk):
-        data = dict()
-        profile = Profile.objects.get(pk=pk)
-        if profile:
-            profile.delete()
-            data['message'] = "Profile deleted!"
-        else:
-            data['message'] = "Error!"
         return JsonResponse(data)"""
+
+class ProfileDetail(DetailView):
+
+    model = Profile
+    template_name="html/perfil.html"
+
+    def get_object(self, queryset=None):
+        user = self.request.user
+        # Agafa pk de la URL
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        profile = Profile.objects.get(pk=pk)
+        if profile.user != user:
+           return HttpResponse(status=500)
+        else:
+            return profile
 
 class RestaurantList(ListView):
 
@@ -134,15 +328,108 @@ class RestaurantList(ListView):
     template_name="html/restaurants.html"
 
     def get_context_data(self, **kwargs):
-        #import pdb; pdb.set_trace()
+        
         context = super().get_context_data(**kwargs)
         if 'id' in self.request.GET:
             param=self.request.GET['id']
+
             # Si tens un ID, t'agafa tots els que coincideixen amb aquest ID (tan sols n'hi haurà un perquè és PK)
+
             restaurant_actual=self.model.objects.get(id=param)
             context['restaurant']=restaurant_actual
+
+            # Agafa la foto del restaurant (si en té)
+
+            if FotoRestaurant.objects.filter(restaurant_id=param).exists():
+                foto_restaurant=FotoRestaurant.objects.filter(restaurant_id=param).first()
+                context['foto_restaurant']=foto_restaurant
+
+            # Agafa els comentaris del restaurant (si en té)
+
+            if ComentariRestaurant.objects.filter(restaurant_id=param).exists():
+                
+                comentaris_restaurant=ComentariRestaurant.objects.filter(restaurant_id=param).all().order_by("-data")
+                context['comentaris_restaurant']=comentaris_restaurant
+
+            # Agafa la valoració que ha fet l'usuari (ha d'haver iniciat sessió)
+
+            if self.request.user.is_authenticated:
+                profile = Profile.objects.get(user=self.request.user)
+                try:
+                    v = ValoracioRestaurant.objects.get(restaurant_id=param, profile=profile).valoracio
+                except ValoracioRestaurant.DoesNotExist:
+                    v = 0
+
+                context['stars']=v
+                
         return context
 
+class RestaurantSuggerimentList(ListView):
+
+    model = Restaurant
+    template_name="html/actu_restaurant.html"
+
+    def get_context_data(self, **kwargs):
+        
+        context = super().get_context_data(**kwargs)
+        if 'id' in self.request.GET:
+            param=self.request.GET['id']
+
+            # Si tens un ID, t'agafa tots els que coincideixen amb aquest ID (tan sols n'hi haurà un perquè és PK)
+
+            restaurant_actual=self.model.objects.get(id=param)
+            context['restaurant']=restaurant_actual
+
+            # Agafa la foto del restaurant (si en té)
+
+            if FotoRestaurant.objects.filter(restaurant_id=param).exists():
+                foto_restaurant=FotoRestaurant.objects.filter(restaurant_id=param).first()
+                context['foto_restaurant']=foto_restaurant
+
+            # Agafa els comentaris del restaurant (si en té)
+
+            if ComentariRestaurant.objects.filter(restaurant_id=param).exists():
+                
+                comentaris_restaurant=ComentariRestaurant.objects.filter(restaurant_id=param).all().order_by("-data")
+                context['comentaris_restaurant']=comentaris_restaurant
+
+            # Agafa la valoració que ha fet l'usuari (ha d'haver iniciat sessió)
+
+            if self.request.user.is_authenticated:
+                profile = Profile.objects.get(user=self.request.user)
+                try:
+                    v = ValoracioRestaurant.objects.get(restaurant_id=param, profile=profile).valoracio
+                except ValoracioRestaurant.DoesNotExist:
+                    v = 0
+
+                context['stars']=v
+                
+        return context
+
+class RestaurantSuggerimentActualitza(ListView):
+
+    model = SuggerimentRestaurant
+    template_name="html/actu_restaurant.html"
+
+    def post(self, request):
+        log.debug("Entrant al post de restaurant")
+        #import pdb; pdb.set_trace()
+        data = dict()
+
+        username_id = self.request.user.id
+        profile = Profile.objects.get(user_id=username_id)
+        restaurant = Restaurant.objects.get(id=request.GET['id'])
+
+        form = RestaurantSuggerimentActualitzaForm(request.POST)
+        if form.is_valid():
+            suggeriment = form.save(commit=False)
+            suggeriment.profile = profile
+            suggeriment.restaurant = restaurant
+            suggeriment.save()
+        else:
+            data['errors'] = form.errors
+            log.error('Error en la creació del restaurant {}'.format(form.errors))
+        return redirect('/restaurants/')
 
 class RestaurantMapaList(ListView):
     def get(self, request):
@@ -165,7 +452,7 @@ class EsdevenimentList(ListView):
     template_name="html/esdeveniments.html"
 
     def get_context_data(self, **kwargs):
-        #import pdb; pdb.set_trace()
+        
         context = super().get_context_data(**kwargs)
         if 'id' in self.request.GET:
             param=self.request.GET['id']

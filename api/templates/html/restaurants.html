@@ -2,9 +2,9 @@
 {% load static %}
 
 {% if restaurant %}
-        <script type="text/javascript" language="javascript">
-        function moveWindow (){window.location.hash="restaurant-seleccionat";}
-        </script>
+<script type="text/javascript" language="javascript">
+    function moveWindow() { window.location.hash = "restaurant-seleccionat"; }
+</script>
 {% endif %}
 
 <!--TITULAR-->
@@ -25,7 +25,45 @@
 {%block routetitle%}Restaurants{%endblock routetitle%}
 
 <!--CONTINGUT DE LA PÀGINA-->
+
+{%block alerts%}
+<div id="comentarienviat" class="alert alert-success position-fixed centered-alert text-center" role="alert"
+    style="z-index: 1000; display: none;">
+    <p>El comentari ha estat registrat satisfactòriament.</p>
+</div>
+<div id="errorcomentaricamps" class="alert alert-danger position-fixed centered-alert text-center" role="alert"
+    style="z-index: 1000; display: none;">
+    <h4 class="alert-heading">Error!</h4>
+    <p>Per favor, corregeix els camps marcats en vermell.</p>
+</div>
+<div id="errorcomentarienviat" class="alert alert-danger position-fixed centered-alert text-center" role="alert"
+    style="z-index: 1000; display: none;">
+    <h4 class="alert-heading">Error!</h4>
+    <p id="missatgeerror">No s'ha pogut registrar el comentari.</p>
+</div>
+
+
+<div id="valoracioenviada" class="alert alert-success position-fixed centered-alert text-center" role="alert"
+    style="z-index: 1000; display: none;">
+    <p>Gràcies per la valoració!</p>
+</div>
+<div id="errorvaloracioenviada" class="alert alert-danger position-fixed centered-alert text-center" role="alert"
+    style="z-index: 1000; display: none;">
+    <h4 class="alert-heading">Error!</h4>
+    <p id="missatgeerror2">No s'ha pogut enviar la valoració.</p>
+</div>
+
+
+<div id="reservaalert" class="alert alert-warning position-fixed centered-alert text-center" role="alert"
+    style="z-index: 1000; display: none;">
+    <p>Vols reservar al restaurant {{ restaurant.nom }}?</p>
+</div>
+{%endblock alerts%}
+
 {%block content%}
+<input type="hidden" id="restaurant_id" value="{{ restaurant.id }}">
+<input type="hidden" id="profile_id" value="{{ user.profile.id }}">
+
 <div class="aboutus-secktion paddingTB30">
     <div class="container">
         <div id="searchbar" class="navbar-nav btn ml-auto nav-flex pr-0" data-toggle="collapse">
@@ -39,63 +77,44 @@
         <hr class="my-4" />
         <div class="row">
             <div class="input-group form-group">
-            <div class="embed-responsive embed-responsive-16by9">
-            <iframe id="mapaRestaurants"
-    title="Mapa"
-    class="embed-responsive-item"
-    src="{% static 'openstreetmap/mapes/mapa_restaurant.html'%}"
-    style="border: 1px solid black"> <!--bbox: Bounding box, values separated by comma (%2C) in the format left,bottom,right,top-->
-</iframe>
-</div>
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe id="mapaRestaurants" title="Mapa" class="embed-responsive-item"
+                        src="{% static 'openstreetmap/mapes/mapa_restaurant.html'%}" style="border: 1px solid black">
+                        <!--bbox: Bounding box, values separated by comma (%2C) in the format left,bottom,right,top-->
+                    </iframe>
+                </div>
                 <!--<img class="img-fluid p-3" src="{% static 'images/map.png' %}" style="margin:auto;" />-->
             </div>
         </div>
         <div class="container-fluid">
-    {% if restaurant %}
+            {% if restaurant %}
             <hr class="my-3" />
             <div class="row text-center my-auto p-3">
                 <h3 class="font-weight-bold" id="restaurant-seleccionat" style="margin: auto;">{{ restaurant.nom }}</h3>
             </div>
             <hr class="my-3 mb-5" />
             <div class="row">
-                <div class="col-lg-5" style="margin: auto;">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <div class="container-fluid h-100">
-                                <div class="row">
-                                    <span class="input-group-text bg-white" style="border: none; margin: auto;">
-                                        <img class="img-fluid" src="{% static 'images/restaurant.jpg' %}"
-                                            style="margin: 0 auto;" />
-                                    </span>
-                                </div>
-                                <div class="row p-3">
-                                    <div class="input-group form-group" style="margin: 0 auto;">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text pr-3 pl-3"
-                                                style="border: none; background: transparent;"><em class="fas fa-pen"
-                                                    aria-hidden="true"></em></span>
-                                            <span style="height: auto; border-radius: 0;">{{ restaurant.descripcio }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="my-1" />
-                                <div class="row p-3">
-                                    <div class="input-group form-group" style="margin: 0 auto;">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text pr-3 pl-3"
-                                                style="border: none; background: transparent;"><em
-                                                    class="fas fa-comments" aria-hidden="true"></em></span>
-                                            <span style="height: auto; border-radius: 0;"><button
-                                                    class="btn btn-link m-0 p-0">Veure comentaris</button></span>
-                                        </div>
-                                    </div>
+                <div class="col-lg-7">
+                    <div class="container-fluid form-control h-100 p-0" style="border: none;">
+                        <div class="row">
+                            <span class="input-group-text bg-white" style="border: none; margin: auto;">
+                                {% if restaurant.fotos_restaurant.first %}
+                                <!--restaurant.fotos_restaurant.first.imatge.url-->
+                                <img class="img-fluid" src="{{ restaurant.imatge.url }}"
+                                    style="margin: 0 auto; max-height:16rem; max-width:16rem;" />
+                                {% else %}
+                                <img class="img-fluid" src="/media/pic_restaurant/none/no-img.jpg"
+                                    style="margin: 0 auto; max-height:16rem; max-width:16rem;" />
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="row p-3">
+                            <div class="input-group form-group" style="margin: 0 auto;">
+                                <div class="input-group-prepend">
+                                    <span style="height: auto; border-radius: 0;">{{ restaurant.descripcio }}</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="container-fluid form-control h-100 p-0" style="border: none;">
                         <hr class="my-1" />
                         <div class="row p-3 pb-0">
                             <div class="input-group form-group" style="margin: 0 auto;">
@@ -118,7 +137,7 @@
                                 </div>
                             </div>
                         </div>
-                    {% if restaurant.web != "-" %}
+                        {% if restaurant.web != "-" %}
                         <hr class="my-1" />
                         <div class="row p-3 pb-0">
                             <div class="input-group form-group" style="margin: 0 auto;">
@@ -132,8 +151,8 @@
                                 </div>
                             </div>
                         </div>
-                    {% endif %}
-                    {% if restaurant.email != "-" %}
+                        {% endif %}
+                        {% if restaurant.email != "-" %}
                         <hr class="my-1" />
                         <div class="row p-3 pb-0">
                             <div class="input-group form-group" style="margin: 0 auto;">
@@ -145,8 +164,8 @@
                                 </div>
                             </div>
                         </div>
-                    {% endif %}
-                    {% if restaurant.fax != "-" %}
+                        {% endif %}
+                        {% if restaurant.fax != "-" %}
                         <hr class="my-1" />
                         <div class="row p-3 pb-0">
                             <div class="input-group form-group" style="margin: 0 auto;">
@@ -158,7 +177,7 @@
                                 </div>
                             </div>
                         </div>
-                    {% endif %}
+                        {% endif %}
                         <hr class="my-1" />
                         <div class="row p-3 pb-0">
                             <div class="input-group form-group" style="margin: 0 auto;">
@@ -166,8 +185,7 @@
                                     <span class="input-group-text pr-3 pl-3"
                                         style="border: none; background: transparent;"><em class="fas fa-clock"
                                             aria-hidden="true"></em></span>
-                                    <span style="height: auto; border-radius: 0;"><b>Tancat.</b> Obre a les
-                                        19:00.</span>
+                                    <span style="height: auto; border-radius: 0;">{{ restaurant.horari }}</span>
                                 </div>
                             </div>
                         </div>
@@ -178,15 +196,195 @@
                                     <span class="input-group-text pr-3 pl-3"
                                         style="border: none; background: transparent;"><em class="fas fa-star"
                                             aria-hidden="true"></em></span>
-                                    <span style="height: auto; border-radius: 0;">3,5 / 5</span>
+                                    {% if restaurant.valoracio < 0 %}
+                                    <span style="height: auto; border-radius: 0;">No valorat</span>
+                                    {% else %}
+                                    <span
+                                        style="height: auto; border-radius: 0;">{{ restaurant.valoracio|floatformat:"-2" }}
+                                        / 5 </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-1" />
+                        {% if user.is_authenticated %}
+                        <div class="row p-3 pb-0">
+                            <div style="height: auto; border-radius: 0;">Valora: <div class="stars">
+                                    <label class="rate">
+                                        <input type="radio" name="radio1" id="star1" value="star1">
+                                        <i
+                                            class="far fa-star star one-star {% if stars >= 1 %}fas rate-active{% endif %}"></i>
+                                    </label>
+                                    <label class="rate">
+                                        <input type="radio" name="radio1" id="star2" value="star2">
+                                        <i
+                                            class="far fa-star star two-star {% if stars >= 2 %}fas rate-active{% endif %}"></i>
+                                    </label>
+                                    <label class="rate">
+                                        <input type="radio" name="radio1" id="star3" value="star3">
+                                        <i
+                                            class="far fa-star star three-star {% if stars >= 3 %}fas rate-active{% endif %}"></i>
+                                    </label>
+                                    <label class="rate">
+                                        <input type="radio" name="radio1" id="star4" value="star4">
+                                        <i
+                                            class="far fa-star star four-star {% if stars >= 4 %}fas rate-active{% endif %}"></i>
+                                    </label>
+                                    <label class="rate">
+                                        <input type="radio" name="radio1" id="star5" value="star5">
+                                        <i
+                                            class="far fa-star star five-star {% if stars == 5 %}fas rate-active{% endif %}"></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-1" />
+                        {% endif %}
+                        {% if restaurant.reserva %}
+                        {% if user.is_authenticated %}
+                        <div class="row p-3 pb-0">
+                            <div class="input-group form-group" style="margin: 0 auto;">
+                                <button type="button" id="reserva"
+                                    class="btn btn-lg form-control btn-primary">Reserva</button>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-group form-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><em class="fas fa-info"
+                                                        aria-hidden="true"></em></span>
+                                            </div>
+                                            <span class="p-2 form-control" style="height: auto; border-radius: 0;">Per
+                                                realitzar la reserva d'un restaurant s'ha d'haver iniciat sessió
+                                                abans. <a class="btn btn-link m-0 p-0" href="{% url 'login' %}">Vés a
+                                                    iniciar
+                                                    sessió.</a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-5" style="margin: 0 auto;">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="container-fluid h-100">
+                                <div class="row p-3">
+                                    <div class="input-group form-group" style="margin: 0 auto;">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text pr-3 pl-3"
+                                                style="border: none; background: transparent;"><em
+                                                    class="fas fa-comments" aria-hidden="true"></em></span>
+                                            <span style="height: auto; border-radius: 0;">
+                                                {% if "comentaris" in request.get_full_path %}
+                                                <a href="{% url 'llista_restaurants' %}?id={{ restaurant.id }}#restaurant-seleccionat"
+                                                    class="btn btn-link m-0 p-0">Amaga comentaris</a>
+                                                {% else %}
+                                                <a href="{% url 'llista_restaurants_comentaris' %}?id={{ restaurant.id }}#comentaris-seleccionats"
+                                                    class="btn btn-link m-0 p-0">Veure comentaris</a>
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        {% if "comentaris" in request.get_full_path %}
+                                        <div id="comentaris-seleccionats" class="container">
+                                            {% if user.is_authenticated %}
+                                            <!-- ESCRIU UN COMENTARI -->
+                                            {% csrf_token %}
+                                            <div class="mt-3">
+                                                <label id="errormissatge" class="text-danger"
+                                                    style="display: none;"></label>
+                                                <div class="input-group form-group" id="grupmissatge">
+                                                    <input id="missatge" title="Escriu un comentari" type="text"
+                                                        class="form-control" placeholder="Escriu un comentari">
+                                                    <div class="input-group-prepend">
+                                                        <button id="enviacomentari" type="button"
+                                                            class="btn btn-primary"
+                                                            style="border-top-right-radius:.25rem; border-bottom-right-radius:.25rem;">
+                                                            <em class="fa fa-paper-plane" aria-hidden="true"></em>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="my-4" />
+                                            {% else %}
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="input-group form-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"><em
+                                                                            class="fas fa-info"
+                                                                            aria-hidden="true"></em></span>
+                                                                </div>
+                                                                <span class="p-2 form-control"
+                                                                    style="height: auto; border-radius: 0;">Per
+                                                                    realitzar un comentari s'ha d'haver iniciat sessió
+                                                                    abans. <a class="btn btn-link m-0 p-0"
+                                                                        href="{% url 'login' %}">Vés a iniciar
+                                                                        sessió.</a>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                            <!-------------------------->
+                                            <div id="comentari-pendent" style="display: none">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="input-group form-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><em
+                                                                                class="fas fa-info"
+                                                                                aria-hidden="true"></em></span>
+                                                                    </div>
+                                                                    <span class="p-2 form-control"
+                                                                        style="height: auto; border-radius: 0;">El
+                                                                        comentari que acabes d'enviar està pendent de
+                                                                        validació. La sol·licitud tardarà com a màxim 24
+                                                                        hores.</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% for comentari in comentaris_restaurant %}
+                                            {% if comentari.visible %}
+                                            <div class="badge">{{ comentari.profile.user }} -
+                                                {{ comentari.data|date:"d/m/Y H:i" }}</div>
+                                            <p>{{ comentari.missatge }}</p>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        {% endif %}
+            {% endif %}
         </div>
     </div>
 </div>
 {%endblock content%}
+
+{% block ownscripts %}
+
+<script type="text/javascript" src="{% static 'js/restaurants.js' %}"></script>
+
+{% endblock ownscripts %}
