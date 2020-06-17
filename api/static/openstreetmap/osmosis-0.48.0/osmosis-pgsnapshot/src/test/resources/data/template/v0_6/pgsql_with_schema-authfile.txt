@@ -1,4 +1,0 @@
-host=db
-database=pgosmsnap06_test_with_schema
-user=osm
-password=password
