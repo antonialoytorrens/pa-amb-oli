@@ -1,5 +1,6 @@
 {% extends "base.html"%}
 {% load static %}
+{% load cache %}
 
 {%block addheaders%}
 
@@ -34,20 +35,10 @@
 <!--CONTINGUT DE LA PÀGINA-->
 
 {%block content%}
+{% cache 60 esdeveniments %}
 
 <div class="aboutus-secktion paddingTB30">
     <div class="container">
-        <!--<div id="searchbar" class="navbar-nav btn ml-auto nav-flex" data-toggle="collapse">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><em class="fas fa-search" aria-hidden="true"></em></span>
-                </div>
-                <input title="Cerca Esdeveniments per títol" type="text" class="form-control"
-                    placeholder="Cerca Esdeveniments per títol">
-            </div>
-        </div>
-        <hr />-->
-
         <!--Cada un dels blocs que formen el contingut-->
         <div id="calendar"></div>
         {% if esdeveniment %}
@@ -86,6 +77,7 @@
         </div>
     </div>
 </div>
+{% endcache %}
 {%endblock content%}
 {%block ownscripts%}
 <link type="text/css" href="{% static 'openstreetmap/mapes/ol-map.css' %}">

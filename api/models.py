@@ -32,7 +32,7 @@ class Noticia(models.Model):
     data = models.DateField(default=datetime.now, blank=True, null=True)
 
 class FotoNoticia(models.Model):
-    noticia = models.ForeignKey(Noticia, on_delete=models.CASCADE)
+    noticia = models.ForeignKey(Noticia, on_delete=models.CASCADE, related_name="fotos_noticia")
     imatge = models.ImageField(upload_to = 'pic_noticia/', default = 'pic_noticia/none/no-img.jpg')
 
 
@@ -48,9 +48,9 @@ class Esdeveniment(models.Model):
 
 class Restaurant(models.Model):
 
-    ## Profile dins restaurant indica qui ha fet el restaurant (suggeriment). En certes ocasions (per donar les gràcies o en cas contrari, un baneig), pot ser útil.
+    ## Profile dins restaurant indica qui ha fet el restaurant (suggeriment). En certes ocasions pot ser útil.
 
-    #profile = models.ForeignKey(Profile, on_delete=models.PROTECT, related_name="restaurant_usuari")
+    profile = models.ForeignKey(Profile, on_delete=models.PROTECT, related_name="restaurant_usuari")
     nom = models.CharField(max_length=100)
     telefon = models.CharField(max_length=50)
     descripcio = models.TextField()

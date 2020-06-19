@@ -1,4 +1,5 @@
 {% extends "base.html"%}
+{% load cache %}
 <!--TITULAR-->
 
 <!--foto de fons del titular-->
@@ -17,8 +18,8 @@
 {%block routetitle%}Notícies{%endblock routetitle%}
 
 <!--CONTINGUT DE LA PÀGINA-->
-
 {%block content%}
+{% cache 60 noticia %}
 
 <div class="aboutus-secktion paddingTB30">
 
@@ -30,19 +31,29 @@
       <div class="col-md-12 my-auto">
         <h1 class="strong pb-3 text-center">
           {{ noticia.titol }}
-          {{ noticia.data }}
         </h1>
+      </div>
+      <div class="col-md-12 my-auto">
+          <p class="text-center">{{ noticia.data|date:"D d M Y" }}</p>
       </div>
     </div>
     <div class="row">
+    {% if noticia.fotos_noticia.first.imatge.url %}
       <div class="col-md-7 my-auto">
         <p class="lead pb-3">{{ noticia.cos }}</p>
       </div>
       <div class="col-md-5 my-auto">
-        <img src="https://picsum.photos/id/1{{forloop.counter}}/350/200" style="display: block; margin: 0 auto;"/>
+        <img src="{{ noticia.fotos_noticia.first.imatge.url }}" style="display: block; margin: 0 auto; width:21.875rem; height:12.5rem;"/>
       </div>
+    {% else %}
+      <div class="col-md-12 my-auto">
+        <p class="lead pb-3">{{ noticia.cos }}</p>
+      </div>
+    {% endif %}
     </div>
   </div>
   <hr class="my-5" />
   {% endfor %}
+
+  {% endcache %}
   {%endblock content%}

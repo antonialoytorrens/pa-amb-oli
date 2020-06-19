@@ -33,7 +33,7 @@ class ValoracioRestaurantInline(admin.TabularInline):
     get_restaurant.admin_order_field = 'restaurant__nom'
 
 class RestaurantAdmin(admin.ModelAdmin):
-    list_display = ('nom', 'telefon', 'direccio', 'responsable', 'visible', 'data_alta', 'data_modificacio')
+    list_display = ('nom', 'telefon', 'direccio', 'responsable', 'visible', 'data_alta', 'data_modificacio', 'creador')
     ordering = ('visible', 'nom')
     inlines = [
         FotoRestaurantInline,
@@ -41,8 +41,8 @@ class RestaurantAdmin(admin.ModelAdmin):
         ValoracioRestaurantInline,
     ]
 
-    """def get_user(self, obj):
-        return obj.profile.user.email"""
+    def creador(self, obj):
+        return obj.profile.user.username + ' [{email}]'.format(email=obj.profile.user.email)
 
 # Noticia amb imatges
 

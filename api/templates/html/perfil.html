@@ -24,7 +24,7 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
-            <form id="formRegistre" method="POST" action="" enctype="multipart/form-data">
+            <form id="formRegistre" method="POST" action="/perfil/{{ profile.id }}/update/" enctype="multipart/form-data">
             {% csrf_token %}
                 <div class="row">
                     <div class="col-md-6">
@@ -103,7 +103,7 @@
                             </div>
                             <div class="profile-userbuttons mt-2">
                                 <button type="button" id="selecciona-foto-perfil" class="btn btn-success btn-sm mb-2">Selecciona una foto de perfil</button>
-                                <input id="file-input" type="file" name="file-input" style="display: none;" accept="image/x-png,image/jpeg,image/jpg">
+                                <input id="file-input" type="file" name="fotoperfil" style="display: none;" accept="image/x-png,image/jpeg,image/jpg">
                                 <button type="button" id="elimina-foto-perfil" class="btn btn-danger btn-sm mb-2" style="display: none;">Elimina la foto de perfil</button>
                             </div>
                         </div>

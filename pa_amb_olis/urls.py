@@ -39,7 +39,7 @@ urlpatterns = [
 
     #CRUD PERFIL
     path('perfil/crea/', views.ProfileCreate.as_view(), name='crea_perfil'),
-    #path('perfil/<int:pk>/update/', views.ProfileUpdate.as_view(), name='perfil_update'),
+    path('perfil/<int:pk>/update/', views.ProfileUpdate.as_view(), name='perfil_update'),
 
     #GET RESTAURANTS
     path('restaurants/', views.RestaurantList.as_view(), name='llista_restaurants'),

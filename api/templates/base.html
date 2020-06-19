@@ -1,4 +1,5 @@
 {% load static %}
+{% load cache %}
 <!DOCTYPE html>
 <html lang="ca-ES">
 
@@ -51,6 +52,7 @@
 <body>
 
   {%block navbar%}
+  {% cache 3600 navbar %}
   <!--Navbar -->
   <nav class="navbar sticky-top navbar-expand-lg bg-softgrey w-100">
     <a class="navbar-brand" href="/restaurants/"><img class="img-fluid" src="{% static 'images/logo.png' %}" style="width: 8rem; height: 2rem;"/></a>
@@ -90,6 +92,7 @@
       </li>
     </ul>
   </div>
+  {% endcache %}
      {% if user.is_authenticated %}
          <div class="collapse navbar-collapse bg-softgrey" id="user">
     <ul class="navbar-nav mr-auto w-100 justify-content-end text-right">
