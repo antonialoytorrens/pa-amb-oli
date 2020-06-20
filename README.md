@@ -15,7 +15,7 @@ També hi ha una versió (en proves) per a altres distribucions Linux (en format
 
 ## Si es vol visitar el lloc web
 
-El lloc web es troba a http://www.pamboliada.cat.
+El lloc web es troba a https://www.pamboliada.cat.
 
 ## Si es vol realitzar el desplegament (desenvolupament)
 
