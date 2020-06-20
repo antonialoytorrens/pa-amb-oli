@@ -52,18 +52,19 @@
 <body>
 
   {%block navbar%}
-  {% cache 3600 navbar %}
   <!--Navbar -->
   <nav class="navbar sticky-top navbar-expand-lg bg-softgrey w-100">
-    <a class="navbar-brand" href="/restaurants/"><img class="img-fluid" src="{% static 'images/logo.png' %}" style="width: 8rem; height: 2rem;"/></a>
+    <a class="navbar-brand" href="/restaurants/"><img class="img-fluid" src="{% static 'images/logo.png' %}" style="width: 8rem; height: 2rem;"></a>
     <button class="navbar-nav navbar-toggler btn ml-auto nav-flex-icons p-0" type="button" data-target="#menu" data-toggle="collapse">
       <i class="fa fa-bars rounded-circle z-depth-0"></i>
     </button>
   {% if user.is_authenticated %}
     <button class="navbar-nav navbar-toggler btn ml-auto nav-flex-icons" type="button" data-target="#user" data-toggle="collapse">
       <a class="nav-link p-0">
-        <img src="{% static 'images/base.jpeg' %}" class="rounded-circle z-depth-0"
+      {% block profile %}
+        <img src="{% static 'images/base.png' %}" class="rounded-circle z-depth-0"
           alt="avatar image" height="35" width="35">
+      {% endblock profile %}
       </a>
     </button>
   {% else %}
@@ -92,7 +93,6 @@
       </li>
     </ul>
   </div>
-  {% endcache %}
      {% if user.is_authenticated %}
          <div class="collapse navbar-collapse bg-softgrey" id="user">
     <ul class="navbar-nav mr-auto w-100 justify-content-end text-right">
@@ -171,6 +171,32 @@
       </div>
     </div>
     {%endblock content%}
+    {% block footer %}
+ <!-- Footer -->
+<footer class="page-footer font-small cyan darken-3" style="background: whitesmoke;">
+
+  <!-- Footer Elements -->
+  <div class="container">
+
+    <!-- Grid row-->
+    <div class="row">
+
+    </div>
+    <!-- Grid row-->
+
+  </div>
+  <!-- Footer Elements -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">
+    <div>Logo i fons fet per <a class="base-link" href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> des de <a class="base-link" href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>.</div>
+    <div><b>Pamboliada - Antoni Aloy Torrens, 2020</b></div>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+    {% endblock footer %}
 
     {%block scripts%}
 

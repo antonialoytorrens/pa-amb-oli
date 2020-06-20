@@ -21,6 +21,10 @@
      font-weight: bold;
  }
  
+ .base-link:hover {
+     color: #007bff;
+ }
+ 
  .border-form-control {
      border: 1px solid #ced4da;
      border-radius: 0.25rem;
