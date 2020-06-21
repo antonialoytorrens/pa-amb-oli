@@ -53,10 +53,8 @@
     </div>
   </div>
   <hr class="my-5" />
-  {% endfor %}
-
-  {% if noticia is None %}
-    <div class="container" style="min-height: 25rem;">
+  {% empty %}
+  <div class="container" style="min-height: 25rem;">
     <div class="row">
       <div class="col-md-12 my-auto">
         <h3 class="strong pb-3 text-center">
@@ -64,8 +62,8 @@
         </h3>
       </div>
     </div>
-    </div>
-  {% endif %}
+  </div>
+  {% endfor %}
 
   {% endcache %}
   {%endblock content%}
