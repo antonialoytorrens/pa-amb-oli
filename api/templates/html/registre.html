@@ -124,8 +124,7 @@
                 <hr class="my-4" />
                 <div class="row">
                     <div class="col my-auto text-center p-2">
-                        <button id="cancela" title="Cancel·la" type="button"
-                            class="btn btn-danger btn-md mb-2">Cancel·la</button>
+                        <a id="cancela" href="{% url 'llista_restaurants' %}" class="btn btn-danger btn-md no-hover">Cancel·la</a>
                     </div>
                     <div class="col my-auto text-center p-2">
                         <button id="registre" title="Registra't" type="button"
@@ -134,7 +133,7 @@
                 </div>
             </div>
             </form>
-            <div class="card-footer">
+            <div class="card-footer mb-5">
             <div class="row mt-3">
                     <div class="col-md-12">
                             <p class="text-center">Ja tens un compte? <a class="btn-link" href="{% url 'login' %}">Inicia la sessió aquí.</a></p>
