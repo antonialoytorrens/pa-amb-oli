@@ -61,10 +61,11 @@
   {% if user.is_authenticated %}
     <button class="navbar-nav navbar-toggler btn ml-auto nav-flex-icons" type="button" data-target="#user" data-toggle="collapse">
       <a class="nav-link p-0">
-      {% block profile %}
-        <img src="{% static 'images/base.png' %}" class="rounded-circle z-depth-0"
-          alt="avatar image" height="35" width="35">
-      {% endblock profile %}
+        {% if user.profile.fotoperfil.url %}
+            <img src="{{ user.profile.fotoperfil.url }}" class="rounded-circle z-depth-0" alt="avatar image" height="35" width="35">
+        {% else %}
+            <img src="{% static 'images/base.png' %}" class="rounded-circle z-depth-0" alt="avatar image" height="35" width="35">
+        {% endif %}
       </a>
     </button>
   {% else %}

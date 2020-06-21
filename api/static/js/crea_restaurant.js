@@ -25,6 +25,17 @@ function carregaOnClick() {
             $("#errorcrearestaurantcamps").fadeIn().delay(5000).fadeOut();
         }
     });
+    $("#bCerca").click(function(e) {
+        e.preventDefault();
+        if (validaCerca()) {
+            $("#errorcerca").hide();
+            $("#cercaRestaurant").css("border", "none");
+            $("#cercaRestaurant").submit();
+        } else {
+            $("#errorcerca").show();
+            $("#cercaRestaurant").css("border", "1px solid red");
+        }
+    });
 }
 
 function carregaBanner() {
@@ -35,9 +46,12 @@ function carregaBanner() {
 }
 
 function validaRestaurant() {
-    let valid = false;
-    if (comprovaNoBuit() && comprovaRegex()) {
-        valid = true;
+    let valid = true;
+    if (!comprovaNoBuit()) {
+        valid = false;
+    }
+    if (!comprovaRegex()) {
+        valid = false;
     }
     return valid;
 }
@@ -75,6 +89,15 @@ function comprovaNoBuit() {
     } else {
         $("#errordescripcio").html("");
         $("#grupdescripcio").css("border", "none");
+    }
+
+    if (!$("#telefon").val()) {
+        valid = false;
+        $("#errortelefon").html(missatgeError);
+        $("#gruptelefon").css("border", "1px solid red");
+    } else {
+        $("#errortelefon").html("");
+        $("#gruptelefon").css("border", "none");
     }
 
     if (!$("#horari").val()) {
@@ -127,7 +150,7 @@ function comprovaRegex() {
 
     // Si el telèfon és buit, no el validis, només valida quan té un número escrit.
 
-    if ($("#telefon").val() && !regexTelefon.test($("#telefon").val())) {
+    if (!regexTelefon.test($("#telefon").val())) {
         valid = false;
         $("#errortelefon").html(missatgeError);
         $("#gruptelefon").css("border", "1px solid red");

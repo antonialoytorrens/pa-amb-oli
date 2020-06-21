@@ -1,6 +1,6 @@
 {% extends "base.html"%}
 {% load static %}
-<!--TITULAR-->
+<!--NAVBAR-->
 
 <!--foto de fons del titular-->
 
@@ -18,6 +18,18 @@
 {%block routetitle%}Perfil{%endblock routetitle%}
 
 <!--CONTINGUT DE LA PÀGINA-->
+
+{% block alerts %}
+<div id="perfilactualitzat" class="alert alert-success position-fixed centered-alert text-center" role="alert"
+    style="z-index: 1000; display: none;">
+    <p>Perfil actualitzat satisfactòriament!</p>
+</div>
+<div id="errorperfilactualitzat" class="alert alert-danger position-fixed centered-alert text-center" role="alert"
+    style="z-index: 1000; display: none;">
+    <h4 class="alert-heading">Error!</h4>
+    <p id="missatgeerror">Error en actualitzar el perfil.</p>
+</div>
+{% endblock alerts %}
 
 {%block content%}
 {% if profile.user.is_authenticated %}
@@ -98,8 +110,13 @@
                     <div class="col-md-12">
                         <div class="profile-sidebar">
                             <div class="profile-userpic">
+                            {% if profile.fotoperfil.url %}
+                             <img id="foto-perfil" src="{{ profile.fotoperfil.url }}"
+                                class="img-responsive" alt="fotoperfil">
+                            {% else %}
                                 <img id="foto-perfil" src="{% static 'images/base.png' %}"
-                                    class="img-responsive" alt="">
+                                class="img-responsive" alt="fotoperfil">
+                            {% endif %}
                             </div>
                             <div class="profile-userbuttons mt-2">
                                 <button type="button" id="selecciona-foto-perfil" class="btn btn-success btn-sm mb-2">Selecciona una foto de perfil</button>
@@ -123,11 +140,6 @@
             </div>
             </form>
             <div class="card-footer">
-            <div class="row mt-3">
-                    <div class="col-md-12">
-                            <p class="text-center">Ja tens un compte? <a class="btn-link" href="/login/">Inicia la sessió aquí.</a></p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -142,4 +154,18 @@
 {%block ownscripts%}
 <script type="text/javascript" src="{% static 'js/registre.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/perfil.js' %}"></script>
+
+{% if data.correcte %}
+<script>
+    $("#perfilactualitzat").fadeIn().delay(5000).fadeOut();
+</script>
+{% endif %}
+
+{% if data.error %}
+<script>
+    $("#missatgeerror").html("Error en actualitzar el perfil: L'usuari ja existeix.");
+    $("#errorperfilactualitzat").fadeIn().delay(5000).fadeOut();
+</script>
+{% endif %}
+
 {%endblock ownscripts%}

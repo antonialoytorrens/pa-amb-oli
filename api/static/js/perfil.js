@@ -13,7 +13,7 @@ function validaFotoPerfil() {
         ) {
             valid = true;
             $("#errorfotoperfil").html("");
-            $("#elimina-foto-perfil").show();
+            //$("#elimina-foto-perfil").show();
         } else {
             $("#errorfotoperfil").html(missatgeError);
         }

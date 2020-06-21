@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.edit import UpdateView
 from django.views.generic import View
 from django.views.generic.list import ListView
@@ -118,7 +118,6 @@ class RestaurantValoracioForm(forms.ModelForm):
     profile=forms.CharField()
     def clean(self):
         log.debug('entrant al clean')
-        
         cleaned_data=super().clean()
         restaurant=cleaned_data.get('restaurant')
         try:
@@ -201,7 +200,7 @@ class ProfileUpdate(UpdateView):
             username = form.cleaned_data.get('username')
 
             if User.objects.exclude(id=username_id).filter(username=username).exists():
-                data['error'] = "Formulari invàlid!"
+                data['error'] = 'Error: Usuari duplicat: {}'.format(username)
                 data['errors'] = form.errors
                 log.error('Error: Usuari duplicat: {}'.format(username))
             else:
@@ -212,12 +211,13 @@ class ProfileUpdate(UpdateView):
                 profile.fotoperfil = form.cleaned_data.get('fotoperfil')
                 #profileUpdate = form.save(commit=False)
                 profile.save()
+                data['correcte'] = "Perfil actualitzat satisfactòriament!"
         else:
             data['error'] = "Formulari invàlid!"
             data['errors'] = form.errors
             log.error('Error en actualitzar el perfil {}'.format(form.errors))
-        
-        return HttpResponseRedirect(reverse('arch-summary'))
+        request.session['data'] = data
+        return redirect('/perfil/' + str(profile.id) + "/")
 
 @method_decorator(csrf_exempt, name='dispatch')
 class RestaurantCreate(CreateView):
@@ -285,6 +285,15 @@ class ProfileDetail(DetailView):
     model = Profile
     template_name="html/perfil.html"
 
+    # Borra la sessió, ja que només és necessària per actualitzar el perfil
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if('data' in self.request.session):
+            context['data'] = self.request.session['data']
+            del self.request.session['data']
+            
+        return context
+
     def get_object(self, queryset=None):
         user = self.request.user
         # Agafa pk de la URL
@@ -336,6 +345,19 @@ class RestaurantList(ListView):
                     v = 0
 
                 context['stars']=v
+        
+        if 'cerca' in self.request.GET:
+            param=self.request.GET['cerca']
+            #import pdb; pdb.set_trace()
+            if param:
+                # Selecciona els restaurants que són visibles i contenen el paràmetre de cerca (al seu nom)
+                postresult = Restaurant.objects.filter(nom__contains=param).filter(visible=True)[:10]
+                context['cerca'] = postresult
+                context['cerca_param'] = param
+            else:
+                postresult = None
+                context['cerca'] = postresult
+                context['cerca_param'] = param
                 
         return context
 
@@ -378,6 +400,19 @@ class RestaurantSuggerimentList(ListView):
                     v = 0
 
                 context['stars']=v
+
+        if 'cerca' in self.request.GET:
+            param=self.request.GET['cerca']
+            import pdb; pdb.set_trace()
+            if param:
+                # Selecciona els restaurants que són visibles i contenen el paràmetre de cerca (al seu nom)
+                postresult = Restaurant.objects.filter(nom__contains=param).filter(visible=True)[:10]
+                context['cerca'] = postresult
+                context['cerca_param'] = param
+            else:
+                postresult = None
+                context['cerca'] = postresult
+                context['cerca_param'] = param
                 
         return context
 
