@@ -11,6 +11,8 @@ from django.urls import reverse
 
 # Create your views here.
 
+from django.db.models import Q
+
 from django.http import JsonResponse
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
@@ -403,10 +405,9 @@ class RestaurantSuggerimentList(ListView):
 
         if 'cerca' in self.request.GET:
             param=self.request.GET['cerca']
-            import pdb; pdb.set_trace()
             if param:
                 # Selecciona els restaurants que són visibles i contenen el paràmetre de cerca (al seu nom)
-                postresult = Restaurant.objects.filter(nom__contains=param).filter(visible=True)[:10]
+                postresult = Restaurant.objects.filter(Q(nom__contains=param) | Q(direccio__contains=param)).filter(visible=True)[:10]
                 context['cerca'] = postresult
                 context['cerca_param'] = param
             else:
