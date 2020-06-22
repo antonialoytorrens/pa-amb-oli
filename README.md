@@ -107,7 +107,7 @@ Password: paambolis
 Es recomana visitar aquest enllaç per a una explicació més detallada del que es veurà a continuació: https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04.
 
 ```sh
-$ sudo apt install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx curl gunicorn
+$ sudo apt install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx curl gunicorn libgraphviz-dev
 
 $ sudo su - postgres
 $ psql
