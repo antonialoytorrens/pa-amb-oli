@@ -69,17 +69,17 @@ Baixar i instal·lar el programa VirtualBox corresponent al teu sistema operatiu
 
 L'arxiu (*Client*) es troba a la següent ubicació:
 
-https://drive.google.com/file/d/1MkoVXHopQ6FtzdlYJxg-n4mdoLTj9B2h/view
+https://drive.google.com/file/d/1OZmzHitXlqJsbqWdGej7Wr0t91NE08jG/view
 
-Per tant, descarregar i importar l'arxiu (.ova) del Client.
+Per tant, descarregar i importar l'arxiu (.zip) del Client.
 
 ------
 
 L'arxiu (*Servidor*) es troba a la següent ubicació:
 
-https://drive.google.com/file/d/1FpVQ828GVtFjJj6fh9hmUDsa4oONp_uI/view
+https://drive.google.com/file/d/1nCscwUBi51eZRxdSvESImvPsVmAICoAO/view
 
-Per tant, descarregar i importar l'arxiu (.ova) del Servidor.
+Per tant, descarregar i importar l'arxiu (.zip) del Servidor.
 
 ------
 
