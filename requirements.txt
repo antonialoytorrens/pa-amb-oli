@@ -13,4 +13,4 @@ django-debug-toolbar==2.2
 python-dotenv==0.13.0
 django-extensions==2.2.9
 django-scheduler==0.9.3
-pygraphviz==1.5
+#pygraphviz==1.5
