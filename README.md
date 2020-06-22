@@ -69,17 +69,17 @@ Baixar i instal·lar el programa VirtualBox corresponent al teu sistema operatiu
 
 L'arxiu (*Client*) es troba a la següent ubicació:
 
-https://drive.google.com/file/d/1MkoVXHopQ6FtzdlYJxg-n4mdoLTj9B2h/view
+https://drive.google.com/file/d/1OZmzHitXlqJsbqWdGej7Wr0t91NE08jG/view
 
-Per tant, descarregar i importar l'arxiu (.ova) del Client.
+Per tant, descarregar i importar l'arxiu (.zip) del Client.
 
 ------
 
 L'arxiu (*Servidor*) es troba a la següent ubicació:
 
-https://drive.google.com/file/d/1FpVQ828GVtFjJj6fh9hmUDsa4oONp_uI/view
+https://drive.google.com/file/d/1nCscwUBi51eZRxdSvESImvPsVmAICoAO/view
 
-Per tant, descarregar i importar l'arxiu (.ova) del Servidor.
+Per tant, descarregar i importar l'arxiu (.zip) del Servidor.
 
 ------
 
@@ -107,7 +107,7 @@ Password: paambolis
 Es recomana visitar aquest enllaç per a una explicació més detallada del que es veurà a continuació: https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04.
 
 ```sh
-$ sudo apt install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx curl gunicorn
+$ sudo apt install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx curl gunicorn libgraphviz-dev
 
 $ sudo su - postgres
 $ psql
