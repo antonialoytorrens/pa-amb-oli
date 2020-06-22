@@ -19,6 +19,17 @@ class ComentariRestaurantInline(admin.TabularInline):
     
     get_user.admin_order_field = 'usuari__user'
 
+class ComentariRestaurantAdmin(admin.ModelAdmin):
+    list_display = ('restaurant', 'missatge', 'data', 'visible', 'usuari')
+    list_editable = ('visible',)
+    list_filter = ('visible', 'restaurant')
+    ordering = ('-data', 'visible', 'restaurant')
+
+    def usuari(self, obj):
+        return obj.profile.user
+    
+    usuari.admin_order_field = 'usuari__user'
+
 class ValoracioRestaurantInline(admin.TabularInline):
     list_display = ('get_user', 'get_restaurant', 'valoracio')
     model = ValoracioRestaurant
@@ -34,6 +45,8 @@ class ValoracioRestaurantInline(admin.TabularInline):
 
 class RestaurantAdmin(admin.ModelAdmin):
     list_display = ('nom', 'telefon', 'direccio', 'responsable', 'visible', 'data_alta', 'data_modificacio', 'creador')
+    list_editable = ('visible',)
+    list_filter = ('visible',)
     ordering = ('visible', 'nom')
     inlines = [
         FotoRestaurantInline,
@@ -77,6 +90,7 @@ class SuggerimentRestaurantAdmin(admin.ModelAdmin):
 # Register your models here.
 
 admin.site.register(Restaurant, RestaurantAdmin)
+admin.site.register(ComentariRestaurant, ComentariRestaurantAdmin)
 admin.site.register(Noticia, NoticiaAdmin)
 admin.site.register(Esdeveniment, EsdevenimentAdmin)
 admin.site.register(Profile, ProfileAdmin)
