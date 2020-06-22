@@ -353,7 +353,7 @@ class RestaurantList(ListView):
             #import pdb; pdb.set_trace()
             if param:
                 # Selecciona els restaurants que són visibles i contenen el paràmetre de cerca (al seu nom)
-                postresult = Restaurant.objects.filter(nom__contains=param).filter(visible=True)[:10]
+                postresult = Restaurant.objects.filter(Q(nom__contains=param) | Q(direccio__contains=param)).filter(visible=True)[:10]
                 context['cerca'] = postresult
                 context['cerca_param'] = param
             else:
